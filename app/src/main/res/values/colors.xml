@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Colors the Status Bar -->
+    <color name="colorPrimaryDark">#374347</color>
+
+    <!-- Colors the Action Bar -->
+    <color name="colorPrimary">#46555A</color>
+
+    <!-- Colors the activated framework components -->
+    <color name="colorAccent">@android:color/black</color>
+
+    <!-- Colors the background of every screen -->
+    <color name="colorBackground">#EEEEEE</color>
+</resources>

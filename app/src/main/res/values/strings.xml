@@ -1,0 +1,7 @@
+<resources>
+    <!-- Name of the app visible in LAUNCHER -->
+    <string name="app_name">News App</string>
+
+    <!-- Add your API key here -->
+    <string name="api_key">Enter your API key here.</string>
+</resources>
