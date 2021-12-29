@@ -6,17 +6,16 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.project.news_app.constants.ConstantsActivityMain;
+import com.project.news_app.utils.UtilsJson;
 import com.project.news_app.utils.UtilsNetwork;
 
 import java.net.URL;
+import java.util.ArrayList;
 
 /**
- * Stage I
- * <p>
- * App establishes a connection to the "Sections" API endpoint of "The Guardian". To check its
- * functioning, "sport" section is accessed and downloaded.
- * <p>
- * The downloaded response is then logged.
+ * Stage II
+ *
+ * App parses the downloaded "sport" Section information to an ArrayList of type {@link News}.
  */
 public class MainActivity extends AppCompatActivity implements Runnable, ConstantsActivityMain {
 
@@ -37,6 +36,14 @@ public class MainActivity extends AppCompatActivity implements Runnable, Constan
         URL sportsURL = UtilsNetwork.makeURL(this, SECTION_SPORTS);
 
         // Connects to "The Guardian" API and downloads "sport" info.
-        Log.v(TAG, UtilsNetwork.downloadNewsData(sportsURL));
+        String jsonResponse = UtilsNetwork.downloadNewsData(sportsURL);
+
+        // Parsing the downloaded response to an ArrayList of type News.
+        ArrayList<News> news = UtilsJson.parseNewsList(jsonResponse);
+
+        // Logging News.
+        for(News item: news) {
+            Log.v(TAG, item.toString());
+        }
     }
 }
