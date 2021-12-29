@@ -5,14 +5,27 @@
     <!-- Add your API key here -->
     <string name="api_key">Enter your API key here.</string>
 
-    <!-- Bottom Navigation View -->
+    <!-- Bottom Navigation View Title Headlines -->
     <string name="bottom_headlines">Headlines</string>
+
+    <!-- Bottom Navigation View Title Categories -->
     <string name="bottom_categories">Categories</string>
+
+    <!-- Bottom Navigation View Title Search -->
     <string name="bottom_search">Search</string>
+
+    <!-- Bottom Navigation View Title User -->
     <string name="bottom_user">For You</string>
 
+    <!-- Labels "fragment_headline" -->
     <string name="text_headline">Headline Fragment</string>
+
+    <!-- Labels "fragment_category" -->
     <string name="text_category">Category Fragment</string>
+
+    <!-- Labels "fragment_search" -->
     <string name="text_search">Search Fragment</string>
+
+    <!-- Labels "fragment_user" -->
     <string name="text_for_you">For You Fragment</string>
 </resources>
