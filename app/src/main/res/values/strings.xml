@@ -4,4 +4,15 @@
 
     <!-- Add your API key here -->
     <string name="api_key">Enter your API key here.</string>
+
+    <!-- Bottom Navigation View -->
+    <string name="bottom_headlines">Headlines</string>
+    <string name="bottom_categories">Categories</string>
+    <string name="bottom_search">Search</string>
+    <string name="bottom_user">For You</string>
+
+    <string name="text_headline">Headline Fragment</string>
+    <string name="text_category">Category Fragment</string>
+    <string name="text_search">Search Fragment</string>
+    <string name="text_for_you">For You Fragment</string>
 </resources>

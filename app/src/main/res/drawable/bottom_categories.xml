@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Categories is NOT selected -->
+    <item android:drawable="@drawable/ic_categories" android:state_selected="false" />
+
+    <!-- Categories IS selected -->
+    <item android:drawable="@drawable/ic_categories_selected" android:state_selected="true" />
+</selector>

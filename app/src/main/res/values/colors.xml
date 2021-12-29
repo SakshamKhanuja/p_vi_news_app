@@ -11,4 +11,25 @@
 
     <!-- Colors the background of every screen -->
     <color name="colorBackground">#EEEEEE</color>
+
+    <!-- Colors the selected menu item in BottomNavigationView -->
+    <color name="colorBottomActive">#ff847c</color>
+
+    <!-- Colors menu items in BottomNavigationView -->
+    <color name="colorBottomInactive">#757575</color>
+
+    <!-- Colors the ripple in BottomNavigationView -->
+    <color name="colorBottomRipple">#212121</color>
+
+    <!-- Colors the background of "fragment_headline" layout -->
+    <color name="colorFragmentHeadline">#C62828</color>
+
+    <!-- Colors the background of "fragment_category" layout -->
+    <color name="colorFragmentCategory">#0D47A1</color>
+
+    <!-- Colors the background of "fragment_search" layout -->
+    <color name="colorFragmentSearch">#1B5E20</color>
+
+    <!-- Colors the background of "fragment_user" layout -->
+    <color name="colorFragmentSettings">#F57F17</color>
 </resources>
