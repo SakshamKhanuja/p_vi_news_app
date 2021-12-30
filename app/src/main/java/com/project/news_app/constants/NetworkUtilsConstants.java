@@ -1,11 +1,11 @@
 package com.project.news_app.constants;
 
-import com.project.news_app.utils.UtilsNetwork;
+import com.project.news_app.utils.NetworkUtils;
 
 /**
- * Contains Constants for {@link UtilsNetwork}.
+ * Contains Constants for {@link NetworkUtils}.
  */
-public interface ConstantsUtilsNetwork {
+public interface NetworkUtilsConstants {
     // Used for Logs.
     String TAG = "NetworkUtils";
 

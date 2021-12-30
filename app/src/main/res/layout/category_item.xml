@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/text_category"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/mtrl_toolbar_default_height"
+    android:background="?attr/selectableItemBackground"
+    android:gravity="center_vertical"
+    android:paddingHorizontal="@dimen/padding_default"
+    android:textColor="@color/colorCategoryName"
+    android:textSize="@dimen/category_text_size"
+    tools:text="Technology" />

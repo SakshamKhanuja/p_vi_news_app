@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Default Padding -->
+    <dimen name="padding_default">16dp</dimen>
+
+    <!-- Text size of news categories in "fragment_category" -->
+    <dimen name="category_text_size">16sp</dimen>
+</resources>

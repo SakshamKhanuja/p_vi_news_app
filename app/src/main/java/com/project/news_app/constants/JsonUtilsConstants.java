@@ -1,11 +1,11 @@
 package com.project.news_app.constants;
 
-import com.project.news_app.utils.UtilsJson;
+import com.project.news_app.utils.JsonUtils;
 
 /**
- * Contains Constants for {@link UtilsJson}.
+ * Contains Constants for {@link JsonUtils}.
  */
-public interface ConstantsUtilsJson {
+public interface JsonUtilsConstants {
     // JSONObject having key "response".
     String OBJECT_RESPONSE = "response";
 

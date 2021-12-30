@@ -9,6 +9,9 @@
     <!-- Colors the activated framework components -->
     <color name="colorAccent">@android:color/black</color>
 
+    <!-- Colors the text of news categories in "fragment_category" -->
+    <color name="colorCategoryName">#212121</color>
+
     <!-- Colors the background of every screen -->
     <color name="colorBackground">#EEEEEE</color>
 
@@ -23,9 +26,6 @@
 
     <!-- Colors the background of "fragment_headline" layout -->
     <color name="colorFragmentHeadline">#C62828</color>
-
-    <!-- Colors the background of "fragment_category" layout -->
-    <color name="colorFragmentCategory">#0D47A1</color>
 
     <!-- Colors the background of "fragment_search" layout -->
     <color name="colorFragmentSearch">#1B5E20</color>

@@ -2,8 +2,8 @@ package com.project.news_app.utils;
 
 import android.util.Log;
 
-import com.project.news_app.News;
-import com.project.news_app.constants.ConstantsUtilsJson;
+import com.project.news_app.data.News;
+import com.project.news_app.constants.JsonUtilsConstants;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -18,10 +18,10 @@ import java.util.Locale;
 /**
  * Class contains methods to parse the downloaded JSON response.
  */
-public class UtilsJson implements ConstantsUtilsJson {
+public class JsonUtils implements JsonUtilsConstants {
 
     // Setting default Constructor to private.
-    private UtilsJson() {
+    private JsonUtils() {
     }
 
     /**

@@ -1,4 +1,4 @@
-package com.project.news_app;
+package com.project.news_app.data;
 
 import androidx.annotation.NonNull;
 

@@ -5,7 +5,7 @@ import android.net.Uri;
 import android.util.Log;
 
 import com.project.news_app.R;
-import com.project.news_app.constants.ConstantsUtilsNetwork;
+import com.project.news_app.constants.NetworkUtilsConstants;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -20,10 +20,10 @@ import java.util.Scanner;
  *
  * @see <a href="https://open-platform.theguardian.com/documentation/">The Guardian API</a>
  */
-public class UtilsNetwork implements ConstantsUtilsNetwork {
+public class NetworkUtils implements NetworkUtilsConstants {
 
     // Setting default Constructor to private.
-    private UtilsNetwork() {
+    private NetworkUtils() {
     }
 
     /**

@@ -15,10 +15,9 @@ import com.project.news_app.fragments.SearchFragment;
 import com.project.news_app.fragments.UserFragment;
 
 /**
- * Stage III
+ * Stage IV
  * <p>
- * App now contains EMPTY sections for different use-cases. Each section is present in a Fragment.
- * User can access these Fragments from {@link R.id#bottom_nav} BottomNavigationView.
+ * App shows a list of available news categories in {@link CategoryFragment} Fragment.
  */
 public class MainActivity extends AppCompatActivity {
 

@@ -20,9 +20,6 @@
     <!-- Labels "fragment_headline" -->
     <string name="text_headline">Headline Fragment</string>
 
-    <!-- Labels "fragment_category" -->
-    <string name="text_category">Category Fragment</string>
-
     <!-- Labels "fragment_search" -->
     <string name="text_search">Search Fragment</string>
 
