@@ -25,4 +25,259 @@
 
     <!-- Labels "fragment_user" -->
     <string name="text_for_you">For You Fragment</string>
+
+    <!-- Notifies user of no data availability -->
+    <string name="label_no_data_available">No Data Available</string>
+
+    <!-- News Category - Art and Design - Title -->
+    <string name="category_title_art_and_design">Art and Design</string>
+
+    <!-- News Category - Art and Design - Path (Section) -->
+    <string name="category_path_art_and_design">artanddesign</string>
+
+    <!-- News Category - Books - Title -->
+    <string name="category_title_books">Books</string>
+
+    <!-- News Category - Books - Path (Section) -->
+    <string name="category_path_books">books</string>
+
+    <!-- News Category - Business - Title -->
+    <string name="category_title_business">Business</string>
+
+    <!-- News Category - Business - Path (Section) -->
+    <string name="category_path_business">business</string>
+
+    <!-- News Category - Cartoons - Title -->
+    <string name="category_title_cartoons">Cartoons</string>
+
+    <!-- News Category - Cartoons - Path (Section) -->
+    <string name="category_path_cartoons">cartoons/archive</string>
+
+    <!-- News Category - Classical Music and Opera - Title -->
+    <string name="category_title_classical_music_and_opera">Classical Music and Opera</string>
+
+    <!-- News Category - Classical Music and Opera - Path (Section) -->
+    <string name="category_path_classical_music_and_opera">music/classical-music-and-opera</string>
+
+    <!-- News Category - Climate Crisis - Title -->
+    <string name="category_title_climate_crisis">Climate Crisis</string>
+
+    <!-- News Category - Climate Crisis - Path (Section) -->
+    <string name="category_path_climate_crisis">environment/climate-crisis</string>
+
+    <!-- News Category - Coronavirus - Title -->
+    <string name="category_title_coronavirus">Coronavirus</string>
+
+    <!-- News Category - Coronavirus - Path (Section) -->
+    <string name="category_path_coronavirus">world/coronavirus-outbreak</string>
+
+    <!-- News Category - Cricket - Title -->
+    <string name="category_title_cricket">Cricket</string>
+
+    <!-- News Category - Cricket - Path (Section) -->
+    <string name="category_path_cricket">sport/cricket</string>
+
+    <!-- News Category - Culture - Title -->
+    <string name="category_title_culture">Culture</string>
+
+    <!-- News Category - Culture - Path (Section) -->
+    <string name="category_path_culture">culture</string>
+
+    <!-- News Category - Cycling - Title -->
+    <string name="category_title_cycling">Cycling</string>
+
+    <!-- News Category - Cycling - Path (Section) -->
+    <string name="category_path_cycling">sport/cycling</string>
+
+    <!-- News Category - Editorial - Title -->
+    <string name="category_title_editorial">Editorial</string>
+
+    <!-- News Category - Editorial - Path (Section) -->
+    <string name="category_path_editorial">profile/editorial</string>
+
+    <!-- News Category - Education - Title -->
+    <string name="category_title_education">Education</string>
+
+    <!-- News Category - Education - Path (Section) -->
+    <string name="category_path_education">education</string>
+
+    <!-- News Category - Environment - Title -->
+    <string name="category_title_environment">Environment</string>
+
+    <!-- News Category - Environment - Path (Section) -->
+    <string name="category_path_environment">environment</string>
+
+    <!-- News Category - F1 - Title  -->
+    <string name="category_title_f1">F1</string>
+
+    <!-- News Category - F1 - Path (Section) -->
+    <string name="category_path_f1">sport/formulaone</string>
+
+    <!-- News Category - Family - Title -->
+    <string name="category_title_family">Family</string>
+
+    <!-- News Category - Fashion - Path (Section) -->
+    <string name="category_path_family">lifeandstyle/family</string>
+
+    <!-- News Category - Fashion - Title -->
+    <string name="category_title_fashion">Fashion</string>
+
+    <!-- News Category - Fashion - Path (Section) -->
+    <string name="category_path_fashion">fashion</string>
+
+    <!-- News Category - Film - Title -->
+    <string name="category_title_film">Film</string>
+
+    <!-- News Category - Film - Path (Section) -->
+    <string name="category_path_film">uk/film</string>
+
+    <!-- News Category - Food - Title -->
+    <string name="category_title_food">Food</string>
+
+    <!-- News Category - Food - Path (Section) -->
+    <string name="category_path_food">food</string>
+
+    <!-- News Category - Football - Title -->
+    <string name="category_title_football">Football</string>
+
+    <!-- News Category - Football - Path (Section) -->
+    <string name="category_path_football">football</string>
+
+    <!-- News Category - Games - Title -->
+    <string name="category_title_games">Games</string>
+
+    <!-- News Category - Games - Path (Section) -->
+    <string name="category_path_games">games</string>
+
+    <!-- News Category - Global Development - Title -->
+    <string name="category_title_global_development">Global Development</string>
+
+    <!-- News Category - Global Development - Path (Section) -->
+    <string name="category_path_global_development">global-development</string>
+
+    <!-- News Category - Golf - Title -->
+    <string name="category_title_golf">Golf</string>
+
+    <!-- News Category - Golf - Path (Section) -->
+    <string name="category_path_golf">sport/golf</string>
+
+    <!-- News Category - Health and Fitness - Title -->
+    <string name="category_title_health_and_fitness">Health and Fitness</string>
+
+    <!-- News Category - Games - Path (Section) -->
+    <string name="category_path_health_and_fitness">lifeandstyle/health-and-wellbeing</string>
+
+    <!-- News Category - Letters - Title -->
+    <string name="category_title_letters">Letters</string>
+
+    <!-- News Category - Letters - Path (Section) -->
+    <string name="category_path_letters">tone/letters</string>
+
+    <!-- News Category - Men - Title -->
+    <string name="category_title_men">Men</string>
+
+    <!-- News Category - Men - Path (Section) -->
+    <string name="category_path_men">lifeandstyle/men</string>
+
+    <!-- News Category - Money - Title -->
+    <string name="category_title_money">Money</string>
+
+    <!-- News Category - Money - Path (Section) -->
+    <string name="category_path_money">money</string>
+
+    <!-- News Category - Music - Title -->
+    <string name="category_title_Music">Music</string>
+
+    <!-- News Category - Music - Path (Section) -->
+    <string name="category_path_music">music</string>
+
+    <!-- News Category - Obituaries - Title -->
+    <string name="category_title_obituaries">Obituaries</string>
+
+    <!-- News Category - Obituaries - Path (Section) -->
+    <string name="category_path_obituaries">tone/obituaries</string>
+
+    <!-- News Category - Opinion - Title -->
+    <string name="category_title_opinion">Opinion</string>
+
+    <!-- News Category - Opinion - Path (Section) -->
+    <string name="category_path_opinion">commentisfree</string>
+
+    <!-- News Category - Politics - Title -->
+    <string name="category_title_politics">Politics</string>
+
+    <!-- News Category - Politics - Path (Section) -->
+    <string name="category_path_politics">politics</string>
+
+    <!-- News Category - Recipes - Title -->
+    <string name="category_title_recipes">Recipes</string>
+
+    <!-- News Category - Science - Path (Section) -->
+    <string name="category_path_recipes">tone/recipes</string>
+
+    <!-- News Category - Rugby - Title -->
+    <string name="category_title_rugby">Rugby</string>
+
+    <!-- News Category - Rugby - Path (Section) -->
+    <string name="category_path_rugby">sport/rugby-union</string>
+
+    <!-- News Category - Science - Title -->
+    <string name="category_title_science">Science</string>
+
+    <!-- News Category - Science - Path (Section) -->
+    <string name="category_path_science">science</string>
+
+    <!-- News Category - Society - Title -->
+    <string name="category_title_society">Society</string>
+
+    <!-- News Category - Society - Path (Section) -->
+    <string name="category_path_society">society</string>
+
+    <!-- News Category - Stage - Title -->
+    <string name="category_title_stage">Stage</string>
+
+    <!-- News Category - Stage - Path (Section) -->
+    <string name="category_path_stage">stage</string>
+
+    <!-- News Category - Technology - Title -->
+    <string name="category_title_technology">Technology</string>
+
+    <!-- News Category - Technology - Path (Section) -->
+    <string name="category_path_technology">technology</string>
+
+    <!-- News Category - Tennis - Title -->
+    <string name="category_title_tennis">Tennis</string>
+
+    <!-- News Category - Tennis - Path (Section) -->
+    <string name="category_path_tennis">sport/tennis</string>
+
+    <!-- News Category - Travel - Title -->
+    <string name="category_title_travel">Travel</string>
+
+    <!-- News Category - Travel - Path (Section) -->
+    <string name="category_path_travel">uk/travel</string>
+
+    <!-- News Category - UK News - Title -->
+    <string name="category_title_uk_news">UK News</string>
+
+    <!-- News Category - UK News - Path (Section) -->
+    <string name="category_path_uk_news">uk-news</string>
+
+    <!-- News Category - US Sports - Title -->
+    <string name="category_title_us_sports">US Sports</string>
+
+    <!-- News Category - US Sports - Path (Section) -->
+    <string name="category_path_us_sports">sport/us-sport</string>
+
+    <!-- News Category - Women - Title -->
+    <string name="category_title_women">Women</string>
+
+    <!-- News Category - Women - Path (Section) -->
+    <string name="category_path_women">lifeandstyle/women</string>
+
+    <!-- News Category - World News - Title -->
+    <string name="category_title_world_news">World News</string>
+
+    <!-- News Category - World News - Path (Section) -->
+    <string name="category_path_world_news">world</string>
 </resources>

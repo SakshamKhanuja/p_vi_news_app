@@ -1,4 +1,4 @@
-package com.project.news_app;
+package com.project.news_app.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.project.news_app.R;
 import com.project.news_app.data.NewsCategory;
 import com.project.news_app.utils.NetworkUtils;
 
@@ -24,6 +25,9 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
     // Stores news categories info.
     private final ArrayList<NewsCategory> newsCategory;
 
+    // Used for accessing String resources.
+    private Context mContext;
+
     /**
      * TODO: Add name of the Activity that loads up news info from CategoryFragment.
      * Provides click functionality to open up clicked news category in {} Activity.
@@ -36,10 +40,11 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
          * TODO: Add name of the Activity that loads up news info from CategoryFragment.
          * Opens {} Activity to show the clicked news category info.
          *
-         * @param sectionUrl Contains a URL that points to the clicked "The Guardian" Section
-         *                   API Endpoint.
+         * @param sectionUrl    Contains a URL that points to the clicked "The Guardian" Section
+         *                      API Endpoint.
+         * @param categoryTitle Clicked news category name.
          */
-        void onNewsCategoryClick(URL sectionUrl);
+        void onNewsCategoryClick(URL sectionUrl, String categoryTitle);
     }
 
     /**
@@ -58,8 +63,11 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
     @NonNull
     @Override
     public CategoryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        // Setting Context.
+        mContext = parent.getContext();
+
         // Initializing LayoutInflater to inflate "category_item" layout.
-        LayoutInflater layoutInflater = (LayoutInflater) parent.getContext().getSystemService(
+        LayoutInflater layoutInflater = (LayoutInflater) mContext.getSystemService(
                 Context.LAYOUT_INFLATER_SERVICE);
 
         // Initialize ViewHolder provided to linked RecyclerView.
@@ -109,19 +117,24 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
          * @param category News title at current position in RecyclerView.
          */
         public void setNewsTitle(NewsCategory category) {
-            textCategory.setText(category.getTitle());
+            textCategory.setText(mContext.getString(category.getTitle()));
         }
 
         @Override
         public void onClick(View v) {
+            // Get item view's Context.
+            Context context = v.getContext();
+
             // Getting title of the clicked news category.
             NewsCategory category = newsCategory.get(getAdapterPosition());
 
             // Forming a Uri that points to "The Guardian" Section API endpoint.
-            URL clickedNewsUrl = NetworkUtils.makeURL(v.getContext(), category.getSection());
+            URL clickedNewsUrl = NetworkUtils.makeURL(v.getContext(), context.getString(
+                    category.getSection()));
 
-            // Set Uri to CategoryNewsClickListener.
-            categoryNewsClickListener.onNewsCategoryClick(clickedNewsUrl);
+            // Set Uri and Title to CategoryNewsClickListener.
+            categoryNewsClickListener.onNewsCategoryClick(clickedNewsUrl, context.getString(
+                    category.getTitle()));
         }
     }
 }

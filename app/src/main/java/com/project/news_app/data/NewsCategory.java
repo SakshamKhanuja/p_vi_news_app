@@ -9,20 +9,23 @@ import com.project.news_app.fragments.CategoryFragment;
  * Provides names and section names of news categories to {@link CategoryFragment} Fragment.
  */
 public class NewsCategory implements Parcelable {
-    // Stores the name of the news category.
-    private final String title;
+    // Stores the String resource ID containing name of the news category.
+    private final int title;
 
-    // Stores the section name of the news category per "The Guardian" api.
-    private final String section;
+    /*
+     * Stores the String resource ID containing section name of the news category per
+     * "The Guardian" api.
+     */
+    private final int section;
 
-    public NewsCategory(String title, String section) {
+    public NewsCategory(int title, int section) {
         this.title = title;
         this.section = section;
     }
 
     protected NewsCategory(Parcel in) {
-        title = in.readString();
-        section = in.readString();
+        title = in.readInt();
+        section = in.readInt();
     }
 
     public static final Creator<NewsCategory> CREATOR = new Creator<NewsCategory>() {
@@ -38,16 +41,16 @@ public class NewsCategory implements Parcelable {
     };
 
     /**
-     * @return The tile of news category.
+     * @return String resource ID containing tile of the news category.
      */
-    public String getTitle() {
+    public int getTitle() {
         return title;
     }
 
     /**
-     * @return The section name of news category.
+     * @return String resource ID containing section name of the news category.
      */
-    public String getSection() {
+    public int getSection() {
         return section;
     }
 
@@ -58,7 +61,7 @@ public class NewsCategory implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(title);
-        dest.writeString(section);
+        dest.writeInt(title);
+        dest.writeInt(section);
     }
 }

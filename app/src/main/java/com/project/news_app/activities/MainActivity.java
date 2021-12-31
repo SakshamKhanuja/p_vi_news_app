@@ -1,4 +1,4 @@
-package com.project.news_app;
+package com.project.news_app.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 
 import com.google.android.material.navigation.NavigationBarView;
+import com.project.news_app.R;
 import com.project.news_app.databinding.ActivityMainBinding;
 import com.project.news_app.fragments.CategoryFragment;
 import com.project.news_app.fragments.HeadlineFragment;

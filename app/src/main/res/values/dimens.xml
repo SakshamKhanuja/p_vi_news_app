@@ -3,6 +3,9 @@
     <!-- Default Padding -->
     <dimen name="padding_default">16dp</dimen>
 
+    <!-- Default Margin -->
+    <dimen name="margin_default">16dp</dimen>
+
     <!-- Text size of news categories in "fragment_category" -->
     <dimen name="category_text_size">16sp</dimen>
 </resources>

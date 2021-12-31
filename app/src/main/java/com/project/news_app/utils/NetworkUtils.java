@@ -42,7 +42,7 @@ public class NetworkUtils implements NetworkUtilsConstants {
         try {
             // Building URL.
             Uri uri = Uri.parse(PATH).buildUpon()
-                    .appendPath(section)
+                    .encodedPath(section)
                     .appendQueryParameter(QP_KEY_FIELDS, QP_VALUE_FIELDS)
                     .appendQueryParameter(QP_KEY_API, context.getString(R.string.api_key))
                     .build();
