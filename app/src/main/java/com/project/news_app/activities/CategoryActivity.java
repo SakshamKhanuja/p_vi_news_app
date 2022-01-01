@@ -20,11 +20,15 @@ import com.project.news_app.data.News;
 import com.project.news_app.databinding.LayoutCategoryBinding;
 import com.project.news_app.utils.JsonUtils;
 import com.project.news_app.utils.NetworkUtils;
+import com.project.news_app.fragments.CategoryFragment;
 
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
+/**
+ * Activity shows news category clicked in {@link CategoryFragment} Fragment.
+ */
 public class CategoryActivity extends AppCompatActivity implements
         LoaderManager.LoaderCallbacks<ArrayList<News>>, CategoryActivityConstants {
 

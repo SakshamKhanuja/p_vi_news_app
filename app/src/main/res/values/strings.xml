@@ -29,6 +29,24 @@
     <!-- Notifies user of no data availability -->
     <string name="label_no_data_available">No Data Available</string>
 
+    <!-- Category Title - News -->
+    <string name="title_news">News</string>
+
+    <!-- Category Title - Opinion -->
+    <string name="title_opinion">Opinion</string>
+
+    <!-- Category Title - Sport -->
+    <string name="title_sport">Sport</string>
+
+    <!-- Category Title - Culture -->
+    <string name="title_culture">Culture</string>
+
+    <!-- Category Title - Lifestyle -->
+    <string name="title_lifestyle">Lifestyle</string>
+
+    <!-- Category Title - More -->
+    <string name="title_more">More</string>
+
     <!-- News Category - Art and Design - Title -->
     <string name="category_title_art_and_design">Art and Design</string>
 
@@ -54,7 +72,7 @@
     <string name="category_path_cartoons">cartoons/archive</string>
 
     <!-- News Category - Classical Music and Opera - Title -->
-    <string name="category_title_classical_music_and_opera">Classical Music and Opera</string>
+    <string name="category_title_classical_music_and_opera">Classical</string>
 
     <!-- News Category - Classical Music and Opera - Path (Section) -->
     <string name="category_path_classical_music_and_opera">music/classical-music-and-opera</string>
@@ -90,7 +108,7 @@
     <string name="category_path_cycling">sport/cycling</string>
 
     <!-- News Category - Editorial - Title -->
-    <string name="category_title_editorial">Editorial</string>
+    <string name="category_title_editorial">The Guardian View</string>
 
     <!-- News Category - Editorial - Path (Section) -->
     <string name="category_path_editorial">profile/editorial</string>
@@ -203,6 +221,18 @@
     <!-- News Category - Opinion - Path (Section) -->
     <string name="category_path_opinion">commentisfree</string>
 
+    <!-- News Category - Pictures - Title -->
+    <string name="category_title_pictures">Pictures</string>
+
+    <!-- News Category - Pictures - Path (Section) -->
+    <string name="category_path_pictures">inpictures</string>
+
+    <!-- News Category - Podcasts - Title -->
+    <string name="category_title_podcasts">Podcasts</string>
+
+    <!-- News Category - Politics - Path (Section) -->
+    <string name="category_path_podcasts">podcasts</string>
+
     <!-- News Category - Politics - Title -->
     <string name="category_title_politics">Politics</string>
 
@@ -216,7 +246,7 @@
     <string name="category_path_recipes">tone/recipes</string>
 
     <!-- News Category - Rugby - Title -->
-    <string name="category_title_rugby">Rugby</string>
+    <string name="category_title_rugby">Rugby union</string>
 
     <!-- News Category - Rugby - Path (Section) -->
     <string name="category_path_rugby">sport/rugby-union</string>
@@ -240,7 +270,7 @@
     <string name="category_path_stage">stage</string>
 
     <!-- News Category - Technology - Title -->
-    <string name="category_title_technology">Technology</string>
+    <string name="category_title_technology">Tech</string>
 
     <!-- News Category - Technology - Path (Section) -->
     <string name="category_path_technology">technology</string>

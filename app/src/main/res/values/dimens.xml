@@ -3,9 +3,21 @@
     <!-- Default Padding -->
     <dimen name="padding_default">16dp</dimen>
 
-    <!-- Default Margin -->
-    <dimen name="margin_default">16dp</dimen>
-
     <!-- Text size of news categories in "fragment_category" -->
     <dimen name="category_text_size">16sp</dimen>
+
+    <!-- Text size of news category title in "fragment_category" -->
+    <dimen name="category_title_text_size">20sp</dimen>
+
+    <!-- Elevation of layout item -->
+    <dimen name="elevation_item">8dp</dimen>
+
+    <!-- Size of category color bar -->
+    <dimen name="category_color_size">4dp</dimen>
+
+    <!-- Category Gap -->
+    <dimen name="category_gap">16dp</dimen>
+
+    <!-- News Title Padding in "category_item" -->
+    <dimen name="padding_title">24dp</dimen>
 </resources>
