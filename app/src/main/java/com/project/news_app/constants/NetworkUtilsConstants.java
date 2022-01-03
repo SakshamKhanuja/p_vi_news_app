@@ -19,7 +19,7 @@ public interface NetworkUtilsConstants {
     String QP_KEY_FIELDS = "show-fields";
 
     // Query value adds - headline, by-line, thumbnail and body to News.
-    String QP_VALUE_FIELDS = "headline,byline,thumbnail,bodyText";
+    String QP_VALUE_FIELDS = "headline,byline,publication,thumbnail";
 
     // Empty String.
     String EMPTY = "";

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Letter spacing of section name in "news_item_main" and "news_item" layout -->
+    <fraction name="spacing_section">0.3</fraction>
+
+    <!-- Letter spacing of news author info. in "news_item_main" and "news_item" layout -->
+    <fraction name="spacing_by_line">0.02</fraction>
+</resources>

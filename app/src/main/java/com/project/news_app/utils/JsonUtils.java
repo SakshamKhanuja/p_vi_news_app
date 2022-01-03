@@ -75,17 +75,20 @@ public class JsonUtils implements JsonUtilsConstants {
                         // Setting News article author info. (byline)
                         mNews.setByLine(fields.optString(PRIMITIVE_BYLINE, EMPTY));
 
+                        // Setting News publication info.
+                        mNews.setPublication(fields.optString(PRIMITIVE_PUBLICATION, EMPTY));
+
                         // Setting News article thumbnail String URL.
                         mNews.setThumbnail(fields.optString(PRIMITIVE_THUMBNAIL, EMPTY));
-
-                        // Setting News article body text.
-                        mNews.setBody(fields.optString(PRIMITIVE_BODY, EMPTY));
                     } else {
-                        // Setting news headline, by-line, thumbnail URL and body as val. EMPTY.
+                        /*
+                         * Setting news headline, by-line, publication, thumbnail URL and body as
+                         * val. EMPTY.
+                         */
                         mNews.setHeadline(EMPTY);
                         mNews.setByLine(EMPTY);
+                        mNews.setPublication(EMPTY);
                         mNews.setThumbnail(EMPTY);
-                        mNews.setBody(EMPTY);
                     }
                     // Adding mNews to "news".
                     news.add(mNews);
@@ -101,14 +104,16 @@ public class JsonUtils implements JsonUtilsConstants {
      * Converts date in ISO-8601 format to a date having "EEE, MMM dd at hh:mm a" as its format.
      *
      * @param stringDate String contains a date in ISO-8601 format. Example - 2021-12-03T10:15:30Z.
-     * @return String date having format "EEE, MMM dd at hh:mm a".
-     * Example - Sun, Dec 03 at 10:15 AM.
+     * @return String date having format "EEE dd MMM yyyy HH:mm".
+     * Example - Sun 03 Dec 2021 16:04.
      */
     private static String formatDate(String stringDate) {
         Instant instant = Instant.parse(stringDate);
-        Date date = new Date(instant.getEpochSecond());
+        Date date = new Date(instant.getEpochSecond() * 1000);
+        Log.v(TAG, "Epoch Second - " + date.toString());
 
-        SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, MMM dd 'at' hh:mm a",
+        // Parsing to Indian Local Time (UTC+5:30)
+        SimpleDateFormat dateFormat = new SimpleDateFormat("EEE dd MMM yyyy HH:mm",
                 new Locale("eng", "IN"));
 
         // Set date for News.

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:foreground="?attr/selectableItemBackground">
+
+    <!-- Shows news thumbnail -->
+    <ImageView
+        android:id="@+id/image_thumbnail"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/thumbnail_height"
+        android:contentDescription="@string/content_description_news_title"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/sample_thumbnail" />
+
+    <!-- Shows news section -->
+    <TextView
+        android:id="@+id/text_section_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_horizontal_news_item"
+        android:layout_marginTop="@dimen/margin_default"
+        android:layout_marginEnd="@dimen/margin_horizontal_news_item"
+        android:fontFamily="sans-serif-medium"
+        android:letterSpacing="0.3"
+        android:textAllCaps="true"
+        android:textSize="@dimen/text_size_section_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/image_thumbnail"
+        tools:text="Sport" />
+
+    <!-- Shows news headline -->
+    <TextView
+        android:id="@+id/text_headline"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_horizontal_news_item"
+        android:layout_marginTop="@dimen/margin_top_news_attribute_main"
+        android:layout_marginEnd="@dimen/margin_horizontal_news_item"
+        android:fontFamily="sans-serif-medium"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/category_title_text_size"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_section_name"
+        tools:text="Jos Buttler insists he has no plans to retire from Test cricket after Ashes" />
+
+    <!-- Shows article author info. -->
+    <TextView
+        android:id="@+id/text_by_line"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_horizontal_news_item"
+        android:layout_marginTop="@dimen/margin_top_news_attribute_main"
+        android:layout_marginEnd="@dimen/margin_horizontal_news_item"
+        android:letterSpacing="@fraction/spacing_by_line"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/text_size_by_line"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_headline"
+        tools:text="By Ali Martin in Sydney" />
+
+    <!-- Shows publication date -->
+    <TextView
+        android:id="@+id/text_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_horizontal_news_item"
+        android:layout_marginTop="@dimen/margin_top_news_attribute"
+        android:letterSpacing="@fraction/spacing_by_line"
+        android:textSize="@dimen/text_size_section_name"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_by_line"
+        tools:text="Sat, Jan 01 at 6:00 pm" />
+
+    <!-- Shows publication info. -->
+    <TextView
+        android:id="@+id/text_publication"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_horizontal_news_item"
+        android:layout_marginEnd="@dimen/margin_horizontal_news_item"
+        android:letterSpacing="@fraction/spacing_by_line"
+        android:textSize="@dimen/text_size_section_name"
+        app:layout_constraintBottom_toBottomOf="@+id/text_date"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/text_date"
+        app:layout_constraintTop_toTopOf="@+id/text_date"
+        tools:text="The Guardian" />
+
+    <!-- Item Divider -->
+    <View
+        android:id="@+id/view_news_item_divider"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/padding_default"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_date" />
+</androidx.constraintlayout.widget.ConstraintLayout>

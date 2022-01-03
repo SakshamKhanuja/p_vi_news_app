@@ -1,7 +1,5 @@
 package com.project.news_app.data;
 
-import androidx.annotation.NonNull;
-
 /**
  * Defines a single News item.
  */
@@ -15,11 +13,11 @@ public class News {
     // Stores the news url that opens up the article in "The Guardian" website.
     private String articleURL;
 
-    // Stores more info. this news.
-    private String body;
-
     // Stores the name of the writer.
     private String byLine;
+
+    // Stores the publication of this article.
+    private String publication;
 
     // Stores the date when this news was published. Date format - (EEE, MMM dd at hh:mm a).
     private String date;
@@ -49,17 +47,17 @@ public class News {
     }
 
     /**
-     * Sets the body text for this News.
-     */
-    public void setBody(String body) {
-        this.body = body;
-    }
-
-    /**
      * Sets the author info. for this News.
      */
     public void setByLine(String byLine) {
         this.byLine = byLine;
+    }
+
+    /**
+     * Sets the publication for this News.
+     */
+    public void setPublication(String publication) {
+        this.publication = publication;
     }
 
     /**
@@ -76,17 +74,52 @@ public class News {
         this.thumbnail = thumbnail;
     }
 
-    @NonNull
-    @Override
-    public String toString() {
-        return "News{" +
-                "headline='" + headline + '\'' +
-                ", sectionName='" + sectionName + '\'' +
-                ", articleURL='" + articleURL + '\'' +
-                ", body='" + body + '\'' +
-                ", byLine='" + byLine + '\'' +
-                ", date='" + date + '\'' +
-                ", thumbnail='" + thumbnail + '\'' +
-                '}';
+    /**
+     * @return The news headline.
+     */
+    public String getHeadline() {
+        return headline;
+    }
+
+    /**
+     * @return The section under which this news belongs.
+     */
+    public String getSectionName() {
+        return sectionName;
+    }
+
+    /**
+     * @return The string URL pointing to this news article in "The Guardian" website.
+     */
+    public String getArticleURL() {
+        return articleURL;
+    }
+
+    /**
+     * @return Article's author(s).
+     */
+    public String getByLine() {
+        return byLine;
+    }
+
+    /**
+     * @return Article's publication.
+     */
+    public String getPublication() {
+        return publication;
+    }
+
+    /**
+     * @return Article's publication date.
+     */
+    public String getDate() {
+        return date;
+    }
+
+    /**
+     * @return Article's thumbnail;
+     */
+    public String getThumbnail() {
+        return thumbnail;
     }
 }

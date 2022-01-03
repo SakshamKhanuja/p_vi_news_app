@@ -5,6 +5,9 @@
     <!-- Add your API key here -->
     <string name="api_key">Enter your API key here.</string>
 
+    <!-- Toasts text when browser is not installed in user's device -->
+    <string name="toast_browser_unavailable">Browser was not available.</string>
+
     <!-- Bottom Navigation View Title Headlines -->
     <string name="bottom_headlines">Headlines</string>
 
@@ -25,6 +28,9 @@
 
     <!-- Labels "fragment_user" -->
     <string name="text_for_you">For You Fragment</string>
+
+    <!-- Default Content Description -->
+    <string name="content_description_news_title">Image</string>
 
     <!-- Notifies user of no data availability -->
     <string name="label_no_data_available">No Data Available</string>

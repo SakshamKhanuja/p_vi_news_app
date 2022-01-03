@@ -102,10 +102,10 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
     protected class CategoryViewHolder extends RecyclerView.ViewHolder implements
             View.OnClickListener {
 
-        // Stores the name of the news category.
+        // Shows the name of the news category.
         private final TextView textCategory;
 
-        // Stores the name of the news category title.
+        // Shows the name of the news category title.
         private final TextView textCategoryTile;
 
         // Functions as a divider in between the news category.

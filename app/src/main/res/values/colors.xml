@@ -19,7 +19,7 @@
     <color name="colorRippleTitle">#39FFFFFF</color>
 
     <!-- Colors the background of every screen -->
-    <color name="colorBackground">#EEEEEE</color>
+    <color name="colorBackground">@android:color/white</color>
 
     <!-- Colors the selected menu item in BottomNavigationView -->
     <color name="colorBottomActive">#ff847c</color>
@@ -32,6 +32,9 @@
 
     <!-- Colors the background of CategoryFragment -->
     <color name="colorBackgroundDivider">#171717</color>
+
+    <!-- Colors the placeholder of News thumbnail -->
+    <color name="colorPlaceholder">#E0E0E0</color>
 
     <!-- Colors the background of "fragment_headline" layout -->
     <color name="colorFragmentHeadline">#C62828</color>
@@ -56,4 +59,7 @@
 
     <!-- Colors the News Category Title Bar under "Lifestyle" Category -->
     <color name="colorNewsCategoryLifestyle">#FFABDB</color>
+
+    <!-- Colors the News Section Name in "news_item" layout -->
+    <color name="colorSectionName">#BDBDBD</color>
 </resources>

@@ -30,11 +30,11 @@ public interface JsonUtilsConstants {
     // JSON Primitive having key "byline".
     String PRIMITIVE_BYLINE = "byline";
 
+    // JSON Primitive having key "publication".
+    String PRIMITIVE_PUBLICATION = "publication";
+
     // JSON Primitive having key "thumbnail".
     String PRIMITIVE_THUMBNAIL = "thumbnail";
-
-    // JSON Primitive having key "bodyText".
-    String PRIMITIVE_BODY = "bodyText";
 
     // Empty String.
     String EMPTY = "";

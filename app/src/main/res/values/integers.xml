@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Max lines for news headline in "news_item" layout -->
+    <integer name="max_lines_headline">3</integer>
+
+    <!-- Max lines for author info in "news_item" layout -->
+    <integer name="max_lines_by_line">2</integer>
+</resources>

@@ -3,14 +3,17 @@
     <!-- Default Padding -->
     <dimen name="padding_default">16dp</dimen>
 
+    <!-- Default Margin -->
+    <dimen name="margin_default">16dp</dimen>
+
     <!-- Text size of news categories in "fragment_category" -->
     <dimen name="category_text_size">16sp</dimen>
 
     <!-- Text size of news category title in "fragment_category" -->
-    <dimen name="category_title_text_size">20sp</dimen>
+    <dimen name="category_title_text_size">24sp</dimen>
 
     <!-- Elevation of layout item -->
-    <dimen name="elevation_item">8dp</dimen>
+    <dimen name="elevation_item">4dp</dimen>
 
     <!-- Size of category color bar -->
     <dimen name="category_color_size">4dp</dimen>
@@ -20,4 +23,28 @@
 
     <!-- News Title Padding in "category_item" -->
     <dimen name="padding_title">24dp</dimen>
+
+    <!-- News thumbnail height -->
+    <dimen name="thumbnail_height">250dp</dimen>
+
+    <!-- Text size of section name -->
+    <dimen name="text_size_section_name">12sp</dimen>
+
+    <!-- Text size of author info -->
+    <dimen name="text_size_by_line">15sp</dimen>
+
+    <!-- Size of news thumbnail's width in "news_item" layout -->
+    <dimen name="thumbnail_width_rest">120dp</dimen>
+
+    <!-- Size of news thumbnail's height in "news_item" layout -->
+    <dimen name="thumbnail_height_rest">80dp</dimen>
+
+    <!-- Size of horizontal margin in "news_item_main" and "news_item" layout -->
+    <dimen name="margin_horizontal_news_item">24dp</dimen>
+
+    <!-- Top margin of TextViews in "news_item" layout -->
+    <dimen name="margin_top_news_attribute">4dp</dimen>
+
+    <!-- Top margin of TextViews in "news_item_main" layout -->
+    <dimen name="margin_top_news_attribute_main">8dp</dimen>
 </resources>

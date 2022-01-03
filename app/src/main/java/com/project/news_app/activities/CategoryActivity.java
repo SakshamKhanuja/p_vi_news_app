@@ -6,18 +6,23 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.loader.app.LoaderManager;
 import androidx.loader.content.AsyncTaskLoader;
 import androidx.loader.content.Loader;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.project.news_app.R;
+import com.project.news_app.adapters.NewsAdapter;
 import com.project.news_app.constants.CategoryActivityConstants;
 import com.project.news_app.data.News;
-import com.project.news_app.databinding.LayoutCategoryBinding;
+import com.project.news_app.databinding.BasicRecyclerViewLayoutBinding;
 import com.project.news_app.utils.JsonUtils;
 import com.project.news_app.utils.NetworkUtils;
 import com.project.news_app.fragments.CategoryFragment;
@@ -30,7 +35,8 @@ import java.util.ArrayList;
  * Activity shows news category clicked in {@link CategoryFragment} Fragment.
  */
 public class CategoryActivity extends AppCompatActivity implements
-        LoaderManager.LoaderCallbacks<ArrayList<News>>, CategoryActivityConstants {
+        LoaderManager.LoaderCallbacks<ArrayList<News>>, CategoryActivityConstants,
+        NewsAdapter.NewsItemClickListener {
 
     // Stores the URL in String format of the clicked news category.
     private String mNewsStringUrl;
@@ -38,8 +44,11 @@ public class CategoryActivity extends AppCompatActivity implements
     // Stores the title of the clicked news category.
     private String mNewsCategoryTitle;
 
-    // Performs View Binding.
-    private LayoutCategoryBinding mBinding;
+    // Adapter provides News items to RecyclerView.
+    private NewsAdapter mAdapter;
+
+    // Notifies the unavailability of Browser in user's app.
+    private Toast mToast;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,15 +78,28 @@ public class CategoryActivity extends AppCompatActivity implements
         }
 
         // Setting content view.
-        mBinding = LayoutCategoryBinding.inflate((LayoutInflater) getSystemService(
-                Context.LAYOUT_INFLATER_SERVICE));
-        setContentView(mBinding.getRoot());
+        BasicRecyclerViewLayoutBinding binding =
+                BasicRecyclerViewLayoutBinding.inflate((LayoutInflater) getSystemService(
+                        Context.LAYOUT_INFLATER_SERVICE));
+        setContentView(binding.getRoot());
 
         // Set AppBar's title to the clicked news category's title.
         setTitle(mNewsCategoryTitle);
 
+        // Linking LayoutManager to RecyclerView.
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this,
+                LinearLayoutManager.VERTICAL, false);
+        binding.recyclerView.setLayoutManager(linearLayoutManager);
+
+        // Optimizes RecyclerView.
+        binding.recyclerView.setHasFixedSize(true);
+
+        // Linking Adapter to RecyclerView.
+        mAdapter = new NewsAdapter(null, this);
+        binding.recyclerView.setAdapter(mAdapter);
+
         // Downloading clicked news category data in a background Thread.
-        LoaderManager.getInstance(this).initLoader(LOADER_ID, null, this);
+        LoaderManager.getInstance(this).initLoader(0, null, this);
     }
 
     @Override
@@ -112,7 +134,8 @@ public class CategoryActivity extends AppCompatActivity implements
 
             @Override
             protected void onStartLoading() {
-                if (news != null) {
+                // Using previous available result.
+                if (news != null && news.size() > 0) {
                     // Use cached result.
                     deliverResult(news);
                 } else {
@@ -127,17 +150,13 @@ public class CategoryActivity extends AppCompatActivity implements
                 // Stores the list containing news info.
                 ArrayList<News> news = null;
                 try {
-
-                    // Logging URL.
-                    Log.v(TAG, "URL - " + mNewsStringUrl);
-
                     // Download JSON response.
                     String jsonResponse = NetworkUtils.downloadNewsData(new URL(mNewsStringUrl));
 
                     // Parse JSON response to a list of type News.
                     news = JsonUtils.parseNewsList(jsonResponse);
                 } catch (MalformedURLException e) {
-                    Log.e(TAG, "Cannot form URL - " + e.getMessage());
+                    Log.e("CategoryActivity", "Cannot form URL - " + e.getMessage());
                 }
                 return news;
             }
@@ -156,25 +175,40 @@ public class CategoryActivity extends AppCompatActivity implements
     @Override
     public void onLoadFinished(@NonNull Loader<ArrayList<News>> loader, ArrayList<News> data) {
         if (data != null && data.size() > 0) {
-            // Putting contents of "data" into a Single string.
-            StringBuilder builder = new StringBuilder();
-
-            // Looping through "data".
-            for (News item : data) {
-                builder.append(item.toString()).append("\n\n");
-            }
-
-            // Setting this data to a single scrollable TextView.
-            mBinding.textNewsCategory.setText(builder.toString());
-        } else {
-            // Informing user no data is available.
-            mBinding.textNewsCategory.setText(getString(R.string.label_no_data_available));
+            // Updating the contents of NewsAdapter.
+            mAdapter.setEarthquakeData(data);
         }
     }
 
     @Override
     public void onLoaderReset(@NonNull Loader<ArrayList<News>> loader) {
-        // Clearing the TextView.
-        mBinding.textNewsCategory.setText(EMPTY);
+        // Clearing up the NewsAdapter.
+        mAdapter.setEarthquakeData(null);
+    }
+
+    /**
+     * Shows a {@link Toast} containing custom messages. Method also removes the currently showing
+     * Toast if any.
+     *
+     * @param messageID String resource containing a custom message.
+     */
+    private void showToast(int messageID) {
+        // Cancels the current showing Toast.
+        if (mToast != null) {
+            mToast.cancel();
+        }
+
+        // Sets new message and displays the Toast.
+        mToast = Toast.makeText(this, messageID, Toast.LENGTH_SHORT);
+        mToast.show();
+    }
+
+    @Override
+    public void onNewsItemClick(Uri webPage) {
+        try {
+            startActivity(new Intent(Intent.ACTION_VIEW, webPage));
+        } catch (ActivityNotFoundException e) {
+            showToast(R.string.toast_browser_unavailable);
+        }
     }
 }
