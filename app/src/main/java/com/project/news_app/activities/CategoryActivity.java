@@ -13,7 +13,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -27,8 +26,6 @@ import com.project.news_app.utils.JsonUtils;
 import com.project.news_app.utils.NetworkUtils;
 import com.project.news_app.fragments.CategoryFragment;
 
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 
 /**
@@ -144,21 +141,27 @@ public class CategoryActivity extends AppCompatActivity implements
                 }
             }
 
-            @Nullable
+            @NonNull
             @Override
             public ArrayList<News> loadInBackground() {
                 // Stores the list containing news info.
-                ArrayList<News> news = null;
-                try {
-                    // Download JSON response.
-                    String jsonResponse = NetworkUtils.downloadNewsData(new URL(mNewsStringUrl));
+                ArrayList<News> news;
 
-                    // Parse JSON response to a list of type News.
+                ArrayList<News> allNews = new ArrayList<>();
+
+                // Downloading news info. from page 1 to page 8 from "The Guardian".
+                for (int i = FIRST_PAGE; i <= LAST_PAGE; i++) {
+                    // Downloads JSON response.
+                    String jsonResponse = NetworkUtils.downloadNewsData(
+                            NetworkUtils.makeNewsURL(mNewsStringUrl, i));
+
+                    // Parses JSON response to a list of type News.
                     news = JsonUtils.parseNewsList(jsonResponse);
-                } catch (MalformedURLException e) {
-                    Log.e("CategoryActivity", "Cannot form URL - " + e.getMessage());
+
+                    // Adding contents of "news" ArrayList to "allNews" ArrayList
+                    allNews.addAll(news);
                 }
-                return news;
+                return allNews;
             }
 
             @Override

@@ -185,7 +185,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
             NewsCategory category = newsCategory.get(getAdapterPosition());
 
             // Forming a Uri that points to "The Guardian" Section API endpoint.
-            URL clickedNewsUrl = NetworkUtils.makeURL(v.getContext(), context.getString(
+            URL clickedNewsUrl = NetworkUtils.makeNewsUrl(v.getContext(), context.getString(
                     category.getSection()));
 
             // Set Uri and Title to CategoryNewsClickListener.

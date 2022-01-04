@@ -110,7 +110,6 @@ public class JsonUtils implements JsonUtilsConstants {
     private static String formatDate(String stringDate) {
         Instant instant = Instant.parse(stringDate);
         Date date = new Date(instant.getEpochSecond() * 1000);
-        Log.v(TAG, "Epoch Second - " + date.toString());
 
         // Parsing to Indian Local Time (UTC+5:30)
         SimpleDateFormat dateFormat = new SimpleDateFormat("EEE dd MMM yyyy HH:mm",

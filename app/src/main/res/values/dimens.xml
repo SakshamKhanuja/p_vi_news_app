@@ -3,8 +3,14 @@
     <!-- Default Padding -->
     <dimen name="padding_default">16dp</dimen>
 
+    <!-- Padding Small -->
+    <dimen name="padding_small">8dp</dimen>
+
     <!-- Default Margin -->
     <dimen name="margin_default">16dp</dimen>
+
+    <!-- Margin Small -->
+    <dimen name="margin_small">8dp</dimen>
 
     <!-- Text size of news categories in "fragment_category" -->
     <dimen name="category_text_size">16sp</dimen>
@@ -47,4 +53,10 @@
 
     <!-- Top margin of TextViews in "news_item_main" layout -->
     <dimen name="margin_top_news_attribute_main">8dp</dimen>
+
+    <!-- Width of vertical divider line -->
+    <dimen name="width_vertical_line">2dp</dimen>
+
+    <!-- Spacing for headline in "news_item_one" and "news_item_two" layout -->
+    <dimen name="spacing_headline">4dp</dimen>
 </resources>

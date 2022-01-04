@@ -35,7 +35,7 @@ public class NetworkUtils implements NetworkUtilsConstants {
      * @param section Name of the section.
      * @return A URL to connect to a "The Guardian" API Endpoint.
      */
-    public static URL makeURL(Context context, String section) {
+    public static URL makeNewsUrl(Context context, String section) {
         // Initializing URL.
         URL url = null;
 
@@ -52,6 +52,29 @@ public class NetworkUtils implements NetworkUtilsConstants {
             Log.e(TAG, "Cannot form URL - " + e.getMessage());
         }
 
+        return url;
+    }
+
+    /**
+     * Forms a URL that points to the selected "The Guardian" section's page.
+     *
+     * @param newsStringUrl Url in String format that points to the selected "The Guardian" section.
+     * @param page          Represents the page number.
+     * @return A URL pointing to a page of the user selected "The Guardian" section.
+     */
+    public static URL makeNewsURL(String newsStringUrl, int page) {
+        // Initializing URL.
+        URL url = null;
+
+        try {
+            // Building URL.
+            Uri uri = Uri.parse(newsStringUrl).buildUpon()
+                    .appendQueryParameter(QP_KEY_PAGE, String.valueOf(page))
+                    .build();
+            url = new URL(uri.toString());
+        } catch (MalformedURLException e) {
+            Log.e(TAG, "Cannot form URL - " + e.getMessage());
+        }
         return url;
     }
 

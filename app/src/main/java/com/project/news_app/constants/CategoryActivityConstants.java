@@ -17,4 +17,10 @@ public interface CategoryActivityConstants {
 
     // Key accesses the news category title.
     String KEY_CATEGORY_TITLE = "category_title";
+
+    // App starts downloading news info from this page in "The Guardian" api.
+    int FIRST_PAGE = 1;
+
+    // App stops downloading news info after this page in "The Guardian" api.
+    int LAST_PAGE = 8;
 }

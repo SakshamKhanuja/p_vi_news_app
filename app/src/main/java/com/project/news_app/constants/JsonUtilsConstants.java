@@ -3,7 +3,7 @@ package com.project.news_app.constants;
 import com.project.news_app.utils.JsonUtils;
 
 /**
- * Contains Constants for {@link JsonUtils}.
+ * Contains constants for {@link JsonUtils}.
  */
 public interface JsonUtilsConstants {
     // JSONObject having key "response".

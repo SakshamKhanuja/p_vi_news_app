@@ -3,7 +3,7 @@ package com.project.news_app.constants;
 import com.project.news_app.utils.NetworkUtils;
 
 /**
- * Contains Constants for {@link NetworkUtils}.
+ * Contains constants for {@link NetworkUtils}.
  */
 public interface NetworkUtilsConstants {
     // Used for Logs.
@@ -20,6 +20,9 @@ public interface NetworkUtilsConstants {
 
     // Query value adds - headline, by-line, thumbnail and body to News.
     String QP_VALUE_FIELDS = "headline,byline,publication,thumbnail";
+
+    // Query parameter sets the current page number.
+    String QP_KEY_PAGE = "page";
 
     // Empty String.
     String EMPTY = "";

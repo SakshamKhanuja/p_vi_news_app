@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/margin_small"
+    android:orientation="vertical">
+
+    <!-- Shows news' headline -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:paddingHorizontal="@dimen/padding_default"
+        android:paddingVertical="@dimen/padding_small">
+
+        <!-- Vertical Divider -->
+        <View
+            android:layout_width="@dimen/width_vertical_line"
+            android:layout_height="match_parent"
+            android:background="@color/colorBackgroundCategoryItem" />
+
+        <!-- Shows news headline -->
+        <TextView
+            android:id="@+id/text_headline"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_default"
+            android:lineSpacingExtra="@dimen/spacing_headline"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/category_text_size"
+            tools:text="$10bn James Webb space telescope launches on ‘eternal search’ mission" />
+    </LinearLayout>
+
+    <!-- Divider -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="8dp" />
+</LinearLayout>
