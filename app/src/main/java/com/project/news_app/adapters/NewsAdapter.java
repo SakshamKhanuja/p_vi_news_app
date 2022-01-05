@@ -49,7 +49,8 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
     }
 
     // Provides click functionality to News items.
-    public interface NewsItemClickListener {
+    public interface
+    NewsItemClickListener {
         /**
          * Opens up the clicked news article on the user's browser.
          *
@@ -143,38 +144,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
 
     @Override
     public int getItemViewType(int position) {
-        // Default view type for positions above 64.
-        if (position >= 64) {
-            return TYPE_FOUR;
-        }
-
-        // Type 4 for 63
-        if (position == 63 || position == 5 || position == 12 || position == 42 || position == 43
-                || position == 44 || position == 45) {
-            return TYPE_THREE;
-        }
-
-        // Type 3 for 62
-        if (position == 62 || position == 4 || position == 11 || position == 19 || position == 28
-                || position == 39 || position == 49) {
-            return TYPE_TWO;
-        }
-
-        if (position >= 55 || position == 1 || position == 2 || position == 3 || position == 10
-                || position == 17 || position == 18 || position == 24 || position == 25 ||
-                position == 26 || position == 27 || position == 35 || position == 36 ||
-                position == 37 || position == 38 || position == 47 || position == 48) {
-            return TYPE_ONE;
-        }
-
-        if (position >= 50 || position == 0 || position == 9 || position == 16 || position == 20
-                || position == 21 || position == 22 || position == 23 || position == 33 ||
-                position == 34 || position == 40 || position == 41 || position == 46) {
-            return TYPE_FIVE;
-        }
-
-        return TYPE_FOUR;
-
+        return newsItems.get(position).getViewType();
     }
 
     /**

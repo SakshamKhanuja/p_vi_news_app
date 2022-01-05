@@ -1,5 +1,8 @@
 package com.project.news_app.data;
 
+import com.project.news_app.constants.NewsAdapterConstants;
+import com.project.news_app.constants.CategoryActivityConstants;
+
 /**
  * Defines a single News item.
  */
@@ -24,6 +27,19 @@ public class News {
 
     // Stores the image url.
     private String thumbnail;
+
+    /**
+     * Stores the layout in which news info. gets displayed.
+     * <p>
+     * Default number of news items present in a single page in "The Guardian" Section's API
+     * Endpoint is 10, which matches the size of all hard-coded patterns in
+     * {@link CategoryActivityConstants}.
+     * <p>
+     * In-case changes are made to the api end-point itself, and the default number
+     * of news items per page turns to be greater than 10, items having index
+     * greater than 10 are set have view type - {@link NewsAdapterConstants#TYPE_FOUR}.
+     */
+    private int viewType = NewsAdapterConstants.TYPE_FOUR;
 
     /**
      * Sets the headline for this News.
@@ -75,6 +91,13 @@ public class News {
     }
 
     /**
+     * Sets the layout in which all news info gets displayed.
+     */
+    public void setViewType(int viewType) {
+        this.viewType = viewType;
+    }
+
+    /**
      * @return The news headline.
      */
     public String getHeadline() {
@@ -121,5 +144,12 @@ public class News {
      */
     public String getThumbnail() {
         return thumbnail;
+    }
+
+    /**
+     * @return Layout to show all news info.
+     */
+    public int getViewType() {
+        return viewType;
     }
 }

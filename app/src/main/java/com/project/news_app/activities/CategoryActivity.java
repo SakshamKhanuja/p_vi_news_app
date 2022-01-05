@@ -144,24 +144,72 @@ public class CategoryActivity extends AppCompatActivity implements
             @NonNull
             @Override
             public ArrayList<News> loadInBackground() {
-                // Stores the list containing news info.
-                ArrayList<News> news;
+                // Stores news items contained in a single page in "The Guardian" api endpoint.
+                ArrayList<News> singlePageNews;
 
+                // Stores combined items in multiple pages.
                 ArrayList<News> allNews = new ArrayList<>();
 
-                // Downloading news info. from page 1 to page 8 from "The Guardian".
+                // Downloading news info. page by page from "The Guardian".
                 for (int i = FIRST_PAGE; i <= LAST_PAGE; i++) {
                     // Downloads JSON response.
                     String jsonResponse = NetworkUtils.downloadNewsData(
                             NetworkUtils.makeNewsURL(mNewsStringUrl, i));
 
                     // Parses JSON response to a list of type News.
-                    news = JsonUtils.parseNewsList(jsonResponse);
+                    singlePageNews = JsonUtils.parseNewsList(jsonResponse);
+
+                    // Sets "viewType" off all elements in "singlePageNews" ArrayList.
+                    setViewType(singlePageNews);
 
                     // Adding contents of "news" ArrayList to "allNews" ArrayList
-                    allNews.addAll(news);
+                    allNews.addAll(singlePageNews);
                 }
                 return allNews;
+            }
+
+            /**
+             * Chooses a random pattern for listing news items.
+             * <br/>
+             * Available Patterns - 6.
+             *
+             * @return Integer array containing view types.
+             */
+            private int[] getNewsPattern() {
+                // Picks a random number between 1 to 6.
+                int type = (int) (Math.random() * 6 + 1);
+
+                // Returns a random pattern.
+                switch (type) {
+                    case 2:
+                        return PATTERN_TWO;
+                    case 3:
+                        return PATTERN_THREE;
+                    case 4:
+                        return PATTERN_FOUR;
+                    case 5:
+                        return PATTERN_FIVE;
+                    case 6:
+                        return PATTERN_SIX;
+                    case 1:
+                    default:
+                        return PATTERN_ONE;
+                }
+            }
+
+            /**
+             * Sets view type for all {@link News} items stored in the list.<br/>
+             * View type is used by {@link NewsAdapter} to set custom item layout at every position.
+             */
+            private void setViewType(ArrayList<News> newsList) {
+                // Stores different view types that will be applied to the download news list.
+                int[] viewTypeArray = getNewsPattern();
+
+                // Lopping through the downloaded news items in order to set view types.
+                for (int i = 0; i < viewTypeArray.length; i++) {
+                    News item = newsList.get(i);
+                    item.setViewType(viewTypeArray[i]);
+                }
             }
 
             @Override
