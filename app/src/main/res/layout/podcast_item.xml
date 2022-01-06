@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/card_basic"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="0dp">
+
+    <!-- Shows the contents of podcast -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorBackgroundDivider"
+        android:orientation="vertical">
+
+        <!-- Shows info. about Guardian podcast -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/head_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/gradient_podcast"
+            android:visibility="gone">
+
+            <!-- Guardian Podcast thumbnail -->
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_marginTop="24dp"
+                android:contentDescription="@string/content_description_news_title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/podcast_guardian" />
+
+            <!-- Shows Guardian podcast info. -->
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:gravity="center"
+                android:letterSpacing="0.02"
+                android:lineSpacingExtra="2dp"
+                android:text="@string/podcast_about"
+                android:textColor="@color/colorSectionName"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+            <!-- Shows Guardian podcast title -->
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/podcast_title"
+                android:textColor="@android:color/white"
+                android:textSize="26sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!-- Shows key details about episode -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/basic_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ripple_title"
+            android:padding="16dp">
+
+            <!-- Shows episode's thumbnail -->
+            <ImageView
+                android:id="@+id/thumbnail"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:contentDescription="@string/content_description_news_title"
+                android:scaleType="centerCrop"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/sample_podcast_thumbnail" />
+
+            <!-- Shows episode's title -->
+            <TextView
+                android:id="@+id/podcast_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:ellipsize="end"
+                android:lineSpacingExtra="@dimen/width_vertical_line"
+                android:maxLines="@integer/max_lines_by_line"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/image_arrow"
+                app:layout_constraintStart_toEndOf="@+id/thumbnail"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Looking back on the Guardian’s 200th year" />
+
+            <!-- Shows episode's recorded date -->
+            <TextView
+                android:id="@+id/podcast_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:letterSpacing="@fraction/spacing_by_line"
+                android:maxLines="@integer/max_lines_by_line"
+                android:textColor="@color/colorSectionName"
+                android:textSize="@dimen/text_size_section_name"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/podcast_name"
+                app:layout_constraintTop_toBottomOf="@+id/podcast_name"
+                tools:text="Dec 23, 2021" />
+
+            <!-- Indicates whether podcast card is expanded or collapsed -->
+            <ImageView
+                android:id="@+id/image_arrow"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:contentDescription="@string/content_description_news_title"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/ic_arrow_down" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/expandable_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="16dp">
+
+            <!-- Shows episode's details -->
+            <TextView
+                android:id="@+id/text_trail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:letterSpacing="@fraction/spacing_by_line"
+                android:lineSpacingExtra="@dimen/width_vertical_line"
+                android:textColor="@color/colorSectionName"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Editor-in-chief Katharine Viner reflects on how a newspaper founded two centuries ago chronicled the ups and downs of 2021" />
+
+            <!-- Opens the podcast in "Google Podcast" app -->
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_google"
+                style="@style/ChipStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="@string/chip_google"
+                app:chipIcon="@drawable/ic_google_podcasts"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/text_trail"
+                app:layout_constraintTop_toBottomOf="@+id/text_trail" />
+
+            <!-- Opens the podcast in "Spotify" app -->
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_spotify"
+                style="@style/ChipStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="@string/chip_spotify"
+                app:chipIcon="@drawable/ic_podcast_spotify"
+                app:layout_constraintBottom_toBottomOf="@+id/chip_google"
+                app:layout_constraintStart_toEndOf="@+id/chip_google"
+                app:layout_constraintTop_toTopOf="@+id/chip_google" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
