@@ -12,13 +12,14 @@ import com.project.news_app.R;
 import com.project.news_app.databinding.ActivityMainBinding;
 import com.project.news_app.fragments.CategoryFragment;
 import com.project.news_app.fragments.HeadlineFragment;
-import com.project.news_app.fragments.SearchFragment;
+import com.project.news_app.fragments.PodcastFragment;
 import com.project.news_app.fragments.UserFragment;
 
 /**
- * Stage IV
+ * Stage V
  * <p>
- * App shows a list of available news categories in {@link CategoryFragment} Fragment.
+ * App shows a list of episodes of "Today in Focus" podcast, available by "The Guardian" in
+ * {@link PodcastFragment}.
  */
 public class MainActivity extends AppCompatActivity {
 
@@ -43,10 +44,10 @@ public class MainActivity extends AppCompatActivity {
             fragmentManager.beginTransaction()
                     .replace(R.id.fragment_container, new HeadlineFragment())
                     .commit();
-        } else if (selectedItemId == R.id.bottom_search) {
-            // Replacing the currently viewed Fragment with SearchFragment.
+        } else if (selectedItemId == R.id.bottom_podcast) {
+            // Replacing the currently viewed Fragment with PodcastFragment.
             fragmentManager.beginTransaction()
-                    .replace(R.id.fragment_container, new SearchFragment())
+                    .replace(R.id.fragment_container, new PodcastFragment())
                     .commit();
         } else if (selectedItemId == R.id.bottom_settings) {
             // Replacing the currently viewed Fragment with UserFragment.

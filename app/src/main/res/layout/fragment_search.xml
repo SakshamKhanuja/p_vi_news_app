@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
-    style="@style/FragmentLabel"
-    android:background="@color/colorFragmentSearch"
-    android:text="@string/text_search" />

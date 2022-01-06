@@ -10,7 +10,7 @@ public interface NetworkUtilsConstants {
     String TAG = "NetworkUtils";
 
     // Contains domain info. for "The Guardian".
-    String PATH = "https://content.guardianapis.com";
+    String DOMAIN = "https://content.guardianapis.com";
 
     // Query parameter sets Api Key.
     String QP_KEY_API = "api-key";
@@ -18,8 +18,14 @@ public interface NetworkUtilsConstants {
     // Query parameter adds fields to News.
     String QP_KEY_FIELDS = "show-fields";
 
-    // Query value adds - headline, by-line, thumbnail and body to News.
+    // Path points to the "Today in Focus" section of "The Guardian" api.
+    String PATH_FOCUS = "news/series/todayinfocus";
+
+    // Query value adds - headline, by-line, and thumbnail.
     String QP_VALUE_FIELDS = "headline,byline,publication,thumbnail";
+
+    // Query value adds - headline, trail-text, and thumbnail.
+    String QP_VALUE_FIELDS_FOCUS = "headline,trailText,thumbnail";
 
     // Query parameter sets the current page number.
     String QP_KEY_PAGE = "page";

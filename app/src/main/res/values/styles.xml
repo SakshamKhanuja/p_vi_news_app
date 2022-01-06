@@ -30,8 +30,21 @@
 
     <!-- TextView in "category_item" layout -->
     <style name="ItemView">
-        <item name="android:elevation">@dimen/elevation_item</item>
         <item name="android:textColor">@color/colorCategoryName</item>
         <item name="android:textSize">@dimen/category_title_text_size</item>
+    </style>
+
+    <!-- Chip Style-->
+    <style name="ChipStyle" parent="Widget.MaterialComponents.Chip.Action">
+        <item name="android:textColor">@color/colorCategoryName</item>
+        <item name="chipBackgroundColor">@color/colorBackgroundDivider</item>
+        <item name="chipEndPadding">8dp</item>
+        <item name="chipMinHeight">36dp</item>
+        <item name="chipStartPadding">8dp</item>
+        <item name="chipStrokeColor">@color/colorCategoryName</item>
+        <item name="chipStrokeWidth">1dp</item>
+        <item name="textEndPadding">8dp</item>
+        <item name="textStartPadding">8dp</item>
+        <item name="rippleColor">@color/colorRippleTitle</item>
     </style>
 </resources>

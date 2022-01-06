@@ -26,8 +26,15 @@ import com.project.news_app.activities.CategoryActivity;
 import java.util.ArrayList;
 
 /**
- * Provides {@link NewsViewHolder} ViewHolder inflated from {@link R.layout#news_item_five}
- * and {@link R.layout#news_item_four} item view layout to {@link R.id#recycler_view} RecyclerView.
+ * Provides {@link NewsViewHolder} ViewHolder inflated from -
+ * <ul>
+ *     <li>{@link R.layout#news_item_one}</li>
+ *     <li>{@link R.layout#news_item_two}</li>
+ *     <li>{@link R.layout#news_item_three}</li>
+ *     <li>{@link R.layout#news_item_four}</li>
+ *     <li>{@link R.layout#news_item_five}</li>
+ * </ul>
+ * Item view layout to {@link R.id#recycler_view} RecyclerView.
  */
 public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder> implements
         NewsAdapterConstants {
@@ -49,8 +56,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
     }
 
     // Provides click functionality to News items.
-    public interface
-    NewsItemClickListener {
+    public interface NewsItemClickListener {
         /**
          * Opens up the clicked news article on the user's browser.
          *
@@ -157,9 +163,18 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
     }
 
     /**
-     * Class describes {@link R.layout#news_item_five} item view and is responsible for caching
-     * views. It also provides click functionality to the RecyclerView holding news items.
+     * Class describes -
+     * <ul>
+     *   <li>{@link R.layout#news_item_one}</li>
+     *   <li>{@link R.layout#news_item_two}</li>
+     *   <li>{@link R.layout#news_item_three}</li>
+     *   <li>{@link R.layout#news_item_four}</li>
+     *   <li>{@link R.layout#news_item_five}</li>
+     * </ul>
+     * Item view and is responsible for caching
+     * views.
      * <p>
+     * It also provides click functionality to the RecyclerView holding news items.
      * Hence, when user clicks on any news, the entire article gets open on the user's browser.
      */
     protected class NewsViewHolder extends RecyclerView.ViewHolder implements
@@ -186,7 +201,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
         public NewsViewHolder(View itemView) {
             super(itemView);
 
-            // Initialize Views from "news_item" layout.
+            // Initialize Views.
             newsThumbnail = itemView.findViewById(R.id.image_thumbnail);
             newsSection = itemView.findViewById(R.id.text_section_name);
             newsHeadline = itemView.findViewById(R.id.text_headline);

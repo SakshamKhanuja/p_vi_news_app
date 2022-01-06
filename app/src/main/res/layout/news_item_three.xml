@@ -21,7 +21,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_section_name"
-        tools:srcCompat="@drawable/sample_thumbnail" />
+        tools:srcCompat="@drawable/sample_news_thumbnail" />
 
     <!-- Shows news headline -->
     <TextView
@@ -31,11 +31,12 @@
         android:layout_marginStart="@dimen/margin_default"
         android:layout_marginTop="@dimen/margin_default"
         android:layout_marginEnd="@dimen/margin_default"
+        android:lineSpacingExtra="@dimen/width_vertical_line"
         android:layout_marginBottom="@dimen/margin_default"
         android:ellipsize="end"
         android:maxLines="@integer/max_lines_by_line"
         android:textColor="@android:color/white"
-        android:textSize="@dimen/text_size_by_line"
+        android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

@@ -17,7 +17,7 @@
         android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/divider"
-        tools:src="@drawable/sample_thumbnail" />
+        tools:src="@drawable/sample_news_thumbnail" />
 
     <!-- Shows news section -->
     <TextView
@@ -45,9 +45,10 @@
         android:layout_marginTop="@dimen/margin_top_news_attribute"
         android:layout_marginEnd="@dimen/margin_horizontal_news_item"
         android:ellipsize="end"
+        android:lineSpacingExtra="@dimen/width_vertical_line"
         android:maxLines="@integer/max_lines_headline"
         android:textColor="@android:color/white"
-        android:textSize="@dimen/text_size_by_line"
+        android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/image_thumbnail"
         app:layout_constraintStart_toStartOf="parent"
@@ -64,6 +65,7 @@
         android:layout_marginEnd="@dimen/margin_horizontal_news_item"
         android:ellipsize="end"
         android:letterSpacing="@fraction/spacing_by_line"
+        android:lineSpacingExtra="@dimen/width_vertical_line"
         android:maxLines="@integer/max_lines_by_line"
         android:textColor="@color/colorSectionName"
         android:textSize="@dimen/text_size_section_name"

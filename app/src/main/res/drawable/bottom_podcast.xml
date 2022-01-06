@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Podcast is NOT selected -->
+    <item android:drawable="@drawable/ic_podcast" android:state_selected="false" />
+
+    <!-- Podcast IS selected -->
+    <item android:drawable="@drawable/ic_podcast_selected" android:state_selected="true" />
+</selector>

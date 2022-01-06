@@ -159,11 +159,17 @@ public class CategoryActivity extends AppCompatActivity implements
                     // Parses JSON response to a list of type News.
                     singlePageNews = JsonUtils.parseNewsList(jsonResponse);
 
-                    // Sets "viewType" off all elements in "singlePageNews" ArrayList.
-                    setViewType(singlePageNews);
+                    // Checks if news data is available before setting view type.
+                    if (singlePageNews.size() > 0) {
+                        // Sets "viewType" off all elements in "singlePageNews" ArrayList.
+                        setViewType(singlePageNews);
 
-                    // Adding contents of "news" ArrayList to "allNews" ArrayList
-                    allNews.addAll(singlePageNews);
+                        // Adding contents of "news" ArrayList to "allNews" ArrayList
+                        allNews.addAll(singlePageNews);
+                    } else {
+                        // No more data is available.
+                        break;
+                    }
                 }
                 return allNews;
             }

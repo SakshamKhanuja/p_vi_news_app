@@ -39,9 +39,6 @@
     <!-- Colors the background of "fragment_headline" layout -->
     <color name="colorFragmentHeadline">#C62828</color>
 
-    <!-- Colors the background of "fragment_search" layout -->
-    <color name="colorFragmentSearch">#1B5E20</color>
-
     <!-- Colors the background of "fragment_user" layout -->
     <color name="colorFragmentSettings">#F57F17</color>
 

@@ -8,23 +8,32 @@
     <!-- Toasts text when browser is not installed in user's device -->
     <string name="toast_browser_unavailable">Browser was not available.</string>
 
+    <!-- Chip to open Google Podcasts -->
+    <string name="chip_google">Google Podcasts</string>
+
+    <!-- Chip to open Spotify -->
+    <string name="chip_spotify">Spotify</string>
+
+    <!-- Guardian Podcast Title-->
+    <string name="podcast_title">Today in Focus</string>
+
+    <!-- About Guardian Podcast -->
+    <string name="podcast_about">Hosted by Nosheen Iqbal and Michael Safi, Today in Focus brings you closer to Guardian journalism. Combining personal storytelling with insightful analysis, this podcast takes you behind the headlines for a deeper understanding of the news, every weekday.</string>
+
     <!-- Bottom Navigation View Title Headlines -->
     <string name="bottom_headlines">Headlines</string>
 
     <!-- Bottom Navigation View Title Categories -->
     <string name="bottom_categories">Categories</string>
 
-    <!-- Bottom Navigation View Title Search -->
-    <string name="bottom_search">Search</string>
+    <!-- Bottom Navigation View Title Podcast -->
+    <string name="bottom_podcast">Podcast</string>
 
     <!-- Bottom Navigation View Title User -->
     <string name="bottom_user">For You</string>
 
     <!-- Labels "fragment_headline" -->
     <string name="text_headline">Headline Fragment</string>
-
-    <!-- Labels "fragment_search" -->
-    <string name="text_search">Search Fragment</string>
 
     <!-- Labels "fragment_user" -->
     <string name="text_for_you">For You Fragment</string>

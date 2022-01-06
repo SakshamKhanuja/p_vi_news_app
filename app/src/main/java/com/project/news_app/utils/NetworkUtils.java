@@ -33,7 +33,7 @@ public class NetworkUtils implements NetworkUtilsConstants {
      *
      * @param context Sets the API Key.
      * @param section Name of the section.
-     * @return A URL to connect to a "The Guardian" API Endpoint.
+     * @return A URL to connect to the "The Guardian" API's "Section" Endpoint.
      */
     public static URL makeNewsUrl(Context context, String section) {
         // Initializing URL.
@@ -41,10 +41,38 @@ public class NetworkUtils implements NetworkUtilsConstants {
 
         try {
             // Building URL.
-            Uri uri = Uri.parse(PATH).buildUpon()
+            Uri uri = Uri.parse(DOMAIN).buildUpon()
                     .encodedPath(section)
                     .appendQueryParameter(QP_KEY_FIELDS, QP_VALUE_FIELDS)
                     .appendQueryParameter(QP_KEY_API, context.getString(R.string.api_key))
+                    .build();
+
+            url = new URL(uri.toString());
+        } catch (MalformedURLException e) {
+            Log.e(TAG, "Cannot form URL - " + e.getMessage());
+        }
+
+        return url;
+    }
+
+    /**
+     * Forms a URL that points to "The Guardian" API's "Today in Focus" Endpoint.
+     * <p>
+     * Note - Add your API Key in {@link R.string#api_key} string resource.
+     *
+     * @param context Sets the API Key.
+     * @return A URL to connect to the "The Guardian" API's "Today in Focus" Endpoint.
+     */
+    public static URL makeTodayInFocusUrl(Context context) {
+        // Initializing URL.
+        URL url = null;
+
+        try {
+            // Building URL.
+            Uri uri = Uri.parse(DOMAIN).buildUpon()
+                    .encodedPath(PATH_FOCUS)
+                    .appendQueryParameter(QP_KEY_API, context.getString(R.string.api_key))
+                    .appendQueryParameter(QP_KEY_FIELDS, QP_VALUE_FIELDS_FOCUS)
                     .build();
 
             url = new URL(uri.toString());

@@ -2,6 +2,7 @@ package com.project.news_app.data;
 
 import com.project.news_app.constants.NewsAdapterConstants;
 import com.project.news_app.constants.CategoryActivityConstants;
+import com.project.news_app.constants.JsonUtilsConstants;
 
 /**
  * Defines a single News item.
@@ -22,7 +23,11 @@ public class News {
     // Stores the publication of this article.
     private String publication;
 
-    // Stores the date when this news was published. Date format - (EEE, MMM dd at hh:mm a).
+    /**
+     * Stores the date when this news was published.
+     * <p>
+     * Date Format - {@link JsonUtilsConstants#PATTERN_CATEGORY}
+     */
     private String date;
 
     // Stores the image url.
@@ -77,7 +82,7 @@ public class News {
     }
 
     /**
-     * Sets the published for this News.
+     * Sets the publication date for this News.
      */
     public void setDate(String date) {
         this.date = date;
@@ -140,7 +145,7 @@ public class News {
     }
 
     /**
-     * @return Article's thumbnail;
+     * @return Article's thumbnail.
      */
     public String getThumbnail() {
         return thumbnail;
