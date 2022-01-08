@@ -25,19 +25,7 @@ import com.project.news_app.activities.CategoryActivity;
 
 import java.util.ArrayList;
 
-/**
- * Provides {@link NewsViewHolder} that contains inflated layout from one or more of
- * the following item layouts to {@link R.id#recycler_view} RecyclerView -
- * <ol>
- *     <li>{@link R.layout#news_item_one}</li>
- *     <li>{@link R.layout#news_item_two}</li>
- *     <li>{@link R.layout#news_item_three}</li>
- *     <li>{@link R.layout#news_item_four}</li>
- *     <li>{@link R.layout#news_item_five}</li>
- *     <li>{@link R.layout#news_item_six}</li>
- * </ol>
- */
-public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder> implements
+public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements
         NewsAdapterConstants {
 
     /**
@@ -68,81 +56,79 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
 
     @NonNull
     @Override
-    public NewsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         // Sets context.
         context = parent.getContext();
 
-        // Stores the layout resource ID of the item View.
-        int resource;
+        // Inflates views from layout.
+        LayoutInflater layoutInflater = LayoutInflater.from(context);
 
-        // Setting the news item layout based on View type.
         switch (viewType) {
-            case 1:
-                // Shows news' headline.
-                resource = R.layout.news_item_one;
-                break;
+            case TYPE_ONE:
+                // Shows News headline.
+                return new NewsTypeOneHolder(layoutInflater.inflate(R.layout.news_item_one,
+                        parent, false));
 
-            case 2:
-                // Shows news' headline and a divider.
-                resource = R.layout.news_item_two;
-                break;
+            case TYPE_TWO:
+                // Shows News headline having bottom padding.
+                return new NewsTypeTwoHolder(layoutInflater.inflate(R.layout.news_item_two,
+                        parent, false));
 
-            case 3:
-                // Shows news' section, thumbnail, and headline.
-                resource = R.layout.news_item_three;
-                break;
+            case TYPE_THREE:
+                // Shows News headline, section, and thumbnail.
+                return new NewsTypeThreeHolder(layoutInflater.inflate(R.layout.news_item_three,
+                        parent, false));
 
-            case 5:
+            case TYPE_FIVE:
                 /*
-                 * Shows news' thumbnail, section, headline, author info., publication date, and
-                 * publication.
+                 * Shows News headline, section, author info., publication date, publication
+                 * and thumbnail.
                  */
-                resource = R.layout.news_item_five;
-                break;
+                return new NewsTypeFiveHolder(layoutInflater.inflate(R.layout.news_item_five,
+                        parent, false));
 
-            case 6:
-                // Shows news' thumbnail, headline and author info.
-                resource = R.layout.news_item_six;
-                break;
+            case TYPE_SIX:
+                // Shows News headline, author info. and thumbnail.
+                return new NewsTypeSixHolder(layoutInflater.inflate(R.layout.news_item_six,
+                        parent, false));
 
-            case 4:
+            case TYPE_FOUR:
             default:
-                // Shows news' section, headline, author info., and thumbnail.
-                resource = R.layout.news_item_four;
-                break;
+                // Shows News headline, section, author info. and thumbnail.
+                return new NewsTypeFourHolder(layoutInflater.inflate(R.layout.news_item_four,
+                        parent, false));
         }
-
-        // Initializing NewsViewHolder.
-        return new NewsViewHolder(LayoutInflater.from(context).inflate(resource, parent,
-                false));
     }
 
     @Override
-    public void onBindViewHolder(@NonNull NewsViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         // Get the news at specified position.
         News currentNews = newsItems.get(position);
 
-        // Binding current news data based on ViewHolder's view type.
+        // Binding current news data based on view type.
         switch (holder.getItemViewType()) {
             case TYPE_ONE:
+                ((NewsTypeOneHolder) holder).setData(currentNews);
+                break;
+
             case TYPE_TWO:
-                holder.bindDataTypeOneAndTwo(currentNews);
+                ((NewsTypeTwoHolder) holder).setData(currentNews);
                 break;
 
             case TYPE_THREE:
-                holder.bindDataTypeThree(currentNews);
+                ((NewsTypeThreeHolder) holder).setData(currentNews);
                 break;
 
             case TYPE_FOUR:
-                holder.bindDataTypeFour(currentNews);
+                ((NewsTypeFourHolder) holder).setData(currentNews);
                 break;
 
             case TYPE_FIVE:
-                holder.bindDataTypeFive(currentNews);
+                ((NewsTypeFiveHolder) holder).setData(currentNews);
                 break;
 
             case TYPE_SIX:
-                holder.bindDataTypeSix(currentNews);
+                ((NewsTypeSixHolder) holder).setData(currentNews);
                 break;
         }
     }
@@ -173,55 +159,118 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
     }
 
     /**
-     * Class describes the following item views -
-     * <ul>
-     *   <li>{@link R.layout#news_item_one}</li>
-     *   <li>{@link R.layout#news_item_two}</li>
-     *   <li>{@link R.layout#news_item_three}</li>
-     *   <li>{@link R.layout#news_item_four}</li>
-     *   <li>{@link R.layout#news_item_five}</li>
-     *   <li>{@link R.layout#news_item_six}</li>
-     * </ul>
-     * <p>
-     * It is responsible for caching views.
-     * <p>
-     * Provides click functionality to the RecyclerView holding news items.
-     * Hence, when user clicks on any news, the entire article gets open on the user's browser.
+     * Passes the {@link Uri} of the clicked {@link News} item to {@link NewsItemClickListener}.
+     *
+     * @param adapterPosition Position of the clicked news item in adapter.
      */
-    protected class NewsViewHolder extends RecyclerView.ViewHolder implements
-            View.OnClickListener {
+    private void setClickedNewsURL(int adapterPosition) {
+        News clickedNews = newsItems.get(adapterPosition);
 
-        // Shows the news thumbnail.
-        private final ImageView newsThumbnail;
+        // Set the clicked News item's URL to NewsItemClickListener.
+        newsItemClickListener.onNewsItemClick(Uri.parse(clickedNews.getArticleURL()));
+    }
+
+    /**
+     * Sets text to a TextView.
+     */
+    private void setText(TextView textView, String text) {
+        textView.setText(text);
+    }
+
+    /**
+     * Downloads and sets news' thumbnail.
+     */
+    private void downloadAndSetImage(ImageView imageView, String url) {
+        Glide.with(context)
+                .load(url)
+                .placeholder(R.drawable.placeholder)
+                .transition(DrawableTransitionOptions.withCrossFade())
+                .into(imageView);
+    }
+
+    /**
+     * ViewHolder shows the news' headline.
+     * <p>
+     * Layout Resource - {@link R.layout#news_item_one}.
+     */
+    protected class NewsTypeOneHolder extends RecyclerView.ViewHolder {
+        // Shows the news headline.
+        private final TextView newsHeadline;
+
+        public NewsTypeOneHolder(View itemView) {
+            super(itemView);
+
+            // Initialize Views.
+            newsHeadline = itemView.findViewById(R.id.text_headline_one);
+
+            // Attach OnClickListener to the entire item view.
+            itemView.setOnClickListener(view -> setClickedNewsURL(getAdapterPosition()));
+        }
+
+        /**
+         * Sets news' headline.
+         */
+        public void setData(News news) {
+            // Setting news headline.
+            setText(newsHeadline, news.getHeadline());
+        }
+    }
+
+    /**
+     * ViewHolder shows the news' headline and an additional space at the bottom that mimics a
+     * divider.
+     * <p>
+     * Layout Resource - {@link R.layout#news_item_two}.
+     */
+    protected class NewsTypeTwoHolder extends RecyclerView.ViewHolder {
+        // Shows the news headline.
+        private final TextView newsHeadline;
+
+        public NewsTypeTwoHolder(View itemView) {
+            super(itemView);
+
+            // Initialize Views.
+            newsHeadline = itemView.findViewById(R.id.text_headline_two);
+
+            // Attach OnClickListener to the entire item view.
+            itemView.setOnClickListener(view -> setClickedNewsURL(getAdapterPosition()));
+        }
+
+        /**
+         * Sets news' headline.
+         */
+        public void setData(News news) {
+            // Setting news headline.
+            setText(newsHeadline, news.getHeadline());
+        }
+    }
+
+    /**
+     * ViewHolder shows the news' headline, section name and thumbnail.
+     * <p>
+     * Layout Resource - {@link R.layout#news_item_three}.
+     */
+    protected class NewsTypeThreeHolder extends RecyclerView.ViewHolder {
+        // Shows the news headline.
+        private final TextView newsHeadline;
 
         // Shows the section name under which this news belongs.
         private final TextView newsSection;
 
-        // Shows the news headline.
-        private final TextView newsHeadline;
+        // Shows the news thumbnail.
+        private final ImageView newsThumbnail;
 
-        // Shows the author info.
-        private final TextView newsByline;
-
-        // Shows the web publication date.
-        private final TextView newsDate;
-
-        // Shows the publication of the news article.
-        private final TextView newsPublication;
-
-        public NewsViewHolder(View itemView) {
+        public NewsTypeThreeHolder(View itemView) {
             super(itemView);
 
             // Initialize Views.
-            newsThumbnail = itemView.findViewById(R.id.image_thumbnail);
-            newsSection = itemView.findViewById(R.id.text_section_name);
-            newsHeadline = itemView.findViewById(R.id.text_headline);
-            newsByline = itemView.findViewById(R.id.text_by_line);
-            newsDate = itemView.findViewById(R.id.text_date);
-            newsPublication = itemView.findViewById(R.id.text_publication);
+            newsHeadline = itemView.findViewById(R.id.text_headline_three);
+            newsSection = itemView.findViewById(R.id.text_section_name_three);
+            newsThumbnail = itemView.findViewById(R.id.image_thumbnail_three);
+
 
             // Attach OnClickListener to the entire item view.
-            itemView.setOnClickListener(this);
+            itemView.setOnClickListener(view -> setClickedNewsURL(getAdapterPosition()));
         }
 
         /**
@@ -235,43 +284,11 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
         }
 
         /**
-         * Download news' thumbnail and sets to {@link NewsViewHolder#newsThumbnail} ImageView.
-         *
-         * @param thumbnailUrl Url in String format that points to news' thumbnail.
+         * Sets news' section, thumbnail and headline.
          */
-        private void downloadAndSetImage(String thumbnailUrl) {
-            Glide.with(context)
-                    .load(thumbnailUrl)
-                    .placeholder(R.drawable.placeholder)
-                    .transition(DrawableTransitionOptions.withCrossFade())
-                    .into(newsThumbnail);
-        }
-
-        /**
-         * Sets the news' headline.
-         * <p>
-         * Used for View Type {@link NewsAdapterConstants#TYPE_ONE},
-         * {@link NewsAdapterConstants#TYPE_TWO} and {@link NewsAdapterConstants#TYPE_THREE}.
-         *
-         * @param news Contains news info for item view.
-         */
-        public void bindDataTypeOneAndTwo(News news) {
-            setText(newsHeadline, news.getHeadline());
-        }
-
-        /**
-         * Sets the news' section, thumbnail, and headline.
-         * <p>
-         * Used for View Type {@link NewsAdapterConstants#TYPE_THREE}.
-         *
-         * @param news Contains news info for item view.
-         */
-        public void bindDataTypeThree(News news) {
-            // Sets news section.
+        public void setData(News news) {
+            // Setting news section.
             setText(newsSection, news.getSectionName());
-
-            // Sets news headline.
-            bindDataTypeOneAndTwo(news);
 
             // Converting 16dp to pixels based on screen density.
             int pixels16DP = convertDpToPixels(16F);
@@ -295,7 +312,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
                 newsThumbnail.setVisibility(View.VISIBLE);
 
                 // Downloading news image.
-                downloadAndSetImage(thumbnail);
+                downloadAndSetImage(newsThumbnail, thumbnail);
             } else {
                 // Set Padding on all sides to be 16dp.
                 newsHeadline.setPadding(pixels16DP, pixels16DP, pixels16DP, pixels16DP);
@@ -307,16 +324,58 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
                 // Hides ImageView.
                 newsThumbnail.setVisibility(View.GONE);
             }
+
+            // Setting news headline.
+            setText(newsHeadline, news.getHeadline());
+        }
+    }
+
+    /**
+     * ViewHolder shows the news' headline, section name, author info. and thumbnail.
+     * <p>
+     * Layout Resource - {@link R.layout#news_item_four}.
+     */
+    protected class NewsTypeFourHolder extends RecyclerView.ViewHolder {
+        // Shows the news headline.
+        private final TextView newsHeadline;
+
+        // Shows the section name under which this news belongs.
+        private final TextView newsSection;
+
+        // Shows the author info.
+        private final TextView newsByline;
+
+        // Shows the news thumbnail.
+        private final ImageView newsThumbnail;
+
+
+        public NewsTypeFourHolder(View itemView) {
+            super(itemView);
+
+            // Initialize Views.
+            newsHeadline = itemView.findViewById(R.id.text_headline_four);
+            newsSection = itemView.findViewById(R.id.text_section_name_four);
+            newsByline = itemView.findViewById(R.id.text_by_line_four);
+            newsThumbnail = itemView.findViewById(R.id.image_thumbnail_four);
+
+
+            // Attach OnClickListener to the entire item view.
+            itemView.setOnClickListener(view -> setClickedNewsURL(getAdapterPosition()));
         }
 
         /**
-         * Sets the news' thumbnail, headline, and author info.
-         * <p>
-         * Used for View Type {@link NewsAdapterConstants#TYPE_SIX}
-         *
-         * @param news Contains news info for item view.
+         * Sets news' section, headline, author info. and headline.
          */
-        public void bindDataTypeSix(News news) {
+        public void setData(News news) {
+            // Setting news section.
+            setText(newsSection, news.getSectionName());
+
+            // Setting news headline.
+            setText(newsHeadline, news.getHeadline());
+
+            // Setting news author info.
+            setText(newsByline, news.getByLine());
+
             // Setting news thumbnail.
             String thumbnail = news.getThumbnail();
 
@@ -326,73 +385,141 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
                 newsThumbnail.setVisibility(View.VISIBLE);
 
                 // Downloading news image.
-                downloadAndSetImage(thumbnail);
+                downloadAndSetImage(newsThumbnail, thumbnail);
+            } else {
+                // Hides ImageView.
+                newsThumbnail.setVisibility(View.GONE);
+            }
+        }
+    }
+
+    /**
+     * ViewHolder shows the news' headline, section name, author info., publication data,
+     * publication and thumbnail.
+     * <p>
+     * Layout Resource - {@link R.layout#news_item_five}.
+     */
+    protected class NewsTypeFiveHolder extends RecyclerView.ViewHolder {
+        // Shows the news headline.
+        private final TextView newsHeadline;
+
+        // Shows the section name under which this news belongs.
+        private final TextView newsSection;
+
+        // Shows the author info.
+        private final TextView newsByline;
+
+        // Shows the web publication date.
+        private final TextView newsDate;
+
+        // Shows the publication of the news article.
+        private final TextView newsPublication;
+
+        // Shows the news thumbnail.
+        private final ImageView newsThumbnail;
+
+        public NewsTypeFiveHolder(View itemView) {
+            super(itemView);
+
+            // Initialize Views.
+            newsHeadline = itemView.findViewById(R.id.text_headline_five);
+            newsSection = itemView.findViewById(R.id.text_section_name_five);
+            newsByline = itemView.findViewById(R.id.text_by_line_five);
+            newsDate = itemView.findViewById(R.id.text_date_five);
+            newsPublication = itemView.findViewById(R.id.text_publication_five);
+            newsThumbnail = itemView.findViewById(R.id.image_thumbnail_five);
+
+            // Attach OnClickListener to the entire item view.
+            itemView.setOnClickListener(view -> setClickedNewsURL(getAdapterPosition()));
+        }
+
+        /**
+         * Sets news' section, headline, author info., date, publication and headline.
+         */
+        public void setData(News news) {
+            // Setting news thumbnail.
+            String thumbnail = news.getThumbnail();
+
+            // Checks if thumbnail link is available.
+            if (!TextUtils.isEmpty(thumbnail)) {
+                // Shows ImageView.
+                newsThumbnail.setVisibility(View.VISIBLE);
+
+                // Downloading news image.
+                downloadAndSetImage(newsThumbnail, thumbnail);
             } else {
                 // Hides ImageView.
                 newsThumbnail.setVisibility(View.GONE);
             }
 
-            // Sets news headline.
-            bindDataTypeOneAndTwo(news);
-
-            // Sets news author info.
-            setText(newsByline, news.getByLine());
-        }
-
-        /**
-         * Sets the news' section, headline, author info., and thumbnail.
-         * <p>
-         * Used for View Type {@link NewsAdapterConstants#TYPE_FOUR}.
-         *
-         * @param news Contains news info for item view.
-         */
-        public void bindDataTypeFour(News news) {
-            // Sets news thumbnail, headline and author info.
-            bindDataTypeSix(news);
-
-            // Sets news section.
+            // Setting news section.
             setText(newsSection, news.getSectionName());
-        }
 
-        /**
-         * Sets the news' thumbnail, section, headline, author info., publication date, and
-         * publication.
-         * <p>
-         * Used for View Type {@link NewsAdapterConstants#TYPE_FIVE}.
-         *
-         * @param news Contains news info for item view.
-         */
-        public void bindDataTypeFive(News news) {
-            // Sets news section, headline, author info., and thumbnail.
-            bindDataTypeFour(news);
+            // Setting news headline.
+            setText(newsHeadline, news.getHeadline());
 
-            // Sets publication date.
-            setText(newsDate, news.getDate());
+            // Setting news author info.
+            setText(newsByline, news.getByLine());
 
-            // Sets publication.
+            // Setting news publication.
             setText(newsPublication, news.getPublication());
+
+            // Sets news publication date.
+            setText(newsDate, news.getDate());
+        }
+    }
+
+    /**
+     * ViewHolder shows the news' headline, author info. and thumbnail.
+     * <p>
+     * Layout Resource - {@link R.layout#news_item_six}.
+     */
+    protected class NewsTypeSixHolder extends RecyclerView.ViewHolder {
+        // Shows the news headline.
+        private final TextView newsHeadline;
+
+        // Shows the author info.
+        private final TextView newsByline;
+
+        // Shows the news thumbnail.
+        private final ImageView newsThumbnail;
+
+        public NewsTypeSixHolder(View itemView) {
+            super(itemView);
+
+            // Initialize Views.
+            newsThumbnail = itemView.findViewById(R.id.image_thumbnail_six);
+            newsHeadline = itemView.findViewById(R.id.text_headline_six);
+            newsByline = itemView.findViewById(R.id.text_by_line_six);
+
+            // Attach OnClickListener to the entire item view.
+            itemView.setOnClickListener(view -> setClickedNewsURL(getAdapterPosition()));
         }
 
         /**
-         * Sets text to a TextView. If data is not available, visibility is set to
-         * {@link View#GONE}.
+         * Sets news' thumbnail, headline and author info.
          */
-        private void setText(TextView textView, String text) {
-            if (TextUtils.isEmpty(text)) {
-                textView.setVisibility(View.GONE);
+        public void setData(News news) {
+            // Setting news thumbnail.
+            String thumbnail = news.getThumbnail();
+
+            // Checks if thumbnail link is available.
+            if (!TextUtils.isEmpty(thumbnail)) {
+                // Shows ImageView.
+                newsThumbnail.setVisibility(View.VISIBLE);
+
+                // Downloading news image.
+                downloadAndSetImage(newsThumbnail, thumbnail);
             } else {
-                textView.setText(text);
-                textView.setVisibility(View.VISIBLE);
+                // Hides ImageView.
+                newsThumbnail.setVisibility(View.GONE);
             }
-        }
 
-        @Override
-        public void onClick(View v) {
-            // Get the clicked News item.
-            News clickedNews = newsItems.get(getAdapterPosition());
+            // Setting news headline.
+            setText(newsHeadline, news.getHeadline());
 
-            // Set the clicked News item's URL to NewsItemClickListener.
-            newsItemClickListener.onNewsItemClick(Uri.parse(clickedNews.getArticleURL()));
+            // Setting news author info.
+            setText(newsByline, news.getByLine());
         }
     }
 }

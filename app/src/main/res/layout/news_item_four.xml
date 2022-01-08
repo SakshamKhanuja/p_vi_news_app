@@ -9,7 +9,7 @@
 
     <!-- Shows news thumbnail -->
     <ImageView
-        android:id="@+id/image_thumbnail"
+        android:id="@+id/image_thumbnail_four"
         android:layout_width="@dimen/thumbnail_width_rest"
         android:layout_height="@dimen/thumbnail_height_rest"
         android:layout_marginEnd="@dimen/margin_horizontal_news_item"
@@ -21,7 +21,7 @@
 
     <!-- Shows news section -->
     <TextView
-        android:id="@+id/text_section_name"
+        android:id="@+id/text_section_name_four"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_horizontal_news_item"
@@ -31,14 +31,14 @@
         android:textAllCaps="true"
         android:textColor="@color/colorSectionName"
         android:textSize="@dimen/text_size_section_name"
-        app:layout_constraintEnd_toStartOf="@+id/image_thumbnail"
+        app:layout_constraintEnd_toStartOf="@+id/image_thumbnail_four"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/divider"
         tools:text="Sport" />
 
     <!-- Shows news headline -->
     <TextView
-        android:id="@+id/text_headline"
+        android:id="@+id/text_headline_four"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_horizontal_news_item"
@@ -50,14 +50,14 @@
         android:textColor="@android:color/white"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/image_thumbnail"
+        app:layout_constraintEnd_toStartOf="@+id/image_thumbnail_four"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_section_name"
+        app:layout_constraintTop_toBottomOf="@+id/text_section_name_four"
         tools:text="Jos Buttler insists he has no plans to retire from Test cricket after Ashes" />
 
     <!-- Shows article author info. -->
     <TextView
-        android:id="@+id/text_by_line"
+        android:id="@+id/text_by_line_four"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_horizontal_news_item"
@@ -70,9 +70,9 @@
         android:textColor="@color/colorSectionName"
         android:textSize="@dimen/text_size_section_name"
         android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/image_thumbnail"
+        app:layout_constraintEnd_toStartOf="@+id/image_thumbnail_four"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_headline"
+        app:layout_constraintTop_toBottomOf="@+id/text_headline_four"
         tools:text="By Ali Martin in Sydney" />
 
     <!-- Item Divider -->

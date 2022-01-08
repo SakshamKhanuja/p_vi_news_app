@@ -15,10 +15,4 @@
         android:id="@+id/bottom_podcast"
         android:icon="@drawable/bottom_podcast"
         android:title="@string/bottom_podcast" />
-
-    <item
-        android:id="@+id/bottom_settings"
-        android:icon="@drawable/bottom_user"
-        android:title="@string/bottom_user" />
-
 </menu>

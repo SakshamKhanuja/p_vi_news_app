@@ -8,7 +8,7 @@
 
     <!-- Shows news thumbnail -->
     <ImageView
-        android:id="@+id/image_thumbnail"
+        android:id="@+id/image_thumbnail_three"
         android:layout_width="0dp"
         android:layout_height="@dimen/thumbnail_height"
         android:layout_marginStart="@dimen/margin_default"
@@ -20,12 +20,12 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_section_name"
+        app:layout_constraintTop_toBottomOf="@+id/text_section_name_three"
         tools:srcCompat="@drawable/sample_news_thumbnail" />
 
     <!-- Shows news headline -->
     <TextView
-        android:id="@+id/text_headline"
+        android:id="@+id/text_headline_three"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_default"
@@ -42,7 +42,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_section_name"
+        app:layout_constraintTop_toBottomOf="@+id/text_section_name_three"
         app:layout_constraintVertical_bias="1.0"
         tools:background="@drawable/gradient_headline"
         tools:paddingBottom="@dimen/padding_small"
@@ -52,7 +52,7 @@
 
     <!-- Shows news section -->
     <TextView
-        android:id="@+id/text_section_name"
+        android:id="@+id/text_section_name_three"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_default"

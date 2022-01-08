@@ -8,7 +8,7 @@
 
     <!-- Shows news thumbnail -->
     <ImageView
-        android:id="@+id/image_thumbnail"
+        android:id="@+id/image_thumbnail_five"
         android:layout_width="0dp"
         android:layout_height="@dimen/thumbnail_height"
         android:contentDescription="@string/content_description_news_title"
@@ -20,7 +20,7 @@
 
     <!-- Shows news section -->
     <TextView
-        android:id="@+id/text_section_name"
+        android:id="@+id/text_section_name_five"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_horizontal_news_item"
@@ -32,12 +32,12 @@
         android:textSize="@dimen/text_size_section_name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/image_thumbnail"
+        app:layout_constraintTop_toBottomOf="@+id/image_thumbnail_five"
         tools:text="Sport" />
 
     <!-- Shows news headline -->
     <TextView
-        android:id="@+id/text_headline"
+        android:id="@+id/text_headline_five"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_horizontal_news_item"
@@ -49,12 +49,12 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_section_name"
+        app:layout_constraintTop_toBottomOf="@+id/text_section_name_five"
         tools:text="Jos Buttler insists he has no plans to retire from Test cricket after Ashes" />
 
     <!-- Shows article author info. -->
     <TextView
-        android:id="@+id/text_by_line"
+        android:id="@+id/text_by_line_five"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_horizontal_news_item"
@@ -66,12 +66,12 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_headline"
+        app:layout_constraintTop_toBottomOf="@+id/text_headline_five"
         tools:text="By Ali Martin in Sydney" />
 
     <!-- Shows publication date -->
     <TextView
-        android:id="@+id/text_date"
+        android:id="@+id/text_date_five"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_horizontal_news_item"
@@ -79,22 +79,22 @@
         android:letterSpacing="@fraction/spacing_by_line"
         android:textSize="@dimen/text_size_section_name"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_by_line"
+        app:layout_constraintTop_toBottomOf="@+id/text_by_line_five"
         tools:text="Sat, Jan 01 at 6:00 pm" />
 
     <!-- Shows publication info. -->
     <TextView
-        android:id="@+id/text_publication"
+        android:id="@+id/text_publication_five"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_horizontal_news_item"
         android:layout_marginEnd="@dimen/margin_horizontal_news_item"
         android:letterSpacing="@fraction/spacing_by_line"
         android:textSize="@dimen/text_size_section_name"
-        app:layout_constraintBottom_toBottomOf="@+id/text_date"
+        app:layout_constraintBottom_toBottomOf="@+id/text_date_five"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/text_date"
-        app:layout_constraintTop_toTopOf="@+id/text_date"
+        app:layout_constraintStart_toEndOf="@+id/text_date_five"
+        app:layout_constraintTop_toTopOf="@+id/text_date_five"
         tools:text="The Guardian" />
 
     <!-- Item Divider -->
@@ -104,5 +104,5 @@
         android:layout_height="@dimen/margin_small"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_date" />
+        app:layout_constraintTop_toBottomOf="@+id/text_date_five" />
 </androidx.constraintlayout.widget.ConstraintLayout>

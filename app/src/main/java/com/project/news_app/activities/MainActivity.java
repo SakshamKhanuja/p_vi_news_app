@@ -48,11 +48,6 @@ public class MainActivity extends AppCompatActivity {
             fragmentManager.beginTransaction()
                     .replace(R.id.fragment_container, new PodcastFragment())
                     .commit();
-        } else if (selectedItemId == R.id.bottom_settings) {
-            // Replacing the currently viewed Fragment with UserFragment.
-            fragmentManager.beginTransaction()
-                    .replace(R.id.fragment_container, new UserFragment())
-                    .commit();
         }
 
         // Displays the selected item.

@@ -6,7 +6,7 @@
     android:layout_height="wrap_content">
 
     <ImageView
-        android:id="@+id/image_thumbnail"
+        android:id="@+id/image_thumbnail_six"
         android:layout_width="250dp"
         android:layout_height="150dp"
         android:contentDescription="@string/content_description_news_title"
@@ -17,7 +17,7 @@
         tools:src="@drawable/sample_news_thumbnail" />
 
     <TextView
-        android:id="@+id/text_headline"
+        android:id="@+id/text_headline_six"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -29,11 +29,11 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/image_thumbnail"
+        app:layout_constraintTop_toBottomOf="@+id/image_thumbnail_six"
         tools:text="Jos Buttler insists he has no plans to retire from Test cricket after Ashes" />
 
     <TextView
-        android:id="@+id/text_by_line"
+        android:id="@+id/text_by_line_six"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
@@ -43,7 +43,7 @@
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/text_headline"
-        app:layout_constraintTop_toBottomOf="@+id/text_headline"
+        app:layout_constraintStart_toStartOf="@+id/text_headline_six"
+        app:layout_constraintTop_toBottomOf="@+id/text_headline_six"
         tools:text="By Ali Martin in Sydney" />
 </androidx.constraintlayout.widget.ConstraintLayout>
