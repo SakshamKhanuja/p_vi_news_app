@@ -16,10 +16,9 @@ import com.project.news_app.fragments.PodcastFragment;
 import com.project.news_app.fragments.UserFragment;
 
 /**
- * Stage V
+ * Stage VI
  * <p>
- * App shows a list of episodes of "Today in Focus" podcast, available by "The Guardian" in
- * {@link PodcastFragment}.
+ * App shows news feed from regions - "US, UK and Australia" in {@link HeadlineFragment}.
  */
 public class MainActivity extends AppCompatActivity {
 

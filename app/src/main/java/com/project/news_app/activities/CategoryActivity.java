@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.project.news_app.R;
 import com.project.news_app.adapters.NewsAdapter;
 import com.project.news_app.constants.CategoryActivityConstants;
+import com.project.news_app.constants.NetworkUtilsConstants;
 import com.project.news_app.data.News;
 import com.project.news_app.databinding.BasicRecyclerViewLayoutBinding;
 import com.project.news_app.utils.JsonUtils;
@@ -35,11 +36,11 @@ public class CategoryActivity extends AppCompatActivity implements
         LoaderManager.LoaderCallbacks<ArrayList<News>>, CategoryActivityConstants,
         NewsAdapter.NewsItemClickListener {
 
-    // Stores the URL in String format of the clicked news category.
-    private String mNewsStringUrl;
+    // Stores the path that locates the clicked News category in "The Guardian" API.
+    private String mPath;
 
     // Stores the title of the clicked news category.
-    private String mNewsCategoryTitle;
+    private String mTitle;
 
     // Adapter provides News items to RecyclerView.
     private NewsAdapter mAdapter;
@@ -59,19 +60,19 @@ public class CategoryActivity extends AppCompatActivity implements
              */
             Intent intent = getIntent();
 
-            // Get the clicked news title and String URL.
-            if (!(intent != null && intent.hasExtra(EXTRA_STRING_URL) && intent.hasExtra(
+            // Get the clicked news title and path.
+            if (!(intent != null && intent.hasExtra(EXTRA_PATH) && intent.hasExtra(
                     EXTRA_TITLE))) {
                 // Control goes back to CategoryFragment.
                 return;
             } else {
-                mNewsStringUrl = intent.getStringExtra(EXTRA_STRING_URL);
-                mNewsCategoryTitle = intent.getStringExtra(EXTRA_TITLE);
+                mPath = intent.getStringExtra(EXTRA_PATH);
+                mTitle = intent.getStringExtra(EXTRA_TITLE);
             }
         } else {
-            // Restoring clicked news String URL and title.
-            mNewsCategoryTitle = savedInstanceState.getString(KEY_CATEGORY_TITLE);
-            mNewsStringUrl = savedInstanceState.getString(KEY_CATEGORY_STRING_URL);
+            // Restoring clicked news title and path.
+            mPath = savedInstanceState.getString(KEY_PATH);
+            mTitle = savedInstanceState.getString(KEY_TITLE);
         }
 
         // Setting content view.
@@ -81,7 +82,7 @@ public class CategoryActivity extends AppCompatActivity implements
         setContentView(binding.getRoot());
 
         // Set AppBar's title to the clicked news category's title.
-        setTitle(mNewsCategoryTitle);
+        setTitle(mTitle);
 
         // Linking LayoutManager to RecyclerView.
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this,
@@ -103,11 +104,11 @@ public class CategoryActivity extends AppCompatActivity implements
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
 
-        // Backing up the clicked news category String URL.
-        outState.putString(KEY_CATEGORY_STRING_URL, mNewsStringUrl);
+        // Backing up the clicked news category's path.
+        outState.putString(KEY_PATH, mPath);
 
         // Backing up the clicked news category title.
-        outState.putString(KEY_CATEGORY_TITLE, mNewsCategoryTitle);
+        outState.putString(KEY_TITLE, mTitle);
     }
 
     @Override
@@ -126,17 +127,17 @@ public class CategoryActivity extends AppCompatActivity implements
     public Loader<ArrayList<News>> onCreateLoader(int id, @Nullable Bundle args) {
         return new AsyncTaskLoader<ArrayList<News>>(this) {
 
-            // Stores the downloaded clicked news category.
+            // Stores the downloaded clicked news category's feed.
             private ArrayList<News> news;
 
             @Override
             protected void onStartLoading() {
-                // Using previous available result.
+                // Checks if cached (previously downloaded) news feed is available.
                 if (news != null && news.size() > 0) {
                     // Use cached result.
                     deliverResult(news);
                 } else {
-                    // Starts a background thread to download news info.
+                    // Starts a background thread to download fresh news info.
                     forceLoad();
                 }
             }
@@ -144,34 +145,23 @@ public class CategoryActivity extends AppCompatActivity implements
             @NonNull
             @Override
             public ArrayList<News> loadInBackground() {
-                // Stores news items contained in a single page in "The Guardian" api endpoint.
-                ArrayList<News> singlePageNews;
+                // Stores downloaded news info.
+                ArrayList<News> newsFeed;
 
-                // Stores combined items in multiple pages.
-                ArrayList<News> allNews = new ArrayList<>();
+                // Downloads news feed from "The Guardian" API's Section Endpoint.
+                String jsonResponse = NetworkUtils.downloadNewsData(
+                        NetworkUtils.makeNewsUrl(CategoryActivity.this, mPath,
+                                NetworkUtilsConstants.QP_VALUE_FIELDS, 100));
 
-                // Downloading news info. page by page from "The Guardian".
-                for (int i = FIRST_PAGE; i <= LAST_PAGE; i++) {
-                    // Downloads JSON response.
-                    String jsonResponse = NetworkUtils.downloadNewsData(
-                            NetworkUtils.makeNewsURL(mNewsStringUrl, i));
+                // Parses JSON response to a list of type News.
+                newsFeed = JsonUtils.parseNewsList(jsonResponse);
 
-                    // Parses JSON response to a list of type News.
-                    singlePageNews = JsonUtils.parseNewsList(jsonResponse);
-
-                    // Checks if news data is available before setting view type.
-                    if (singlePageNews.size() > 0) {
-                        // Sets "viewType" off all elements in "singlePageNews" ArrayList.
-                        setViewType(singlePageNews);
-
-                        // Adding contents of "news" ArrayList to "allNews" ArrayList
-                        allNews.addAll(singlePageNews);
-                    } else {
-                        // No more data is available.
-                        break;
-                    }
+                // Checks if news data is available before setting view type.
+                if (newsFeed.size() > 0) {
+                    // Sets "viewType" off all elements in "newsFeed" ArrayList.
+                    setViewType(newsFeed);
                 }
-                return allNews;
+                return newsFeed;
             }
 
             /**
@@ -211,16 +201,28 @@ public class CategoryActivity extends AppCompatActivity implements
                 // Stores different view types that will be applied to the download news list.
                 int[] viewTypeArray = getNewsPattern();
 
+                // Used as "index" to access contents of "viewTypeArray".
+                int index = 0;
+
                 // Lopping through the downloaded news items in order to set view types.
-                for (int i = 0; i < viewTypeArray.length; i++) {
+                for (int i = 0; i < newsList.size(); i++) {
                     News item = newsList.get(i);
-                    item.setViewType(viewTypeArray[i]);
+
+                    // Changes pattern after every 10th news item.
+                    if (i % 10 == 0) {
+                        index = 0;
+                        viewTypeArray = getNewsPattern();
+                    }
+
+                    // Set view type to news item.
+                    item.setViewType(viewTypeArray[index]);
+                    index++;
                 }
             }
 
             @Override
             public void deliverResult(@Nullable ArrayList<News> data) {
-                // Caching downloaded news info.
+                // Caching downloaded news feed.
                 if (data != null) {
                     news = data;
                 }
@@ -233,14 +235,14 @@ public class CategoryActivity extends AppCompatActivity implements
     public void onLoadFinished(@NonNull Loader<ArrayList<News>> loader, ArrayList<News> data) {
         if (data != null && data.size() > 0) {
             // Updating the contents of NewsAdapter.
-            mAdapter.setEarthquakeData(data);
+            mAdapter.setNewsData(data);
         }
     }
 
     @Override
     public void onLoaderReset(@NonNull Loader<ArrayList<News>> loader) {
         // Clearing up the NewsAdapter.
-        mAdapter.setEarthquakeData(null);
+        mAdapter.setNewsData(null);
     }
 
     /**

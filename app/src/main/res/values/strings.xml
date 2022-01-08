@@ -8,8 +8,20 @@
     <!-- Toasts text when browser is not installed in user's device -->
     <string name="toast_browser_unavailable">Browser was not available.</string>
 
+    <!-- Labels US News in "fragment_headline" -->
+    <string name="top_story_us">US Top Story</string>
+
+    <!-- Labels UK News in "fragment_headline" -->
+    <string name="top_story_uk">UK Top Story</string>
+
+    <!-- Labels Australia News in "fragment_headline" -->
+    <string name="top_story_aus">Australia Top Story</string>
+
     <!-- Chip to open Google Podcasts -->
     <string name="chip_google">Google Podcasts</string>
+
+    <!-- Indicates user to show more news on this category -->
+    <string name="label_more">See More</string>
 
     <!-- Chip to open Spotify -->
     <string name="chip_spotify">Spotify</string>
@@ -301,12 +313,6 @@
 
     <!-- News Category - Travel - Path (Section) -->
     <string name="category_path_travel">uk/travel</string>
-
-    <!-- News Category - UK News - Title -->
-    <string name="category_title_uk_news">UK News</string>
-
-    <!-- News Category - UK News - Path (Section) -->
-    <string name="category_path_uk_news">uk-news</string>
 
     <!-- News Category - US Sports - Title -->
     <string name="category_title_us_sports">US Sports</string>

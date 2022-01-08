@@ -15,7 +15,6 @@ import com.project.news_app.R;
 import com.project.news_app.activities.CategoryActivity;
 import com.project.news_app.data.NewsCategory;
 
-import java.net.URL;
 import java.util.ArrayList;
 
 /**
@@ -80,7 +79,7 @@ public class CategoryFragment extends Fragment implements
     }
 
     /**
-     * Creates and returns an ArrayList of type {@link NewsCategory} containing all news categories.
+     * Creates and returns ArrayList of type {@link NewsCategory} containing news categories.
      */
     private ArrayList<NewsCategory> getNewsCategories() {
         ArrayList<NewsCategory> categories = new ArrayList<>();
@@ -91,10 +90,6 @@ public class CategoryFragment extends Fragment implements
         categories.add(new NewsCategory(R.string.category_title_world_news,
                 R.string.category_path_world_news, R.string.title_news,
                 R.color.colorNewsCategoryNews));
-
-        // Adding News - UK News.
-        categories.add(new NewsCategory(R.string.category_title_uk_news,
-                R.string.category_path_uk_news));
 
         // Adding News - Coronavirus.
         categories.add(new NewsCategory(R.string.category_title_coronavirus,
@@ -278,12 +273,12 @@ public class CategoryFragment extends Fragment implements
     }
 
     @Override
-    public void onNewsCategoryClick(URL sectionUrl, String categoryTitle) {
-        // Starting CategoryActivity to load up news on the clicked news category.
+    public void onNewsCategoryClick(String path, String categoryTitle) {
+        // Explicit Intent opens up CategoryActivity to show News feed.
         Intent explicit = new Intent(getContext(), CategoryActivity.class);
 
-        // Passing the clicked news category's section API endpoint URL in String format.
-        explicit.putExtra(CategoryActivity.EXTRA_STRING_URL, sectionUrl.toString());
+        // Passing the path where the clicked category can be accessed in "The Guardian" API.
+        explicit.putExtra(CategoryActivity.EXTRA_PATH, path);
 
         // Passing the clicked news category's title.
         explicit.putExtra(CategoryActivity.EXTRA_TITLE, categoryTitle);

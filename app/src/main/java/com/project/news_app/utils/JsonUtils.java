@@ -30,7 +30,7 @@ public class JsonUtils implements JsonUtilsConstants {
      * {@link News}.
      *
      * @param jsonResponse Response from the API in a single String.
-     * @return ArrayList containing all news info.
+     * @return ArrayList containing news info.
      */
     public static ArrayList<News> parseNewsList(String jsonResponse) {
 
@@ -102,16 +102,20 @@ public class JsonUtils implements JsonUtilsConstants {
     }
 
     /**
-     * Converts (String) date in ISO-8601 format to a custom pattern.
+     * Converts (String) date in [ISO-8601 Date and time in UTC] format to a (String) data
+     * having a custom pattern.
      *
-     * @param stringDate Date in ISO-8601 format.
-     *                   <br/>
-     *                   Example - 2021-12-03T10:15:30Z.
-     * @param pattern    Pattern in which the date should be formatted.
-     * @return Custom formatted (String) Date.
+     * @see <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a>
+     *
+     * @param publicationDate (String) Date when news/podcast feed was published on "The Guardian"
+     *                        api in [ISO-8601 Date and time in UTC] format.
+     *                        <br/>
+     *                        Example - 2021-12-03T10:15:30Z.
+     * @param pattern         Formats the publication data to a desired pattern.
+     * @return Formatted publication date.
      */
-    private static String formatDate(String stringDate, String pattern) {
-        Instant instant = Instant.parse(stringDate);
+    private static String formatDate(String publicationDate, String pattern) {
+        Instant instant = Instant.parse(publicationDate);
         Date date = new Date(instant.getEpochSecond() * 1000);
 
         // Parsing to Indian Local Time (UTC+5:30)
@@ -127,7 +131,7 @@ public class JsonUtils implements JsonUtilsConstants {
      * {@link Podcast}
      *
      * @param jsonResponse Response from the API in a single String.
-     * @return ArrayList containing all podcast info.
+     * @return ArrayList containing podcast info.
      */
     public static ArrayList<Podcast> parsePodcastList(String jsonResponse) {
         // Initializing list of type Podcast.

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- "See More" TextView is NOT pressed -->
+    <item android:color="@color/colorSeeMore" android:state_pressed="false" />
+
+    <!-- "See More" TextView IS pressed -->
+    <item android:color="@color/colorSectionName" android:state_pressed="true" />
+</selector>

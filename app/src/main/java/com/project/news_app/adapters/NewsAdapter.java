@@ -26,15 +26,16 @@ import com.project.news_app.activities.CategoryActivity;
 import java.util.ArrayList;
 
 /**
- * Provides {@link NewsViewHolder} ViewHolder inflated from -
- * <ul>
+ * Provides {@link NewsViewHolder} that contains inflated layout from one or more of
+ * the following item layouts to {@link R.id#recycler_view} RecyclerView -
+ * <ol>
  *     <li>{@link R.layout#news_item_one}</li>
  *     <li>{@link R.layout#news_item_two}</li>
  *     <li>{@link R.layout#news_item_three}</li>
  *     <li>{@link R.layout#news_item_four}</li>
  *     <li>{@link R.layout#news_item_five}</li>
- * </ul>
- * Item view layout to {@link R.id#recycler_view} RecyclerView.
+ *     <li>{@link R.layout#news_item_six}</li>
+ * </ol>
  */
 public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder> implements
         NewsAdapterConstants {
@@ -99,6 +100,11 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
                 resource = R.layout.news_item_five;
                 break;
 
+            case 6:
+                // Shows news' thumbnail, headline and author info.
+                resource = R.layout.news_item_six;
+                break;
+
             case 4:
             default:
                 // Shows news' section, headline, author info., and thumbnail.
@@ -124,15 +130,19 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
                 break;
 
             case TYPE_THREE:
-                holder.bindDateTypeThree(currentNews);
+                holder.bindDataTypeThree(currentNews);
                 break;
 
             case TYPE_FOUR:
-                holder.bindDateTypeFour(currentNews);
+                holder.bindDataTypeFour(currentNews);
                 break;
 
             case TYPE_FIVE:
                 holder.bindDataTypeFive(currentNews);
+                break;
+
+            case TYPE_SIX:
+                holder.bindDataTypeSix(currentNews);
                 break;
         }
     }
@@ -157,24 +167,25 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
      * Sets new news data to Adapter.
      */
     @SuppressLint("NotifyDataSetChanged")
-    public void setEarthquakeData(ArrayList<News> newsItems) {
+    public void setNewsData(ArrayList<News> newsItems) {
         this.newsItems = newsItems;
         notifyDataSetChanged();
     }
 
     /**
-     * Class describes -
+     * Class describes the following item views -
      * <ul>
      *   <li>{@link R.layout#news_item_one}</li>
      *   <li>{@link R.layout#news_item_two}</li>
      *   <li>{@link R.layout#news_item_three}</li>
      *   <li>{@link R.layout#news_item_four}</li>
      *   <li>{@link R.layout#news_item_five}</li>
+     *   <li>{@link R.layout#news_item_six}</li>
      * </ul>
-     * Item view and is responsible for caching
-     * views.
      * <p>
-     * It also provides click functionality to the RecyclerView holding news items.
+     * It is responsible for caching views.
+     * <p>
+     * Provides click functionality to the RecyclerView holding news items.
      * Hence, when user clicks on any news, the entire article gets open on the user's browser.
      */
     protected class NewsViewHolder extends RecyclerView.ViewHolder implements
@@ -255,7 +266,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
          *
          * @param news Contains news info for item view.
          */
-        public void bindDateTypeThree(News news) {
+        public void bindDataTypeThree(News news) {
             // Sets news section.
             setText(newsSection, news.getSectionName());
 
@@ -299,22 +310,13 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
         }
 
         /**
-         * Sets the news' section, headline, author info., and thumbnail.
+         * Sets the news' thumbnail, headline, and author info.
          * <p>
-         * Used for View Type {@link NewsAdapterConstants#TYPE_FOUR}.
+         * Used for View Type {@link NewsAdapterConstants#TYPE_SIX}
          *
          * @param news Contains news info for item view.
          */
-        public void bindDateTypeFour(News news) {
-            // Sets news section.
-            setText(newsSection, news.getSectionName());
-
-            // Sets news headline.
-            bindDataTypeOneAndTwo(news);
-
-            // Sets news author info.
-            setText(newsByline, news.getByLine());
-
+        public void bindDataTypeSix(News news) {
             // Setting news thumbnail.
             String thumbnail = news.getThumbnail();
 
@@ -329,6 +331,27 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
                 // Hides ImageView.
                 newsThumbnail.setVisibility(View.GONE);
             }
+
+            // Sets news headline.
+            bindDataTypeOneAndTwo(news);
+
+            // Sets news author info.
+            setText(newsByline, news.getByLine());
+        }
+
+        /**
+         * Sets the news' section, headline, author info., and thumbnail.
+         * <p>
+         * Used for View Type {@link NewsAdapterConstants#TYPE_FOUR}.
+         *
+         * @param news Contains news info for item view.
+         */
+        public void bindDataTypeFour(News news) {
+            // Sets news thumbnail, headline and author info.
+            bindDataTypeSix(news);
+
+            // Sets news section.
+            setText(newsSection, news.getSectionName());
         }
 
         /**
@@ -341,7 +364,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
          */
         public void bindDataTypeFive(News news) {
             // Sets news section, headline, author info., and thumbnail.
-            bindDateTypeFour(news);
+            bindDataTypeFour(news);
 
             // Sets publication date.
             setText(newsDate, news.getDate());

@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.project.news_app.R;
 import com.project.news_app.adapters.PodcastAdapter;
+import com.project.news_app.constants.NetworkUtilsConstants;
 import com.project.news_app.data.Podcast;
 import com.project.news_app.utils.JsonUtils;
 import com.project.news_app.utils.NetworkUtils;
@@ -40,28 +41,19 @@ public class PodcastFragment extends Fragment implements
         // Initializing RecyclerView.
         RecyclerView recyclerView = view.findViewById(R.id.recycler_view);
 
-        /*
-         * Linking RecyclerView with a LayoutManager. LayoutManager is responsible for Recycling
-         * ITEM views when they're scrolled OFF the screen. It also determines how the collection
-         * of these ITEMS are displayed.
-         */
+        // Linking LayoutManager to RecyclerView.
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(),
                 LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
 
-        /*
-         * Further optimizing RecyclerView to NOT invalidate the whole layout, if any change
-         * occurs in the contents of the adapter with which it is linked.
-         *
-         * Fixed size is set to "true", as the contents of the list of Categories remains the same.
-         */
+        // Optimizes RecyclerView.
         recyclerView.setHasFixedSize(true);
 
         // Linking Adapter to RecyclerView.
         mAdapter = new PodcastAdapter(null);
         recyclerView.setAdapter(mAdapter);
 
-        // Downloading clicked news category data in a background Thread.
+        // Downloads a list of episodes of the "Today in Focus" podcast from "The Guardian" api.
         LoaderManager.getInstance(this).initLoader(1, null, this);
     }
 
@@ -70,17 +62,16 @@ public class PodcastFragment extends Fragment implements
     public Loader<ArrayList<Podcast>> onCreateLoader(int id, @Nullable Bundle args) {
         return new AsyncTaskLoader<ArrayList<Podcast>>(requireContext()) {
 
-            // Stores the downloaded clicked news category.
+            // Stores the downloaded episodes under "Today in Focus" podcast.
             private ArrayList<Podcast> podcasts;
 
             @Override
             protected void onStartLoading() {
-                // Using previous available result.
+                // Checks if cached (previously downloaded) podcast data is available.
                 if (podcasts != null && podcasts.size() > 0) {
-                    // Use cached result.
                     deliverResult(podcasts);
                 } else {
-                    // Starts a background thread to download news info.
+                    // Starts a background thread to download fresh podcast episodes info.
                     forceLoad();
                 }
             }
@@ -90,7 +81,9 @@ public class PodcastFragment extends Fragment implements
             public ArrayList<Podcast> loadInBackground() {
                 // Downloads JSON response.
                 String jsonResponse = NetworkUtils.downloadNewsData(NetworkUtils.
-                        makeTodayInFocusUrl(getContext()));
+                        makeNewsUrl(requireContext(), NetworkUtilsConstants.PATH_FOCUS,
+                                NetworkUtilsConstants.QP_VALUE_FOCUS_FIELDS,
+                                NetworkUtilsConstants.SIZE_PODCAST));
 
                 // Parses JSON response to a list of type Podcast.
                 return JsonUtils.parsePodcastList(jsonResponse);
@@ -98,7 +91,7 @@ public class PodcastFragment extends Fragment implements
 
             @Override
             public void deliverResult(@Nullable ArrayList<Podcast> data) {
-                // Caching downloaded podcast info.
+                // Caching downloaded podcast episodes info.
                 if (data != null) {
                     podcasts = data;
                 }
@@ -111,7 +104,7 @@ public class PodcastFragment extends Fragment implements
     public void onLoadFinished(@NonNull Loader<ArrayList<Podcast>> loader,
                                ArrayList<Podcast> data) {
         if (data != null && data.size() > 0) {
-            // Updating the contents of NewsAdapter.
+            // Updating the contents of PodcastAdapter.
             mAdapter.setPodcastData(data);
         }
     }

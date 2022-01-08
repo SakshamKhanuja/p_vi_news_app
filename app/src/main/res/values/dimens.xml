@@ -59,4 +59,7 @@
 
     <!-- Spacing for headline in "news_item_one" and "news_item_two" layout -->
     <dimen name="spacing_headline">4dp</dimen>
+
+    <!-- Size of the news feed's height in "fragment_headline" layout -->
+    <dimen name="height_feed">250dp</dimen>
 </resources>

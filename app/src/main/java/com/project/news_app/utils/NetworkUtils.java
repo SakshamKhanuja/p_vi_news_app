@@ -27,78 +27,28 @@ public class NetworkUtils implements NetworkUtilsConstants {
     }
 
     /**
-     * Forms a URL that points to "The Guardian" API's "Section" Endpoint.
-     * <p>
-     * Note - Add your API Key in {@link R.string#api_key} string resource.
+     * Forms a {@link URL} that points to "Section" endpoint of "The Guardian" API.
      *
      * @param context Sets the API Key.
-     * @param section Name of the section.
-     * @return A URL to connect to the "The Guardian" API's "Section" Endpoint.
+     * @param path    Downloads feed from this section.
+     * @param fields  Picks custom components from the selected section.
+     * @param number  Number of items downloaded from the feed.
+     * @return A custom {@link URL} that points to a custom news feed available from "The Guardian"
+     * API.
      */
-    public static URL makeNewsUrl(Context context, String section) {
+    public static URL makeNewsUrl(Context context, String path, String fields, int number) {
         // Initializing URL.
         URL url = null;
 
         try {
             // Building URL.
             Uri uri = Uri.parse(DOMAIN).buildUpon()
-                    .encodedPath(section)
-                    .appendQueryParameter(QP_KEY_FIELDS, QP_VALUE_FIELDS)
+                    .encodedPath(path)
+                    .appendQueryParameter(QP_KEY_FIELDS, fields)
+                    .appendQueryParameter(QP_KEY_PAGE_SIZE, String.valueOf(number))
                     .appendQueryParameter(QP_KEY_API, context.getString(R.string.api_key))
                     .build();
 
-            url = new URL(uri.toString());
-        } catch (MalformedURLException e) {
-            Log.e(TAG, "Cannot form URL - " + e.getMessage());
-        }
-
-        return url;
-    }
-
-    /**
-     * Forms a URL that points to "The Guardian" API's "Today in Focus" Endpoint.
-     * <p>
-     * Note - Add your API Key in {@link R.string#api_key} string resource.
-     *
-     * @param context Sets the API Key.
-     * @return A URL to connect to the "The Guardian" API's "Today in Focus" Endpoint.
-     */
-    public static URL makeTodayInFocusUrl(Context context) {
-        // Initializing URL.
-        URL url = null;
-
-        try {
-            // Building URL.
-            Uri uri = Uri.parse(DOMAIN).buildUpon()
-                    .encodedPath(PATH_FOCUS)
-                    .appendQueryParameter(QP_KEY_API, context.getString(R.string.api_key))
-                    .appendQueryParameter(QP_KEY_FIELDS, QP_VALUE_FIELDS_FOCUS)
-                    .build();
-
-            url = new URL(uri.toString());
-        } catch (MalformedURLException e) {
-            Log.e(TAG, "Cannot form URL - " + e.getMessage());
-        }
-
-        return url;
-    }
-
-    /**
-     * Forms a URL that points to the selected "The Guardian" section's page.
-     *
-     * @param newsStringUrl Url in String format that points to the selected "The Guardian" section.
-     * @param page          Represents the page number.
-     * @return A URL pointing to a page of the user selected "The Guardian" section.
-     */
-    public static URL makeNewsURL(String newsStringUrl, int page) {
-        // Initializing URL.
-        URL url = null;
-
-        try {
-            // Building URL.
-            Uri uri = Uri.parse(newsStringUrl).buildUpon()
-                    .appendQueryParameter(QP_KEY_PAGE, String.valueOf(page))
-                    .build();
             url = new URL(uri.toString());
         } catch (MalformedURLException e) {
             Log.e(TAG, "Cannot form URL - " + e.getMessage());
@@ -110,7 +60,7 @@ public class NetworkUtils implements NetworkUtilsConstants {
      * Connects to one of "The Guardian" API endpoint to download news info.
      *
      * @param url Points to one of "The Guardian" API Endpoints.
-     * @return String containing news info.
+     * @return String containing the downloaded news info.
      */
     public static String downloadNewsData(URL url) {
         if (url != null) {
@@ -188,7 +138,7 @@ public class NetworkUtils implements NetworkUtilsConstants {
      *
      * @param responseCode Determines the result of the app's request to download news information
      *                     from the "The Guardian" API.
-     * @return The result of the app's request in read-able terms.
+     * @return The result of the app's request in understandable terms.
      */
     private static String parseResponseCode(int responseCode) {
         switch (responseCode) {

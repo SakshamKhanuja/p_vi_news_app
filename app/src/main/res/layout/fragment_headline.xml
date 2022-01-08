@@ -1,5 +1,166 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
-    style="@style/FragmentLabel"
-    android:background="@color/colorFragmentHeadline"
-    android:text="@string/text_headline" />
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Shows news feed of 3 regions - US, UK and AUS -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- US -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!-- Shows top stories of US -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/container_us_news"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/height_feed"
+                android:layout_marginTop="@dimen/margin_small"
+                android:overScrollMode="never"
+                android:scrollbars="none"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/see_more_us_news" />
+
+            <!-- Shortcut to show more news for US region -->
+            <TextView
+                android:id="@+id/see_more_us_news"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_default"
+                android:layout_marginEnd="@dimen/margin_default"
+                android:drawablePadding="@dimen/padding_small"
+                android:gravity="center_vertical"
+                android:text="@string/label_more"
+                android:textSize="@dimen/category_text_size"
+                android:textColor="@color/color_see_more"
+                android:textStyle="bold"
+                app:drawableEndCompat="@drawable/arrow_see_more"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <!-- Label - "US Top Story" -->
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="sans-serif-medium"
+                android:letterSpacing="@fraction/spacing_section"
+                android:text="@string/top_story_us"
+                android:textAllCaps="true"
+                android:textSize="@dimen/text_size_section_name"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!-- UK -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!-- Shows top stories of UK -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/container_uk_news"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/height_feed"
+                android:layout_marginTop="@dimen/margin_small"
+                android:overScrollMode="never"
+                android:scrollbars="none"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/see_more_uk_news" />
+
+            <!-- Shortcut to show more news for UK region -->
+            <TextView
+                android:id="@+id/see_more_uk_news"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_default"
+                android:layout_marginEnd="@dimen/margin_default"
+                android:drawablePadding="@dimen/padding_small"
+                android:gravity="center_vertical"
+                android:text="@string/label_more"
+                android:textSize="@dimen/category_text_size"
+                android:textColor="@color/color_see_more"
+                android:textStyle="bold"
+                app:drawableEndCompat="@drawable/arrow_see_more"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <!-- Label - "UK Top Story" -->
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="sans-serif-medium"
+                android:letterSpacing="@fraction/spacing_section"
+                android:text="@string/top_story_uk"
+                android:textAllCaps="true"
+                android:textSize="@dimen/text_size_section_name"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!-- AUS -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!-- Shows top stories of AUS -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/container_aus_news"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/height_feed"
+                android:layout_marginTop="@dimen/margin_small"
+                android:overScrollMode="never"
+                android:scrollbars="none"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/see_more_aus_news" />
+
+            <!-- Shortcut to show more news for AUS region -->
+            <TextView
+                android:id="@+id/see_more_aus_news"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_default"
+                android:layout_marginEnd="@dimen/margin_default"
+                android:drawablePadding="@dimen/padding_small"
+                android:gravity="center_vertical"
+                android:text="@string/label_more"
+                android:textSize="@dimen/category_text_size"
+                android:textColor="@color/color_see_more"
+                android:textStyle="bold"
+                app:drawableEndCompat="@drawable/arrow_see_more"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <!-- Label - "AUS Top Story" -->
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="sans-serif-medium"
+                android:letterSpacing="@fraction/spacing_section"
+                android:text="@string/top_story_aus"
+                android:textAllCaps="true"
+                android:textSize="@dimen/text_size_section_name"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+</ScrollView>

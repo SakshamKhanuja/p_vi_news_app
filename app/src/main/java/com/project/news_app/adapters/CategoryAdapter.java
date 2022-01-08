@@ -12,14 +12,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.project.news_app.R;
 import com.project.news_app.data.NewsCategory;
-import com.project.news_app.utils.NetworkUtils;
 import com.project.news_app.activities.CategoryActivity;
 
-import java.net.URL;
 import java.util.ArrayList;
 
 /**
- * Provides {@link CategoryViewHolder} ViewHolder inflated from {@link R.layout#category_item}
+ * Provides {@link CategoryViewHolder} inflated from {@link R.layout#category_item}
  * item view layout to {@link R.id#recycler_view} RecyclerView.
  */
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder> {
@@ -31,26 +29,23 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
     private Context mContext;
 
     /**
-     * Provides click functionality to open up clicked news category in
-     * {@link CategoryActivity} Activity.
+     * Provides click functionality to open up clicked news category in {@link CategoryActivity}.
      */
     private final CategoryNewsClickListener categoryNewsClickListener;
 
     // Provides click functionality to News category items.
     public interface CategoryNewsClickListener {
         /**
-         * Opens {@link CategoryActivity} Activity to show the clicked news category info.
+         * Opens {@link CategoryActivity} to load news feed.
          *
-         * @param sectionUrl    Contains a URL that points to the clicked "The Guardian" Section
-         *                      API Endpoint.
-         * @param categoryTitle Clicked news category name.
+         * @param path  Locates the clicked news entry feed in "The Guardian" API.
+         * @param title Title of clicked news section.
          */
-        void onNewsCategoryClick(URL sectionUrl, String categoryTitle);
+        void onNewsCategoryClick(String path, String title);
     }
 
     /**
-     * Initializes Adapter providing {@link CategoryViewHolder} ViewHolder to the linked
-     * RecyclerView.
+     * Initializes Adapter providing {@link CategoryViewHolder} to the linked RecyclerView.
      *
      * @param newsCategory              Contains all news category info.
      * @param categoryNewsClickListener Provides click functionality for items in the adapter.
@@ -184,13 +179,9 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
             // Getting title of the clicked news category.
             NewsCategory category = newsCategory.get(getAdapterPosition());
 
-            // Forming a Uri that points to "The Guardian" Section API endpoint.
-            URL clickedNewsUrl = NetworkUtils.makeNewsUrl(v.getContext(), context.getString(
-                    category.getSection()));
-
-            // Set Uri and Title to CategoryNewsClickListener.
-            categoryNewsClickListener.onNewsCategoryClick(clickedNewsUrl, context.getString(
-                    category.getTitle()));
+            // Sets the clicked NewsCategory's to CategoryNewsClickListener.
+            categoryNewsClickListener.onNewsCategoryClick(context.getString(category.getSection()),
+                    context.getString(category.getTitle()));
         }
     }
 }

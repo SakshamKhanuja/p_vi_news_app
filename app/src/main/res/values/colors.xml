@@ -59,4 +59,7 @@
 
     <!-- Colors the News Section Name in "news_item" layout -->
     <color name="colorSectionName">#BDBDBD</color>
+
+    <!-- Colors the "See More" TextView in "fragment_headline" -->
+    <color name="colorSeeMore">#424242</color>
 </resources>

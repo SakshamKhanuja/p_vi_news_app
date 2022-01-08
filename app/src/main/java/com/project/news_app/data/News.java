@@ -35,14 +35,6 @@ public class News {
 
     /**
      * Stores the layout in which news info. gets displayed.
-     * <p>
-     * Default number of news items present in a single page in "The Guardian" Section's API
-     * Endpoint is 10, which matches the size of all hard-coded patterns in
-     * {@link CategoryActivityConstants}.
-     * <p>
-     * In-case changes are made to the api end-point itself, and the default number
-     * of news items per page turns to be greater than 10, items having index
-     * greater than 10 are set have view type - {@link NewsAdapterConstants#TYPE_FOUR}.
      */
     private int viewType = NewsAdapterConstants.TYPE_FOUR;
 
