@@ -1,65 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Colors the Status Bar -->
-    <color name="colorPrimaryDark">#374347</color>
+    <color name="colorPrimaryDark">@color/colorPrimary</color>
 
     <!-- Colors the Action Bar -->
-    <color name="colorPrimary">#46555A</color>
+    <color name="colorPrimary">#0D0D0D</color>
 
     <!-- Colors the activated framework components -->
-    <color name="colorAccent">@android:color/black</color>
+    <color name="colorAccent">@color/colorDarkest</color>
 
-    <!-- Colors the text of news categories in "fragment_category" -->
-    <color name="colorCategoryName">@android:color/white</color>
+    <!-- Colors TextViews under News/Podcast/NewsFeed -->
+    <color name="colorLightest">@android:color/white</color>
+    <color name="colorLight">#BDBDBD</color>
+    <color name="colorDark">#424242</color>
+    <color name="colorDarker">#212121</color>
+    <color name="colorDarkerII">#171717</color>
+    <color name="colorDarkest">@android:color/black</color>
+    <color name="colorRippleLight">#39FFFFFF</color>
 
-    <!-- Colors the background of title in CategoryFragment -->
-    <color name="colorBackgroundCategoryItem">#212121</color>
-
-    <!-- Colors the ripple of item in CategoryFragment -->
-    <color name="colorRippleTitle">#39FFFFFF</color>
-
-    <!-- Colors the background of every screen -->
-    <color name="colorBackground">@android:color/white</color>
-
-    <!-- Colors the selected menu item in BottomNavigationView -->
-    <color name="colorBottomActive">#ff847c</color>
-
-    <!-- Colors menu items in BottomNavigationView -->
-    <color name="colorBottomInactive">#757575</color>
-
-    <!-- Colors the ripple in BottomNavigationView -->
-    <color name="colorBottomRipple">#212121</color>
-
-    <!-- Colors the background of CategoryFragment -->
-    <color name="colorBackgroundDivider">#171717</color>
-
-    <!-- Colors the placeholder of News thumbnail -->
-    <color name="colorPlaceholder">#E0E0E0</color>
-
-    <!-- Colors the background of "fragment_headline" layout -->
-    <color name="colorFragmentHeadline">#C62828</color>
-
-    <!-- Colors the background of "fragment_user" layout -->
-    <color name="colorFragmentSettings">#F57F17</color>
-
-    <!-- Colors the News Category Title Bar under "News" Category -->
-    <color name="colorNewsCategoryNews">#FF4E36</color>
-
-    <!-- Colors the News Category Title Bar under "Opinion" Category -->
-    <color name="colorNewsCategoryOpinion">#FF7F0F</color>
-
-    <!-- Colors the News Category Title Bar under "Sport" Category -->
-    <color name="colorNewsCategorySport">#00B2FF</color>
-
-    <!-- Colors the News Category Title Bar under "Culture" Category -->
-    <color name="colorNewsCategoryCulture">#EACCA0</color>
-
-    <!-- Colors the News Category Title Bar under "Lifestyle" Category -->
-    <color name="colorNewsCategoryLifestyle">#FFABDB</color>
-
-    <!-- Colors the News Section Name in "news_item" layout -->
-    <color name="colorSectionName">#BDBDBD</color>
-
-    <!-- Colors the "See More" TextView in "fragment_headline" -->
-    <color name="colorSeeMore">#424242</color>
+    <!-- Colors the icons and text of BottomNavigationView -->
+    <color name="colorBottomNavSelected">@color/colorLightest</color>
+    <color name="colorBottomNavNotSelected">#808080</color>
 </resources>

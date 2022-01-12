@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorDarker"
+    android:orientation="vertical">
+
+    <!-- Shows the news category title -->
+    <TextView
+        android:id="@+id/text_title"
+        style="@style/ItemView"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@drawable/ripple_dark"
+        android:gravity="center_vertical"
+        android:paddingHorizontal="@dimen/paddingMedium"
+        android:textSize="@dimen/textSizeMedium"
+        tools:text="@string/category_title_global_development" />
+
+    <!-- News Title Divider -->
+    <View
+        android:id="@+id/view_divider"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/widthLineHorizontal"
+        android:layout_marginStart="@dimen/marginMedium"
+        android:background="@color/colorDarkerII" />
+</LinearLayout>

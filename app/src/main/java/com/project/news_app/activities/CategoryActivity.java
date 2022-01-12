@@ -8,21 +8,17 @@ import androidx.loader.content.AsyncTaskLoader;
 import androidx.loader.content.Loader;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
-import android.widget.Toast;
 
-import com.project.news_app.R;
 import com.project.news_app.adapters.NewsAdapter;
 import com.project.news_app.constants.CategoryActivityConstants;
 import com.project.news_app.constants.NetworkUtilsConstants;
 import com.project.news_app.data.News;
-import com.project.news_app.databinding.BasicRecyclerViewLayoutBinding;
+import com.project.news_app.databinding.BasicRecyclerViewLightBinding;
 import com.project.news_app.utils.JsonUtils;
 import com.project.news_app.utils.NetworkUtils;
 import com.project.news_app.fragments.CategoryFragment;
@@ -33,8 +29,7 @@ import java.util.ArrayList;
  * Activity shows news category clicked in {@link CategoryFragment} Fragment.
  */
 public class CategoryActivity extends AppCompatActivity implements
-        LoaderManager.LoaderCallbacks<ArrayList<News>>, CategoryActivityConstants,
-        NewsAdapter.NewsItemClickListener {
+        LoaderManager.LoaderCallbacks<ArrayList<News>>, CategoryActivityConstants {
 
     // Stores the path that locates the clicked News category in "The Guardian" API.
     private String mPath;
@@ -44,9 +39,6 @@ public class CategoryActivity extends AppCompatActivity implements
 
     // Adapter provides News items to RecyclerView.
     private NewsAdapter mAdapter;
-
-    // Notifies the unavailability of Browser in user's app.
-    private Toast mToast;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,8 +68,8 @@ public class CategoryActivity extends AppCompatActivity implements
         }
 
         // Setting content view.
-        BasicRecyclerViewLayoutBinding binding =
-                BasicRecyclerViewLayoutBinding.inflate((LayoutInflater) getSystemService(
+        BasicRecyclerViewLightBinding binding =
+                BasicRecyclerViewLightBinding.inflate((LayoutInflater) getSystemService(
                         Context.LAYOUT_INFLATER_SERVICE));
         setContentView(binding.getRoot());
 
@@ -87,14 +79,14 @@ public class CategoryActivity extends AppCompatActivity implements
         // Linking LayoutManager to RecyclerView.
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this,
                 LinearLayoutManager.VERTICAL, false);
-        binding.recyclerView.setLayoutManager(linearLayoutManager);
+        binding.recyclerViewLight.setLayoutManager(linearLayoutManager);
 
         // Optimizes RecyclerView.
-        binding.recyclerView.setHasFixedSize(true);
+        binding.recyclerViewLight.setHasFixedSize(true);
 
         // Linking Adapter to RecyclerView.
-        mAdapter = new NewsAdapter(null, this);
-        binding.recyclerView.setAdapter(mAdapter);
+        mAdapter = new NewsAdapter(null);
+        binding.recyclerViewLight.setAdapter(mAdapter);
 
         // Downloading clicked news category data in a background Thread.
         LoaderManager.getInstance(this).initLoader(0, null, this);
@@ -243,31 +235,5 @@ public class CategoryActivity extends AppCompatActivity implements
     public void onLoaderReset(@NonNull Loader<ArrayList<News>> loader) {
         // Clearing up the NewsAdapter.
         mAdapter.setNewsData(null);
-    }
-
-    /**
-     * Shows a {@link Toast} containing custom messages. Method also removes the currently showing
-     * Toast if any.
-     *
-     * @param messageID String resource containing a custom message.
-     */
-    private void showToast(int messageID) {
-        // Cancels the current showing Toast.
-        if (mToast != null) {
-            mToast.cancel();
-        }
-
-        // Sets new message and displays the Toast.
-        mToast = Toast.makeText(this, messageID, Toast.LENGTH_SHORT);
-        mToast.show();
-    }
-
-    @Override
-    public void onNewsItemClick(Uri webPage) {
-        try {
-            startActivity(new Intent(Intent.ACTION_VIEW, webPage));
-        } catch (ActivityNotFoundException e) {
-            showToast(R.string.toast_browser_unavailable);
-        }
     }
 }

@@ -107,6 +107,11 @@ public interface NetworkUtilsConstants {
     String RESPONSE_UNKNOWN = "Error";
 
     /**
+     * Path points to the "World News" section of "The Guardian" api.
+     */
+    String PATH_WORLD = "world";
+
+    /**
      * Path points to the "US News" section of "The Guardian" api.
      */
     String PATH_US = "us-news";
@@ -120,6 +125,11 @@ public interface NetworkUtilsConstants {
      * Path points to the "Australia News" section of "The Guardian" api.
      */
     String PATH_AUS = "australia-news";
+
+    /**
+     * Path points to the "Editorial" section of "The Guardian" api.
+     */
+    String PATH_GUARDIAN = "profile/editorial";
 
     /**
      * Number of how many episodes under "Today in Focus" podcast to be downloaded.

@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Name of the app visible in LAUNCHER -->
     <string name="app_name">News App</string>
@@ -8,20 +9,35 @@
     <!-- Toasts text when browser is not installed in user's device -->
     <string name="toast_browser_unavailable">Browser was not available.</string>
 
-    <!-- Labels US News in "fragment_headline" -->
-    <string name="top_story_us">US Top Story</string>
+    <!-- Labels World News MainScreenFragment -->
+    <string name="top_story_world">World</string>
 
-    <!-- Labels UK News in "fragment_headline" -->
-    <string name="top_story_uk">UK Top Story</string>
+    <!-- Labels US News in MainScreenFragment -->
+    <string name="top_story_us">US</string>
 
-    <!-- Labels Australia News in "fragment_headline" -->
-    <string name="top_story_aus">Australia Top Story</string>
+    <!-- Labels UK News in MainScreenFragment -->
+    <string name="top_story_uk">UK</string>
+
+    <!-- Labels Australia News in MainScreenFragment -->
+    <string name="top_story_aus">Australia</string>
+
+    <!-- Title for Word News -->
+    <string name="title_world_news">World News</string>
+
+    <!-- Title for US News -->
+    <string name="title_us_news">US News</string>
+
+    <!-- Title for UK News -->
+    <string name="title_uk_news">UK News</string>
+
+    <!-- Title for Australia News -->
+    <string name="title_aus_news">Australia News</string>
 
     <!-- Chip to open Google Podcasts -->
     <string name="chip_google">Google Podcasts</string>
 
     <!-- Indicates user to show more news on this category -->
-    <string name="label_more">See More</string>
+    <string name="labelSeeMore">See More</string>
 
     <!-- Chip to open Spotify -->
     <string name="chip_spotify">Spotify</string>
@@ -30,7 +46,7 @@
     <string name="podcast_title">Today in Focus</string>
 
     <!-- About Guardian Podcast -->
-    <string name="podcast_about">Hosted by Nosheen Iqbal and Michael Safi, Today in Focus brings you closer to Guardian journalism. Combining personal storytelling with insightful analysis, this podcast takes you behind the headlines for a deeper understanding of the news, every weekday.</string>
+    <string name="podcast_about">Hosted by Nosheen Iqbal and Michael Safi, Today in Focus brings you closer to Guardian journalism. Combining personal storytelling with insightful analysis, this podcast takes you behind the newsFeeds for a deeper understanding of the news, every weekday.</string>
 
     <!-- Bottom Navigation View Title Headlines -->
     <string name="bottom_headlines">Headlines</string>
@@ -41,26 +57,11 @@
     <!-- Bottom Navigation View Title Podcast -->
     <string name="bottom_podcast">Podcast</string>
 
-    <!-- Bottom Navigation View Title User -->
-    <string name="bottom_user">For You</string>
-
-    <!-- Labels "fragment_headline" -->
-    <string name="text_headline">Headline Fragment</string>
-
-    <!-- Labels "fragment_user" -->
-    <string name="text_for_you">For You Fragment</string>
-
     <!-- Default Content Description -->
     <string name="content_description_news_title">Image</string>
 
-    <!-- Notifies user of no data availability -->
-    <string name="label_no_data_available">No Data Available</string>
-
     <!-- Category Title - News -->
     <string name="title_news">News</string>
-
-    <!-- Category Title - Opinion -->
-    <string name="title_opinion">Opinion</string>
 
     <!-- Category Title - Sport -->
     <string name="title_sport">Sport</string>
@@ -91,12 +92,6 @@
 
     <!-- News Category - Business - Path (Section) -->
     <string name="category_path_business">business</string>
-
-    <!-- News Category - Cartoons - Title -->
-    <string name="category_title_cartoons">Cartoons</string>
-
-    <!-- News Category - Cartoons - Path (Section) -->
-    <string name="category_path_cartoons">cartoons/archive</string>
 
     <!-- News Category - Classical Music and Opera - Title -->
     <string name="category_title_classical_music_and_opera">Classical</string>
@@ -135,10 +130,7 @@
     <string name="category_path_cycling">sport/cycling</string>
 
     <!-- News Category - Editorial - Title -->
-    <string name="category_title_editorial">The Guardian View</string>
-
-    <!-- News Category - Editorial - Path (Section) -->
-    <string name="category_path_editorial">profile/editorial</string>
+    <string name="title_editorial_news">Editorial</string>
 
     <!-- News Category - Education - Title -->
     <string name="category_title_education">Education</string>
@@ -212,12 +204,6 @@
     <!-- News Category - Games - Path (Section) -->
     <string name="category_path_health_and_fitness">lifeandstyle/health-and-wellbeing</string>
 
-    <!-- News Category - Letters - Title -->
-    <string name="category_title_letters">Letters</string>
-
-    <!-- News Category - Letters - Path (Section) -->
-    <string name="category_path_letters">tone/letters</string>
-
     <!-- News Category - Men - Title -->
     <string name="category_title_men">Men</string>
 
@@ -231,7 +217,7 @@
     <string name="category_path_money">money</string>
 
     <!-- News Category - Music - Title -->
-    <string name="category_title_Music">Music</string>
+    <string name="category_title_music">Music</string>
 
     <!-- News Category - Music - Path (Section) -->
     <string name="category_path_music">music</string>
@@ -247,18 +233,6 @@
 
     <!-- News Category - Opinion - Path (Section) -->
     <string name="category_path_opinion">commentisfree</string>
-
-    <!-- News Category - Pictures - Title -->
-    <string name="category_title_pictures">Pictures</string>
-
-    <!-- News Category - Pictures - Path (Section) -->
-    <string name="category_path_pictures">inpictures</string>
-
-    <!-- News Category - Podcasts - Title -->
-    <string name="category_title_podcasts">Podcasts</string>
-
-    <!-- News Category - Politics - Path (Section) -->
-    <string name="category_path_podcasts">podcasts</string>
 
     <!-- News Category - Politics - Title -->
     <string name="category_title_politics">Politics</string>
@@ -325,10 +299,4 @@
 
     <!-- News Category - Women - Path (Section) -->
     <string name="category_path_women">lifeandstyle/women</string>
-
-    <!-- News Category - World News - Title -->
-    <string name="category_title_world_news">World News</string>
-
-    <!-- News Category - World News - Path (Section) -->
-    <string name="category_path_world_news">world</string>
 </resources>

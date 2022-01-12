@@ -1,65 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Default Padding -->
-    <dimen name="padding_default">16dp</dimen>
+    <!-- Padding -->
+    <dimen name="paddingSmallest">4dp</dimen>
+    <dimen name="paddingSmall">8dp</dimen>
+    <dimen name="paddingMedium">16dp</dimen>
 
-    <!-- Padding Small -->
-    <dimen name="padding_small">8dp</dimen>
+    <!-- Margin -->
+    <dimen name="marginCompact">4dp</dimen>
+    <dimen name="marginSmall">8dp</dimen>
+    <dimen name="marginMedium">16dp</dimen>
+    <dimen name="marginLarge">24dp</dimen>
 
-    <!-- Default Margin -->
-    <dimen name="margin_default">16dp</dimen>
+    <!-- Text -->
+    <dimen name="textSizeSmaller">12sp</dimen>
+    <dimen name="textSizeSmall">14sp</dimen>
+    <dimen name="textSizeMedium">16sp</dimen>
+    <dimen name="textSizeMediumII">18sp</dimen>
+    <dimen name="textSizeLarge">24sp</dimen>
 
-    <!-- Margin Small -->
-    <dimen name="margin_small">8dp</dimen>
+    <!-- Space -->
+    <dimen name="spaceSmallest">2dp</dimen>
+    <dimen name="spaceSmaller">4dp</dimen>
+    <dimen name="spaceSmall">8dp</dimen>
+    <dimen name="spaceSmallII">12dp</dimen>
+    <dimen name="spaceMedium">16dp</dimen>
 
-    <!-- Text size of news categories in "fragment_category" -->
-    <dimen name="category_text_size">16sp</dimen>
+    <!-- Width and Height of News/Podcast Items -->
+    <dimen name="heightThumbnailSmallest">75dp</dimen>
+    <dimen name="heightThumbnailSmall">80dp</dimen>
+    <dimen name="heightThumbnailMedium">150dp</dimen>
+    <dimen name="heightThumbnailMediumII">200dp</dimen>
+    <dimen name="heightThumbnailLarge">250dp</dimen>
+    <dimen name="widthThumbnailSmallest">75dp</dimen>
+    <dimen name="widthThumbnailSmall">120dp</dimen>
+    <dimen name="widthThumbnailSmallII">200dp</dimen>
+    <dimen name="widthThumbnailMedium">250dp</dimen>
+    <dimen name="widthThumbnailLarge">350dp</dimen>
 
-    <!-- Text size of news category title in "fragment_category" -->
-    <dimen name="category_title_text_size">24sp</dimen>
-
-    <!-- Elevation of layout item -->
-    <dimen name="elevation_item">4dp</dimen>
-
-    <!-- Size of category color bar -->
-    <dimen name="category_color_size">4dp</dimen>
-
-    <!-- Category Gap -->
-    <dimen name="category_gap">16dp</dimen>
-
-    <!-- News Title Padding in "category_item" -->
-    <dimen name="padding_title">24dp</dimen>
-
-    <!-- News thumbnail height -->
-    <dimen name="thumbnail_height">250dp</dimen>
-
-    <!-- Text size of section name -->
-    <dimen name="text_size_section_name">12sp</dimen>
-
-    <!-- Text size of author info -->
-    <dimen name="text_size_by_line">15sp</dimen>
-
-    <!-- Size of news thumbnail's width in "news_item" layout -->
-    <dimen name="thumbnail_width_rest">120dp</dimen>
-
-    <!-- Size of news thumbnail's height in "news_item" layout -->
-    <dimen name="thumbnail_height_rest">80dp</dimen>
-
-    <!-- Size of horizontal margin in "news_item_main" and "news_item" layout -->
-    <dimen name="margin_horizontal_news_item">24dp</dimen>
-
-    <!-- Top margin of TextViews in "news_item" layout -->
-    <dimen name="margin_top_news_attribute">4dp</dimen>
-
-    <!-- Top margin of TextViews in "news_item_main" layout -->
-    <dimen name="margin_top_news_attribute_main">8dp</dimen>
-
-    <!-- Width of vertical divider line -->
-    <dimen name="width_vertical_line">2dp</dimen>
-
-    <!-- Spacing for headline in "news_item_one" and "news_item_two" layout -->
-    <dimen name="spacing_headline">4dp</dimen>
-
-    <!-- Size of the news feed's height in "fragment_headline" layout -->
-    <dimen name="height_feed">250dp</dimen>
+    <!-- Dividers -->
+    <dimen name="widthLineVertical">2dp</dimen>
+    <dimen name="widthLineHorizontal">1dp</dimen>
 </resources>

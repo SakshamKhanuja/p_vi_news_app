@@ -4,20 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginHorizontal="@dimen/margin_small"
+    android:layout_marginHorizontal="@dimen/marginSmall"
     android:background="?attr/selectableItemBackground"
-    android:paddingVertical="@dimen/padding_small">
+    android:paddingVertical="@dimen/paddingSmall">
 
     <!-- Shows news headline -->
     <TextView
         android:id="@+id/text_headline_one"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_default"
-        android:layout_marginEnd="@dimen/margin_horizontal_news_item"
-        android:lineSpacingExtra="@dimen/spacing_headline"
-        android:textColor="@android:color/black"
-        android:textSize="@dimen/category_text_size"
+        android:layout_marginStart="@dimen/marginMedium"
+        android:layout_marginEnd="@dimen/marginLarge"
+        android:lineSpacingExtra="@dimen/spaceSmaller"
+        android:textColor="@color/colorDarkest"
+        android:textSize="@dimen/textSizeMedium"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/line_vertical"
@@ -27,12 +27,11 @@
     <!-- Vertical Divider -->
     <View
         android:id="@+id/line_vertical"
-        android:layout_width="@dimen/width_vertical_line"
+        android:layout_width="@dimen/widthLineVertical"
         android:layout_height="0dp"
-        android:layout_marginStart="@dimen/margin_default"
-        android:background="@color/colorBackgroundCategoryItem"
+        android:layout_marginStart="@dimen/marginMedium"
+        android:background="@color/colorDarker"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

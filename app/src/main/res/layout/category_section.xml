@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <View
+        android:id="@+id/section_divider"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/spaceSmallII"
+        android:background="@color/colorDarkerII" />
+
+    <TextView
+        android:id="@+id/text_section"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorDarker"
+        android:paddingHorizontal="@dimen/paddingMedium"
+        android:paddingTop="@dimen/paddingMedium"
+        android:paddingBottom="@dimen/paddingSmallest"
+        android:textColor="@color/colorLightest"
+        android:textSize="@dimen/textSizeMediumII"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="News" />
+</LinearLayout>

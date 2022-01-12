@@ -2,13 +2,13 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="?attr/selectableItemBackground"
+    android:background="@drawable/ripple_dark"
     style="@style/ContainerBetween">
 
     <!-- Shows news thumbnail -->
     <ImageView
-        android:id="@+id/image_thumbnail_six"
-        style="@style/ThumbnailDefault"
+        android:id="@+id/image_thumbnail_nine"
+        style="@style/ThumbnailEditorial"
         android:layout_marginStart="@dimen/marginSmall"
         android:layout_marginTop="@dimen/marginSmall"
         android:layout_marginEnd="@dimen/marginSmall"
@@ -21,8 +21,8 @@
 
     <!-- Shows news headline -->
     <TextView
-        android:id="@+id/text_headline_six"
-        style="@style/HeadlineFeedDefault"
+        android:id="@+id/text_headline_nine"
+        style="@style/HeadlineFeedEditorial"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/marginSmall"
@@ -30,21 +30,22 @@
         android:layout_marginEnd="@dimen/marginSmall"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/image_thumbnail_six"
+        app:layout_constraintTop_toBottomOf="@+id/image_thumbnail_nine"
         tools:text="Jos Buttler insists he has no plans to retire from Test cricket after Ashes" />
 
     <!-- Shows article author info. -->
     <TextView
-        android:id="@+id/text_by_line_six"
-        style="@style/AuthorFeedDefault"
+        android:id="@+id/text_by_line_nine"
+        style="@style/AuthorFeeEditorial"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/marginSmall"
         android:layout_marginTop="@dimen/marginCompact"
         android:layout_marginEnd="@dimen/marginSmall"
         android:layout_marginBottom="@dimen/marginSmall"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/text_headline_six"
-        app:layout_constraintTop_toBottomOf="@+id/text_headline_six"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_headline_nine"
         tools:text="By Ali Martin in Sydney" />
 </androidx.constraintlayout.widget.ConstraintLayout>

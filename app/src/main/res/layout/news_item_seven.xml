@@ -3,11 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:background="?attr/selectableItemBackground"
-    style="@style/ContainerBetween">
+    style="@style/ContainerStart">
 
     <!-- Shows news thumbnail -->
     <ImageView
-        android:id="@+id/image_thumbnail_six"
+        android:id="@+id/image_thumbnail_seven"
         style="@style/ThumbnailDefault"
         android:layout_marginStart="@dimen/marginSmall"
         android:layout_marginTop="@dimen/marginSmall"
@@ -21,7 +21,7 @@
 
     <!-- Shows news headline -->
     <TextView
-        android:id="@+id/text_headline_six"
+        android:id="@+id/text_headline_seven"
         style="@style/HeadlineFeedDefault"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -30,21 +30,22 @@
         android:layout_marginEnd="@dimen/marginSmall"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/image_thumbnail_six"
+        app:layout_constraintTop_toBottomOf="@+id/image_thumbnail_seven"
         tools:text="Jos Buttler insists he has no plans to retire from Test cricket after Ashes" />
 
     <!-- Shows article author info. -->
     <TextView
-        android:id="@+id/text_by_line_six"
+        android:id="@+id/text_by_line_seven"
         style="@style/AuthorFeedDefault"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/marginSmall"
         android:layout_marginTop="@dimen/marginCompact"
         android:layout_marginEnd="@dimen/marginSmall"
         android:layout_marginBottom="@dimen/marginSmall"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/text_headline_six"
-        app:layout_constraintTop_toBottomOf="@+id/text_headline_six"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_headline_seven"
         tools:text="By Ali Martin in Sydney" />
 </androidx.constraintlayout.widget.ConstraintLayout>

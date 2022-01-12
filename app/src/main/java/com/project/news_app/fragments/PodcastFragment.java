@@ -33,13 +33,13 @@ public class PodcastFragment extends Fragment implements
     // Required Default Constructor.
     public PodcastFragment() {
         // Providing a layout to inflate.
-        super(R.layout.basic_recycler_view_layout);
+        super(R.layout.basic_recycler_view_dark);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         // Initializing RecyclerView.
-        RecyclerView recyclerView = view.findViewById(R.id.recycler_view);
+        RecyclerView recyclerView = view.findViewById(R.id.recycler_view_dark);
 
         // Linking LayoutManager to RecyclerView.
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(),
@@ -86,7 +86,14 @@ public class PodcastFragment extends Fragment implements
                                 NetworkUtilsConstants.SIZE_PODCAST));
 
                 // Parses JSON response to a list of type Podcast.
-                return JsonUtils.parsePodcastList(jsonResponse);
+                ArrayList<Podcast> podcasts = JsonUtils.parsePodcastList(jsonResponse);
+
+                // Adding a head layout to "podcasts".
+                Podcast head = new Podcast();
+                head.setViewType(PodcastAdapter.PODCAST_ABOUT);
+                podcasts.add(0, head);
+
+                return podcasts;
             }
 
             @Override

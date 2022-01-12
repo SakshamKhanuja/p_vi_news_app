@@ -1,7 +1,6 @@
 package com.project.news_app.data;
 
 import com.project.news_app.constants.NewsAdapterConstants;
-import com.project.news_app.constants.CategoryActivityConstants;
 import com.project.news_app.constants.JsonUtilsConstants;
 
 /**
@@ -31,7 +30,7 @@ public class News {
     private String date;
 
     // Stores the image url.
-    private String thumbnail;
+    private String thumbnailUrl;
 
     /**
      * Stores the layout in which news info. gets displayed.
@@ -83,8 +82,8 @@ public class News {
     /**
      * Sets the thumbnail URL for this News.
      */
-    public void setThumbnail(String thumbnail) {
-        this.thumbnail = thumbnail;
+    public void setThumbnailUrl(String thumbnailUrl) {
+        this.thumbnailUrl = thumbnailUrl;
     }
 
     /**
@@ -139,8 +138,8 @@ public class News {
     /**
      * @return Article's thumbnail.
      */
-    public String getThumbnail() {
-        return thumbnail;
+    public String getThumbnailUrl() {
+        return thumbnailUrl;
     }
 
     /**

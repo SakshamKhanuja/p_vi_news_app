@@ -29,6 +29,9 @@ public class Podcast {
     // Stores a URL in String format that points to thumbnail for this podcast.
     private String thumbnailUrl;
 
+    // Stores the layout in which this feed gets displayed.
+    private int viewType = PodcastAdapter.PODCAST_DEFAULT;
+
     /**
      * Stores status whether a CardView item in {@link PodcastAdapter} is EXPANDED or COLLAPSED.
      * <p>
@@ -88,6 +91,13 @@ public class Podcast {
     }
 
     /**
+     * @param viewType Sets the view type in which this News feed gets displayed.
+     */
+    public void setViewType(int viewType) {
+        this.viewType = viewType;
+    }
+
+    /**
      * @return The podcast headline.
      */
     public String getHeadline() {
@@ -134,5 +144,12 @@ public class Podcast {
      */
     public boolean isExpanded() {
         return expanded;
+    }
+
+    /**
+     * @return Layout in which the News feed gets displayed.
+     */
+    public int getViewType() {
+        return viewType;
     }
 }

@@ -26,11 +26,7 @@ import com.project.news_app.data.Podcast;
 
 import java.util.ArrayList;
 
-/**
- * Provides {@link PodcastViewHolder} ViewHolder inflated from {@link R.layout#podcast_item}
- * item view layout to {@link R.id#recycler_view} RecyclerView.
- */
-public class PodcastAdapter extends RecyclerView.Adapter<PodcastAdapter.PodcastViewHolder> {
+public class PodcastAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     // Used to load images via Glide library.
     private Context mContext;
@@ -38,25 +34,56 @@ public class PodcastAdapter extends RecyclerView.Adapter<PodcastAdapter.PodcastV
     // Stores downloaded podcasts info.
     private ArrayList<Podcast> podcasts;
 
+    /**
+     * View type inflated from {@link R.layout#podcast_item} layout.
+     */
+    public static final int PODCAST_DEFAULT = 1;
+
+    /**
+     * View type inflated from {@link R.layout#podcast_about} layout.
+     */
+    public static final int PODCAST_ABOUT = 2;
+
     public PodcastAdapter(ArrayList<Podcast> podcasts) {
         this.podcasts = podcasts;
     }
 
     @NonNull
     @Override
-    public PodcastViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         // Setting Context.
         mContext = parent.getContext();
 
-        // Inflating "podcast_item" layout in order to initialize PodcastViewHolder instance.
-        return new PodcastViewHolder(LayoutInflater.from(mContext)
-                .inflate(R.layout.podcast_item, parent, false));
+        LayoutInflater layoutInflater = LayoutInflater.from(mContext);
+
+        switch (viewType) {
+            case PODCAST_ABOUT:
+                // Shows info. about the "Today in Focus" podcast.
+                return new PodcastAboutViewHolder(layoutInflater.inflate(R.layout.podcast_about,
+                        parent, false));
+
+            case PODCAST_DEFAULT:
+            default:
+                /*
+                 * Shows info. about the episode's title, thumbnail, date of recording, summary,
+                 * and all links.
+                 */
+                return new PodcastViewHolder(layoutInflater.inflate(R.layout.podcast_item, parent,
+                        false));
+        }
     }
 
     @Override
-    public void onBindViewHolder(@NonNull PodcastViewHolder holder, int position) {
-        // Binds podcast data with "podcast_item" layout.
-        holder.setPodcastData(podcasts.get(position), position);
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        // Binding episode info. for the podcast.
+        if (holder.getItemViewType() == PODCAST_DEFAULT) {
+            ((PodcastViewHolder) holder).setPodcastData(podcasts.get(position));
+        }
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return podcasts.get(position).getViewType();
     }
 
     @Override
@@ -84,6 +111,8 @@ public class PodcastAdapter extends RecyclerView.Adapter<PodcastAdapter.PodcastV
      * views.
      * <p>
      * It also provides click functionality to the RecyclerView holding news items.
+     * <br/>
+     * Layout resource - {@link R.layout#podcast_item}.
      */
     protected class PodcastViewHolder extends RecyclerView.ViewHolder {
 
@@ -102,9 +131,6 @@ public class PodcastAdapter extends RecyclerView.Adapter<PodcastAdapter.PodcastV
         // Indicates whether the card view is expanded or collapased.
         private final ImageView arrow;
 
-        // Contains Guardian podcast info.
-        private final ConstraintLayout headLayout;
-
         // Layout shows extra info. about the podcast.
         private final ConstraintLayout expandableLayout;
 
@@ -117,7 +143,6 @@ public class PodcastAdapter extends RecyclerView.Adapter<PodcastAdapter.PodcastV
             date = itemView.findViewById(R.id.podcast_date);
             about = itemView.findViewById(R.id.text_trail);
             arrow = itemView.findViewById(R.id.image_arrow);
-            headLayout = itemView.findViewById(R.id.head_layout);
             expandableLayout = itemView.findViewById(R.id.expandable_layout);
 
             // Opens up the podcast in the device's browser.
@@ -169,14 +194,7 @@ public class PodcastAdapter extends RecyclerView.Adapter<PodcastAdapter.PodcastV
          *
          * @param podcast Contains podcast info for item view.
          */
-        public void setPodcastData(Podcast podcast, int position) {
-
-            if (position == 0) {
-                headLayout.setVisibility(View.VISIBLE);
-            } else {
-                headLayout.setVisibility(View.GONE);
-            }
-
+        public void setPodcastData(Podcast podcast) {
             // Setting podcast thumbnail.
             String thumbnailUrl = podcast.getThumbnailUrl();
 
@@ -268,6 +286,17 @@ public class PodcastAdapter extends RecyclerView.Adapter<PodcastAdapter.PodcastV
 
             // Refreshes the clicked item to reload its contents with new expanded status.
             notifyItemChanged(getAdapterPosition());
+        }
+    }
+
+    /**
+     * Provides info. about "Today in Focus" podcast.
+     * <br/>
+     * Layout resource - {@link R.layout#podcast_about}
+     */
+    protected static class PodcastAboutViewHolder extends RecyclerView.ViewHolder {
+        public PodcastAboutViewHolder(View itemView) {
+            super(itemView);
         }
     }
 }

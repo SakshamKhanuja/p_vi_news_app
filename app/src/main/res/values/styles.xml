@@ -5,46 +5,146 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:colorBackground">@color/colorBackground</item>
     </style>
 
     <!-- Style BottomNavigationView -->
     <style name="BottomNav" parent="Widget.MaterialComponents.BottomNavigationView">
         <item name="backgroundTint">@color/colorPrimary</item>
-        <item name="itemRippleColor">@color/colorBottomRipple</item>
+        <item name="itemRippleColor">@color/colorDarker</item>
         <item name="itemIconTint">@color/bottom_navigation</item>
         <item name="itemTextColor">@color/bottom_navigation</item>
         <item name="menu">@menu/bottom_navigation</item>
         <item name="labelVisibilityMode">labeled</item>
     </style>
 
-    <!-- Fragment Category Text-->
-    <style name="FragmentLabel">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">match_parent</item>
-        <item name="android:gravity">center</item>
-        <item name="android:textSize">24sp</item>
-        <item name="android:textColor">@android:color/white</item>
-        <item name="android:textStyle">bold</item>
-    </style>
-
     <!-- TextView in "category_item" layout -->
     <style name="ItemView">
-        <item name="android:textColor">@color/colorCategoryName</item>
-        <item name="android:textSize">@dimen/category_title_text_size</item>
+        <item name="android:textColor">@color/colorLightest</item>
+        <item name="android:textSize">@dimen/textSizeLarge</item>
     </style>
 
     <!-- Chip Style-->
     <style name="ChipStyle" parent="Widget.MaterialComponents.Chip.Action">
-        <item name="android:textColor">@color/colorCategoryName</item>
-        <item name="chipBackgroundColor">@color/colorBackgroundDivider</item>
-        <item name="chipEndPadding">8dp</item>
+        <item name="android:textColor">@color/colorLightest</item>
+        <item name="chipBackgroundColor">@color/colorDarkerII</item>
+        <item name="chipEndPadding">@dimen/paddingSmall</item>
         <item name="chipMinHeight">36dp</item>
-        <item name="chipStartPadding">8dp</item>
-        <item name="chipStrokeColor">@color/colorCategoryName</item>
+        <item name="chipStartPadding">@dimen/paddingSmall</item>
+        <item name="chipStrokeColor">@color/colorLightest</item>
         <item name="chipStrokeWidth">1dp</item>
-        <item name="textEndPadding">8dp</item>
-        <item name="textStartPadding">8dp</item>
-        <item name="rippleColor">@color/colorRippleTitle</item>
+        <item name="textEndPadding">@dimen/paddingSmall</item>
+        <item name="textStartPadding">@dimen/paddingSmall</item>
+        <item name="rippleColor">@color/colorRippleLight</item>
+    </style>
+
+    <!-- News feed shown in HeadlineFragment -->
+    <style name="NewsFeedContainer">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingBottom">@dimen/paddingMedium</item>
+    </style>
+
+    <!-- Recycler View contains regional news feed -->
+    <style name="NewsFeedRecyclerView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/marginSmall</item>
+        <item name="android:overScrollMode">never</item>
+        <item name="android:scrollbars">none</item>
+    </style>
+
+    <!-- View having both width and height - "wrap_content" -->
+    <style name="BasicView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <!-- "See More" TextView -->
+    <style name="NewsFeedSeeMore" parent="BasicView">
+        <item name="android:text">@string/labelSeeMore</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/textSizeMedium</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:drawablePadding">@dimen/paddingSmall</item>
+    </style>
+
+    <!-- News Section -->
+    <style name="NewsSection">
+        <item name="android:letterSpacing">@fraction/letterSpacingLarge</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/textSizeSmaller</item>
+    </style>
+
+    <!-- Sets space at the start for news item having type - TYPE_SEVEN and TYPE_TEN -->
+    <style name="ContainerStart" parent="BasicView">
+        <item name="android:layout_marginStart">@dimen/spaceMedium</item>
+        <item name="android:layout_marginEnd">@dimen/spaceSmallest</item>
+    </style>
+
+    <!-- Sets space horizontally for news items having type - TYPE_SIX and TYPE_NINE -->
+    <style name="ContainerBetween" parent="BasicView">
+        <item name="android:layout_marginHorizontal">@dimen/spaceSmallest</item>
+    </style>
+
+    <!-- Sets space at the end of news item having type - TYPE_EIGHT and TYPE_ELEVEN -->
+    <style name="ContainerEnd" parent="BasicView">
+        <item name="android:layout_marginStart">@dimen/spaceSmallest</item>
+        <item name="android:layout_marginEnd">@dimen/spaceSmallII</item>
+    </style>
+
+    <!-- News Thumbnail -->
+    <style name="NewsThumbnail">
+        <item name="android:scaleType">centerCrop</item>
+    </style>
+
+    <!-- News thumbnail for feed - "US", "UK", and "Australia" -->
+    <style name="ThumbnailDefault" parent="NewsThumbnail">
+        <item name="android:layout_width">@dimen/widthThumbnailMedium</item>
+        <item name="android:layout_height">@dimen/heightThumbnailMedium</item>
+    </style>
+
+    <!-- News thumbnail for feed - "Editorial" -->
+    <style name="ThumbnailEditorial" parent="NewsThumbnail">
+        <item name="android:layout_width">@dimen/widthThumbnailLarge</item>
+        <item name="android:layout_height">@dimen/heightThumbnailMediumII</item>
+    </style>
+
+    <!-- News Headline -->
+    <style name="HeadlineStyle">
+        <item name="android:maxLines">@integer/maxLinesTwo</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/textSizeMedium</item>
+        <item name="android:lineSpacingExtra">@dimen/spaceSmallest</item>
+    </style>
+
+    <!-- News headline for feed - TYPE_SIX, TYPE_SEVEN, and TYPE_EIGHT -->
+    <style name="HeadlineFeedDefault" parent="HeadlineStyle">
+        <item name="android:textColor">@color/colorDarkest</item>
+    </style>
+
+    <!-- News headline for feed - TYPE_NINE, TYPE_TEN, and TYPE_ELEVEN -->
+    <style name="HeadlineFeedEditorial" parent="HeadlineStyle">
+        <item name="android:textColor">@color/colorLightest</item>
+    </style>
+
+    <!-- News Author -->
+    <style name="AuthorStyle">
+        <item name="android:maxLines">@integer/maxLinesOne</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textSize">@dimen/textSizeSmaller</item>
+        <item name="android:letterSpacing">@fraction/letterSpacingSmall</item>
+    </style>
+
+    <!-- News author info. for feed - TYPE_SIX, TYPE_SEVEN, and TYPE_EIGHT -->
+    <style name="AuthorFeedDefault" parent="AuthorStyle">
+        <item name="android:textColor">@color/colorDark</item>
+    </style>
+
+    <!-- News author info. for TYPE_NINE, TYPE_TEN, and TYPE_ELEVEN -->
+    <style name="AuthorFeeEditorial" parent="AuthorStyle">
+        <item name="android:textColor">@color/colorLight</item>
     </style>
 </resources>

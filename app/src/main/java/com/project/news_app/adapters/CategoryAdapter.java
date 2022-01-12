@@ -1,187 +1,167 @@
 package com.project.news_app.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.project.news_app.R;
-import com.project.news_app.data.NewsCategory;
 import com.project.news_app.activities.CategoryActivity;
+import com.project.news_app.data.Category;
+import com.project.news_app.R;
 
 import java.util.ArrayList;
 
-/**
- * Provides {@link CategoryViewHolder} inflated from {@link R.layout#category_item}
- * item view layout to {@link R.id#recycler_view} RecyclerView.
- */
-public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder> {
+public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     // Stores news categories info.
-    private final ArrayList<NewsCategory> newsCategory;
+    private final ArrayList<Category> categories;
 
     // Used for accessing String resources.
-    private Context mContext;
+    private Context context;
 
     /**
-     * Provides click functionality to open up clicked news category in {@link CategoryActivity}.
+     * View type inflated from {@link R.layout#category_title} layout.
      */
-    private final CategoryNewsClickListener categoryNewsClickListener;
-
-    // Provides click functionality to News category items.
-    public interface CategoryNewsClickListener {
-        /**
-         * Opens {@link CategoryActivity} to load news feed.
-         *
-         * @param path  Locates the clicked news entry feed in "The Guardian" API.
-         * @param title Title of clicked news section.
-         */
-        void onNewsCategoryClick(String path, String title);
-    }
+    public static final int CATEGORY_TITLE = 1;
 
     /**
-     * Initializes Adapter providing {@link CategoryViewHolder} to the linked RecyclerView.
-     *
-     * @param newsCategory              Contains all news category info.
-     * @param categoryNewsClickListener Provides click functionality for items in the adapter.
+     * View type inflated from {@link R.layout#category_section} layout.
      */
-    public CategoryAdapter(ArrayList<NewsCategory> newsCategory,
-                           CategoryNewsClickListener categoryNewsClickListener) {
-        this.newsCategory = newsCategory;
-        this.categoryNewsClickListener = categoryNewsClickListener;
+    public static final int CATEGORY_SECTION = 2;
+
+    public CategoryAdapter(ArrayList<Category> categories) {
+        this.categories = categories;
     }
 
     @NonNull
     @Override
-    public CategoryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        // Setting Context.
-        mContext = parent.getContext();
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        // Sets context.
+        context = parent.getContext();
 
-        // Initializing LayoutInflater to inflate "category_item" layout.
-        LayoutInflater layoutInflater = (LayoutInflater) mContext.getSystemService(
-                Context.LAYOUT_INFLATER_SERVICE);
+        // Inflates views from layout.
+        LayoutInflater layoutInflater = LayoutInflater.from(context);
 
-        // Initialize ViewHolder provided to linked RecyclerView.
-        return new CategoryViewHolder(layoutInflater.inflate(R.layout.category_item, parent,
-                false));
+        switch (viewType) {
+            case CATEGORY_SECTION:
+                // Shows the section under which the news title belongs.
+                return new CategorySectionHolder(layoutInflater.inflate(R.layout.category_section,
+                        parent, false));
+
+            case CATEGORY_TITLE:
+            default:
+                // Shows the news title.
+                return new CategoryTitleHolder(layoutInflater.inflate(R.layout.category_title,
+                        parent, false));
+        }
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CategoryViewHolder holder, int position) {
-        // Get the category at specified position.
-        NewsCategory currentCategory = newsCategory.get(position);
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        switch (holder.getItemViewType()) {
+            case CATEGORY_TITLE:
+                ((CategoryTitleHolder) holder).setData(categories.get(position));
+                break;
 
-        // Binding data to item views.
-        holder.setNewsCategory(currentCategory);
-        holder.setNewsTitle(currentCategory);
+            case CATEGORY_SECTION:
+                ((CategorySectionHolder) holder).setData(categories.get(position), position);
+                break;
+        }
     }
 
     @Override
     public int getItemCount() {
-        // Total number of items in this Adapter.
-        return newsCategory.size();
+        // Number of news categories.
+        return categories.size();
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return categories.get(position).getViewType();
     }
 
     /**
-     * Class describes {@link R.layout#category_item} item view and is responsible for caching
-     * views. It also provides click functionality to the RecyclerView holding news categories.
-     * <p>
-     * Hence, when user clicks on any item, {@link CategoryActivity} Activity is opened and the
-     * news of the clicked news category is loaded.
+     * Sets news category info.
      */
-    protected class CategoryViewHolder extends RecyclerView.ViewHolder implements
-            View.OnClickListener {
+    private void setText(TextView textView, String data) {
+        textView.setText(data);
+    }
 
+    /**
+     * ViewHolder shows the title of the news category.
+     * <br/>
+     * Layout resource - {@link R.layout#category_title}.
+     */
+    protected class CategoryTitleHolder extends RecyclerView.ViewHolder {
         // Shows the name of the news category.
-        private final TextView textCategory;
+        private final TextView title;
 
-        // Shows the name of the news category title.
-        private final TextView textCategoryTile;
-
-        // Functions as a divider in between the news category.
-        private final View viewGap;
-
-        // Labels the news category.
-        private final View viewCategoryBar;
-
-        public CategoryViewHolder(View itemView) {
+        public CategoryTitleHolder(View itemView) {
             super(itemView);
 
-            // Initialize Views from "category_item" layout.
-            textCategory = itemView.findViewById(R.id.text_category);
-            textCategoryTile = itemView.findViewById(R.id.text_category_title);
-            viewGap = itemView.findViewById(R.id.category_gap);
-            viewCategoryBar = itemView.findViewById(R.id.view_category_color);
+            title = itemView.findViewById(R.id.text_title);
 
-            // Attach OnClickListener to news category.
-            textCategory.setOnClickListener(this);
+            // Attaching OnClickListener to entire iteView.
+            itemView.setOnClickListener(view -> {
+                // Get the clicked category.
+                Category category = categories.get(getAdapterPosition());
+
+                // Explicit Intent opens up CategoryActivity to show News feed.
+                Intent explicit = new Intent(context, CategoryActivity.class);
+
+                // Passing the path where the clicked category can be accessed in "The Guardian" API.
+                explicit.putExtra(CategoryActivity.EXTRA_PATH, context.getString(
+                        category.getPath()));
+
+                // Passing the clicked news category's title.
+                explicit.putExtra(CategoryActivity.EXTRA_TITLE, context.getString(
+                        category.getTitle()));
+                context.startActivity(explicit);
+            });
         }
 
         /**
-         * Sets the news category title to {@link R.id#text_category_title} TextView.
-         *
-         * @param category Contains all info. of the news category.
+         * Sets news category title.
          */
-        public void setNewsCategory(NewsCategory category) {
-            // Checks if News title is first of its category.
-            if (category.isNewsTitleFirstOfItsCategory()) {
-                // Sets the category color to Bar view.
-                viewCategoryBar.setBackgroundColor(ContextCompat.getColor(mContext,
-                        category.getCategoryColor()));
+        public void setData(Category category) {
+            setText(title, context.getString(category.getTitle()));
+        }
+    }
 
-                // Sets the category title.
-                String titleCategory = mContext.getString(category.getCategory());
-                textCategoryTile.setText(titleCategory);
+    /**
+     * ViewHolder shows the section name under which the news title belongs.
+     * <br/>
+     * Layout resource - {@link R.layout#category_section}.
+     */
+    protected class CategorySectionHolder extends RecyclerView.ViewHolder {
+        // Shows the name of the section under which news categories belong.
+        private final TextView section;
 
-                // Shows the category bar containing category color.
-                viewCategoryBar.setVisibility(View.VISIBLE);
+        // Shows a blank space that represents end of section.
+        private final View divider;
 
-                // Shows the category title.
-                textCategoryTile.setVisibility(View.VISIBLE);
+        public CategorySectionHolder(View itemView) {
+            super(itemView);
 
-                // Shows the divider in between news categories other than the "News" category.
-                if (titleCategory.equals("News")) {
-                    viewGap.setVisibility(View.GONE);
-                } else {
-                    viewGap.setVisibility(View.VISIBLE);
-                }
+            section = itemView.findViewById(R.id.text_section);
+            divider = itemView.findViewById(R.id.section_divider);
+        }
+
+        /**
+         * Sets news section.
+         */
+        public void setData(Category category, int position) {
+            if (position == 0) {
+                divider.setVisibility(View.GONE);
             } else {
-                // Hides the category bar.
-                viewCategoryBar.setVisibility(View.GONE);
-
-                // Hides the category divider.
-                viewGap.setVisibility(View.GONE);
-
-                // Hides the category title.
-                textCategoryTile.setVisibility(View.GONE);
+                divider.setVisibility(View.VISIBLE);
             }
-        }
-
-        /**
-         * Sets the news category title to {@link R.id#text_category} TextView.
-         *
-         * @param category Contains title of the news category.
-         */
-        public void setNewsTitle(NewsCategory category) {
-            textCategory.setText(mContext.getString(category.getTitle()));
-        }
-
-        @Override
-        public void onClick(View v) {
-            // Get item view's Context.
-            Context context = v.getContext();
-
-            // Getting title of the clicked news category.
-            NewsCategory category = newsCategory.get(getAdapterPosition());
-
-            // Sets the clicked NewsCategory's to CategoryNewsClickListener.
-            categoryNewsClickListener.onNewsCategoryClick(context.getString(category.getSection()),
-                    context.getString(category.getTitle()));
+            setText(section, context.getString(category.getTitle()));
         }
     }
 }

@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
-    style="@style/FragmentLabel"
-    android:background="@color/colorFragmentSettings"
-    android:text="@string/text_for_you"
-    android:textColor="@android:color/black" />

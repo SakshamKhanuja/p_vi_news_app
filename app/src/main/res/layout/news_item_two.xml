@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginHorizontal="@dimen/margin_small"
+    android:layout_marginHorizontal="@dimen/marginSmall"
     android:orientation="vertical">
 
     <!-- Shows news' headline -->
@@ -11,29 +11,29 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackground"
-        android:paddingHorizontal="@dimen/padding_default"
-        android:paddingVertical="@dimen/padding_small">
+        android:paddingHorizontal="@dimen/paddingMedium"
+        android:paddingVertical="@dimen/paddingSmall">
 
         <!-- Vertical Divider -->
         <View
-            android:layout_width="@dimen/width_vertical_line"
+            android:layout_width="@dimen/widthLineVertical"
             android:layout_height="match_parent"
-            android:background="@color/colorBackgroundCategoryItem" />
+            android:background="@color/colorDarker" />
 
         <!-- Shows news headline -->
         <TextView
             android:id="@+id/text_headline_two"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_default"
-            android:lineSpacingExtra="@dimen/spacing_headline"
+            android:layout_marginStart="@dimen/marginMedium"
+            android:lineSpacingExtra="@dimen/spaceSmaller"
             android:textColor="@android:color/black"
-            android:textSize="@dimen/category_text_size"
+            android:textSize="@dimen/textSizeMedium"
             tools:text="$10bn James Webb space telescope launches on ‘eternal search’ mission" />
     </LinearLayout>
 
     <!-- Divider -->
     <View
         android:layout_width="match_parent"
-        android:layout_height="8dp" />
+        android:layout_height="@dimen/spaceSmall" />
 </LinearLayout>

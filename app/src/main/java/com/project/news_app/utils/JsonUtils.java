@@ -80,7 +80,7 @@ public class JsonUtils implements JsonUtilsConstants {
                         mNews.setPublication(fields.optString(PRIMITIVE_PUBLICATION, EMPTY));
 
                         // Setting News article thumbnail String URL.
-                        mNews.setThumbnail(fields.optString(PRIMITIVE_THUMBNAIL, EMPTY));
+                        mNews.setThumbnailUrl(fields.optString(PRIMITIVE_THUMBNAIL, EMPTY));
                     } else {
                         /*
                          * Setting news headline, by-line, publication, thumbnail URL and body as
@@ -89,7 +89,7 @@ public class JsonUtils implements JsonUtilsConstants {
                         mNews.setHeadline(EMPTY);
                         mNews.setByLine(EMPTY);
                         mNews.setPublication(EMPTY);
-                        mNews.setThumbnail(EMPTY);
+                        mNews.setThumbnailUrl(EMPTY);
                     }
                     // Adding mNews to "news".
                     news.add(mNews);

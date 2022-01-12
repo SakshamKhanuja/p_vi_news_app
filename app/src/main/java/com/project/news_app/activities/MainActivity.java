@@ -13,12 +13,9 @@ import com.project.news_app.databinding.ActivityMainBinding;
 import com.project.news_app.fragments.CategoryFragment;
 import com.project.news_app.fragments.HeadlineFragment;
 import com.project.news_app.fragments.PodcastFragment;
-import com.project.news_app.fragments.UserFragment;
 
 /**
- * Stage VI
- * <p>
- * App shows news feed from regions - "US, UK and Australia" in {@link HeadlineFragment}.
+ * Revamping UI and all Fragments.
  */
 public class MainActivity extends AppCompatActivity {
 

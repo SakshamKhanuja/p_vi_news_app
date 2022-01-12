@@ -1,14 +1,7 @@
 package com.project.news_app.fragments;
 
-import android.content.ActivityNotFoundException;
-import android.content.Intent;
-import android.graphics.Rect;
-import android.net.Uri;
 import android.os.Bundle;
-import android.util.TypedValue;
 import android.view.View;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,11 +13,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.project.news_app.R;
-import com.project.news_app.activities.CategoryActivity;
-import com.project.news_app.adapters.NewsAdapter;
+import com.project.news_app.adapters.NewsFeedAdapter;
 import com.project.news_app.constants.HeadlineFragmentConstants;
 import com.project.news_app.constants.NetworkUtilsConstants;
 import com.project.news_app.constants.NewsAdapterConstants;
+import com.project.news_app.data.NewsFeed;
 import com.project.news_app.data.News;
 import com.project.news_app.utils.JsonUtils;
 import com.project.news_app.utils.NetworkUtils;
@@ -32,308 +25,219 @@ import com.project.news_app.utils.NetworkUtils;
 import java.util.ArrayList;
 
 /**
- * Shows a top headlines of US, UK and Australia. Each of these regions are show in separate
- * {@link RecyclerView} that scrolls HORIZONTALLY.
+ * Shows top headlines from different sections of "The Guardian" API - "World", "US", "UK",
+ * "Australia" and "Editorial".
  */
 public class HeadlineFragment extends Fragment implements
-        LoaderManager.LoaderCallbacks<ArrayList<News>>, NewsAdapter.NewsItemClickListener,
-        HeadlineFragmentConstants {
+        LoaderManager.LoaderCallbacks<ArrayList<NewsFeed>>, HeadlineFragmentConstants {
 
-    // Adapter provides News items containing top headlines for US.
-    private NewsAdapter mAdapterUS;
-
-    // Adapter provides News item containing top headlines for UK.
-    private NewsAdapter mAdapterUK;
-
-    // Adapter provides News item containing top headlines for Australia.
-    private NewsAdapter mAdapterAUS;
-
-    // Notifies the unavailability of Browser in user's app.
-    private Toast mToast;
-
+    // Stores top headlines of "World", "US", "UK", "Australia" and "Editorial".
+    private NewsFeedAdapter mAdapter;
 
     // Required Default Constructor.
     public HeadlineFragment() {
         // Providing a layout to inflate.
-        super(R.layout.fragment_headline);
+        super(R.layout.basic_recycler_view_light);
     }
-
-    /**
-     * Opens up {@link CategoryActivity} to show the clicked section's news feed.
-     */
-    private final View.OnClickListener seeMoreClickListener = view -> {
-        // Get the ID of the clicked "See More" TextView.
-        int clickedID = view.getId();
-
-        // Checks if user clicked "See More" Label TextView of "US News".
-        if (clickedID == R.id.see_more_us_news) {
-            showMore(NetworkUtilsConstants.PATH_US, TITLE_US);
-        }
-
-        // Checks if user clicked "See More" Label TextView of "UK News".
-        else if (clickedID == R.id.see_more_uk_news) {
-            showMore(NetworkUtilsConstants.PATH_UK, TITLE_UK);
-        }
-
-        // Checks if user has clicked "See More" Label TextView of "Australia News".
-        else if (clickedID == R.id.see_more_aus_news) {
-            showMore(NetworkUtilsConstants.PATH_AUS, TITLE_AUS);
-        }
-    };
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        // Initializing TextView that opens up US news feed.
-        TextView seeMoreUS = view.findViewById(R.id.see_more_us_news);
-        seeMoreUS.setOnClickListener(seeMoreClickListener);
+        // Initializing Parent RecyclerView.
+        RecyclerView recyclerView = view.findViewById(R.id.recycler_view_light);
 
-        // Initializing TextView that opens up UK news feed.
-        TextView seeMoreUK = view.findViewById(R.id.see_more_uk_news);
-        seeMoreUK.setOnClickListener(seeMoreClickListener);
-
-        // Initializing TextView that opens up Australia news feed.
-        TextView seeMoreAUS = view.findViewById(R.id.see_more_aus_news);
-        seeMoreAUS.setOnClickListener(seeMoreClickListener);
-
-        // Initializing RecyclerView to show US News.
-        RecyclerView recyclerUS = view.findViewById(R.id.container_us_news);
-
-        // Initializing RecyclerView to show UK News.
-        RecyclerView recyclerUK = view.findViewById(R.id.container_uk_news);
-
-        // Initializing RecyclerView to show Australia News.
-        RecyclerView recyclerAUS = view.findViewById(R.id.container_aus_news);
-
-        // Setting up RecyclerView for "US News" and initializing linked adapter.
-        mAdapterUS = setupRecyclerView(recyclerUS);
-
-        // Setting up RecyclerView for "UK News" and initializing linked adapter.
-        mAdapterUK = setupRecyclerView(recyclerUK);
-
-        // Setting up RecyclerView for "UK News" and initializing linked adapter.
-        mAdapterAUS = setupRecyclerView(recyclerAUS);
-
-        // Manages loaders - starting, stopping, restarting and destroying.
-        LoaderManager manager = LoaderManager.getInstance(this);
-
-        // Downloads top headlines for US from the "The Guardian" api.
-        manager.initLoader(LOADER_US, null, this);
-
-        // Downloads top headlines for UK from the "The Guardian" api.
-        manager.initLoader(LOADER_UK, null, this);
-
-        // Downloads top headlines for Australia from the "The Guardian" api.
-        manager.initLoader(LOADER_AUS, null, this);
-    }
-
-    /**
-     * Wires up a {@link RecyclerView} to the {@link NewsAdapter} containing a list of downloaded
-     * {@link News} items.
-     * <p>
-     * It is then managed by a {@link LinearLayoutManager} to lay its items in
-     * {@link LinearLayoutManager#HORIZONTAL} orientation.
-     *
-     * @param recyclerView Inflated RecyclerView.
-     * @return {@link NewsAdapter} linked to the RecyclerView.
-     */
-    private NewsAdapter setupRecyclerView(RecyclerView recyclerView) {
         // Linking LayoutManager to RecyclerView.
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),
-                LinearLayoutManager.HORIZONTAL, false));
+                LinearLayoutManager.VERTICAL, false));
 
         // Optimizes RecyclerView.
         recyclerView.setHasFixedSize(true);
 
-        // Linking Adapter to RecyclerView;
-        NewsAdapter adapter = new NewsAdapter(null, this);
-        recyclerView.setAdapter(adapter);
+        // Linking Adapter to RecyclerView.
+        mAdapter = new NewsFeedAdapter(null);
+        recyclerView.setAdapter(mAdapter);
 
-        // Converts 8dp to pixels based on screen density.
-        int pixel4Dp = convertDpToPixels(8);
-
-        // Adds adequate spacing in item views.
-        recyclerView.addItemDecoration(new PaddingItemDecoration(convertDpToPixels(24),
-                pixel4Dp, pixel4Dp, convertDpToPixels(16)));
-        return adapter;
-    }
-
-
-    /**
-     * Converts Density-Independent values to pixel value based on screen density.
-     */
-    private int convertDpToPixels(float dp) {
-        return (int) TypedValue.applyDimension(
-                TypedValue.COMPLEX_UNIT_DIP,
-                dp,
-                requireContext().getResources().getDisplayMetrics());
-    }
-
-
-    /**
-     * Applies layout margin individually to all items stored in a RecyclerView's adapter based
-     * on their position.
-     */
-    private static class PaddingItemDecoration extends RecyclerView.ItemDecoration {
-        // Adds 24dp (in pixels) of margin to LEFT of the item having position 0.
-        private final int leftFirst;
-
-        // Adds 8dp (in pixels) of margin to LEFT of all items.
-        private final int leftRest;
-
-        // Adds 8dp (in pixels) of margin to RIGHT of all items.
-        private final int rightRest;
-
-        // Adds 16dp (in pixels) of margin to RIGHT of the last item.
-        private final int rightLast;
-
-        /**
-         * Adds margin (left, and right) to all items present in the RecyclerView's adapter.
-         *
-         * @param leftFirst Margin (in pixels) added at LEFT of the first item.
-         * @param leftRest  Margin (in pixels) added to LEFT of item.
-         * @param rightRest Margin (in pixels) added to RIGHT of item.
-         * @param rightLast Margin (in pixels) added to RIGHT of the last item.
-         */
-        public PaddingItemDecoration(int leftFirst, int leftRest, int rightRest, int rightLast) {
-            this.leftFirst = leftFirst;
-            this.leftRest = leftRest;
-            this.rightRest = rightRest;
-            this.rightLast = rightLast;
-        }
-
-        @Override
-        public void getItemOffsets(@NonNull Rect outRect, @NonNull View view,
-                                   @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
-            super.getItemOffsets(outRect, view, parent, state);
-
-            // Stores the position of the passed child view.
-            int currentPosition = parent.getChildAdapterPosition(view);
-
-            // Checks if the position belongs to the FIRST child view.
-            if (currentPosition == 0) {
-                // Adding 24dp (in pixels) of margin to LEFT.
-                outRect.left += leftFirst;
-
-                // Adding 8dp (in pixels) of margin to RIGHT.
-                outRect.right += rightRest;
-            }
-
-            // Checks if the position belongs to the LAST child view.
-            else if (currentPosition == (NetworkUtils.SIZE_HEADLINES - 1)) {
-                // Adding 8dp (in pixels) of margin to LEFT.
-                outRect.left += leftRest;
-
-                // Adding 16dp (in pixels) of margin to RIGHT.
-                outRect.right += rightLast;
-            }
-
-            // The child view belongs in between the FIRST and LAST.
-            else {
-                // Adding 8dp (in pixels) of margin to LEFT.
-                outRect.left += leftRest;
-
-                // Adding 8dp (in pixels) of margin to RIGHT.
-                outRect.right += rightRest;
-            }
-        }
+        // Downloads top headlines from "World", "US", "UK", "Australia" and "Editorial".
+        LoaderManager.getInstance(this).initLoader(12, null, this);
     }
 
     @NonNull
     @Override
-    public Loader<ArrayList<News>> onCreateLoader(int id, @Nullable Bundle args) {
-        return new AsyncTaskLoader<ArrayList<News>>(requireContext()) {
+    public Loader<ArrayList<NewsFeed>> onCreateLoader(int id, @Nullable Bundle args) {
+        return new AsyncTaskLoader<ArrayList<NewsFeed>>(requireContext()) {
 
-            // Stores news info. of all regions - US, UK, Australia.
-            private ArrayList<News> usNews, ukNews, ausNews;
+            // Stores news feed for - "US", "UK", "Australia", "World" (Rest) and "Editorial".
+            private ArrayList<NewsFeed> newsFeeds;
 
-            /**
-             * Checks whether previous news data is available or Loader needs to fetch data from
-             * "The Guardian" API.
-             * @param news Stores the cached info.
-             */
-            private void check(ArrayList<News> news) {
+            @Override
+            protected void onStartLoading() {
                 // Using previous available result.
-                if (news != null && news.size() > 0) {
+                if (newsFeeds != null && newsFeeds.size() > 0) {
                     // Use cached result.
-                    deliverResult(news);
+                    deliverResult(newsFeeds);
                 } else {
-                    // Starts a background thread to download news info.
+                    // Starts a background thread to download top regional headlines.
                     forceLoad();
                 }
             }
 
-            @Override
-            protected void onStartLoading() {
-                // Starts Loader based on ID.
-                switch (getId()) {
-                    case LOADER_US:
-                        check(usNews);
-                        break;
-
-                    case LOADER_UK:
-                        check(ukNews);
-                        break;
-
-                    case LOADER_AUS:
-                        check(ausNews);
-                        break;
+            /**
+             * @return News title.
+             */
+            private String getTitle(String path) {
+                switch (path) {
+                    case NetworkUtilsConstants.PATH_WORLD:
+                        return getString(R.string.title_world_news);
+                    case NetworkUtilsConstants.PATH_US:
+                        return getString(R.string.title_us_news);
+                    case NetworkUtilsConstants.PATH_UK:
+                        return getString(R.string.title_uk_news);
+                    case NetworkUtilsConstants.PATH_AUS:
+                        return getString(R.string.title_aus_news);
+                    case NetworkUtilsConstants.PATH_GUARDIAN:
+                        return getString(R.string.title_editorial_news);
                 }
+                return null;
             }
 
             /**
-             * @return The path to download news feed for the running Loader.
+             * @return News feed label.
              */
-            private String getPath() {
-                switch (getId()) {
-                    case LOADER_UK:
-                        return NetworkUtilsConstants.PATH_UK;
-                    case LOADER_AUS:
-                        return NetworkUtilsConstants.PATH_AUS;
-                    case LOADER_US:
-                    default:
-                        return NetworkUtilsConstants.PATH_US;
+            private String getLabel(String path) {
+                switch (path) {
+                    case NetworkUtilsConstants.PATH_WORLD:
+                        return getString(R.string.top_story_world);
+                    case NetworkUtilsConstants.PATH_US:
+                        return getString(R.string.top_story_us);
+                    case NetworkUtilsConstants.PATH_UK:
+                        return getString(R.string.top_story_uk);
+                    case NetworkUtilsConstants.PATH_AUS:
+                        return getString(R.string.top_story_aus);
+                    case NetworkUtilsConstants.PATH_GUARDIAN:
+                        return getString(R.string.title_editorial_news);
+                }
+                return null;
+            }
+
+            /**
+             * Sets view type to each {@link News} item in the feed based on {@link NewsFeed} type.
+             */
+            private void setViewType(ArrayList<News> news, int newsFeedType) {
+                // Checks if news data is available before setting view type.
+                if (news.size() > 0) {
+
+                    // Stores view type of single News item.
+                    int viewType;
+
+                    // Setting background layout for every news item.
+                    for (int i = 0; i < news.size(); i++) {
+                        News item = news.get(i);
+
+                        // View type for the first news item in feed.
+                        if (i == 0) {
+                            if (newsFeedType == FEED_TYPE_LIGHT) {
+                                // View type contains 24dp padding (START) and 8dp padding (END).
+                                viewType = NewsAdapterConstants.TYPE_SEVEN;
+                            } else {
+                                // View type contains 24dp padding (START) and 8dp padding (END).
+                                viewType = NewsAdapterConstants.TYPE_TEN;
+                            }
+                        }
+
+                        // View type for the last news item in feed.
+                        else if (i == news.size() - 1) {
+                            if (newsFeedType == FEED_TYPE_LIGHT) {
+                                // View type contains 8dp padding (START) and 16dp padding (END).
+                                viewType = NewsAdapterConstants.TYPE_EIGHT;
+                            } else {
+                                // View type contains 8dp padding (START) and 16dp padding (END).
+                                viewType = NewsAdapterConstants.TYPE_ELEVEN;
+                            }
+                        }
+
+                        // View type for news items in between the first and last.
+                        else {
+                            if (newsFeedType == FEED_TYPE_LIGHT) {
+                                // View type contains 16dp padding (HORIZONTAL).
+                                viewType = NewsAdapterConstants.TYPE_SIX;
+                            } else {
+                                // View type contains 16dp padding (HORIZONTAL).
+                                viewType = NewsAdapterConstants.TYPE_NINE;
+                            }
+                        }
+                        item.setViewType(viewType);
+                    }
                 }
             }
 
             @NonNull
             @Override
-            public ArrayList<News> loadInBackground() {
-                // Downloads JSON response.
-                String jsonResponse = NetworkUtils.downloadNewsData(
-                        NetworkUtils.makeNewsUrl(
-                                requireContext(),
-                                getPath(),
-                                NetworkUtilsConstants.QP_VALUE_HEADLINE_FIELDS,
-                                NetworkUtilsConstants.SIZE_HEADLINES));
+            public ArrayList<NewsFeed> loadInBackground() {
+                // Stores news feed of different sections from "The Guardian" API.
+                ArrayList<NewsFeed> feeds = new ArrayList<>();
 
-                // Parses JSON response to a list of type News.
-                ArrayList<News> news = JsonUtils.parseNewsList(jsonResponse);
+                // Array stores all json responses based on section from "The Guardian" API.
+                String[] jsonResponseArray = new String[pathArray.length];
 
-                // Checks if news data is available before setting view type.
-                if (news.size() > 0) {
-                    // Setting background layout for every news item.
-                    for (News item : news) {
-                        item.setViewType(NewsAdapterConstants.TYPE_SIX);
-                    }
+                // Downloads json responses per section path (one-by-one).
+                for (int i = 0; i < jsonResponseArray.length; i++) {
+                    jsonResponseArray[i] =
+                            NetworkUtils.downloadNewsData(
+                                    NetworkUtils.makeNewsUrl(
+                                            requireContext(),
+                                            pathArray[i],
+                                            NetworkUtilsConstants.QP_VALUE_HEADLINE_FIELDS,
+                                            NetworkUtilsConstants.SIZE_HEADLINES));
                 }
-                return news;
+
+                // Setting up all news feeds.
+                for (int i = 0; i < jsonResponseArray.length; i++) {
+                    // Initializing a feed.
+                    NewsFeed newsFeed = new NewsFeed();
+
+                    // Get current path.
+                    String path = pathArray[i];
+
+                    // Parses JSON response to a list of type News.
+                    ArrayList<News> news = JsonUtils.parseNewsList(jsonResponseArray[i]);
+
+                    /*
+                     * Sets NewsFeed type for each downloaded feed.
+                     *
+                     * The last feed from in "pathArray" i.e. "Editorial" is set to have a dark
+                     * background. The rest of the news feed follow the same type.
+                     */
+                    if (i == pathArray.length - 1) {
+                        newsFeed.setType(FEED_TYPE_DARK);
+                    } else {
+                        newsFeed.setType(FEED_TYPE_LIGHT);
+                    }
+
+                    // Sets view type for each news item based on NewsFeed type.
+                    setViewType(news, newsFeed.getType());
+
+                    // Sets path for this feed.
+                    newsFeed.setPath(path);
+
+                    // Sets title for this feed.
+                    newsFeed.setTitle(getTitle(path));
+
+                    // Sets downloaded news items to NewsFeed.
+                    newsFeed.setNews(news);
+
+                    // Sets label of this news feed.
+                    newsFeed.setLabel(getLabel(path));
+
+                    // Adding feed to list.
+                    feeds.add(newsFeed);
+                }
+                return feeds;
             }
 
             @Override
-            public void deliverResult(@Nullable ArrayList<News> data) {
+            public void deliverResult(@Nullable ArrayList<NewsFeed> data) {
+                // Caches News Feed for all regions.
                 if (data != null) {
-                    // Caching downloaded news info. based on region.
-                    switch (getId()) {
-                        case LOADER_US:
-                            usNews = data;
-                            break;
-                        case LOADER_UK:
-                            ukNews = data;
-                            break;
-                        case LOADER_AUS:
-                            ausNews = data;
-                            break;
-                    }
+                    newsFeeds = data;
                 }
                 super.deliverResult(data);
             }
@@ -341,79 +245,17 @@ public class HeadlineFragment extends Fragment implements
     }
 
     @Override
-    public void onLoadFinished(@NonNull Loader<ArrayList<News>> loader, ArrayList<News> data) {
-        // Provides the downloaded news data for every region to their respective Adapters.
-        switch (loader.getId()) {
-            case LOADER_US:
-                setNewsData(mAdapterUS, data);
-                break;
-
-            case LOADER_UK:
-                setNewsData(mAdapterUK, data);
-                break;
-
-            case LOADER_AUS:
-                setNewsData(mAdapterAUS, data);
-                break;
-        }
-    }
-
-    /**
-     * Provides a list {@link News} to {@link NewsAdapter} containing top headlines.
-     */
-    private void setNewsData(NewsAdapter adapter, ArrayList<News> data) {
+    public void onLoadFinished(@NonNull Loader<ArrayList<NewsFeed>> loader,
+                               ArrayList<NewsFeed> data) {
         if (data != null && data.size() > 0) {
-            adapter.setNewsData(data);
+            // Updating the contents of NewsFeedAdapter.
+            mAdapter.setNewsFeeds(data);
         }
     }
 
     @Override
-    public void onLoaderReset(@NonNull Loader<ArrayList<News>> loader) {
-        // Clearing up the NewsAdapter.
-        mAdapterUS.setNewsData(null);
-    }
-
-    /**
-     * Shows a {@link Toast} containing custom messages. Method also removes the currently showing
-     * Toast if any.
-     *
-     * @param messageID String resource containing a custom message.
-     */
-    private void showToast(int messageID) {
-        // Cancels the current showing Toast.
-        if (mToast != null) {
-            mToast.cancel();
-        }
-
-        // Sets new message and displays the Toast.
-        mToast = Toast.makeText(getContext(), messageID, Toast.LENGTH_SHORT);
-        mToast.show();
-    }
-
-    @Override
-    public void onNewsItemClick(Uri webPage) {
-        try {
-            startActivity(new Intent(Intent.ACTION_VIEW, webPage));
-        } catch (ActivityNotFoundException e) {
-            showToast(R.string.toast_browser_unavailable);
-        }
-    }
-
-    /**
-     * Opens {@link CategoryActivity} to load news feed.
-     *
-     * @param path  Path of the news feed.
-     * @param title Title of the clicked news feed.
-     */
-    private void showMore(String path, String title) {
-        // Starting CategoryActivity to load up news on the clicked news category.
-        Intent explicit = new Intent(getContext(), CategoryActivity.class);
-
-        // Passing the path where the clicked category can be accessed in "The Guardian" API.
-        explicit.putExtra(CategoryActivity.EXTRA_PATH, path);
-
-        // Passing the clicked news category's title.
-        explicit.putExtra(CategoryActivity.EXTRA_TITLE, title);
-        startActivity(explicit);
+    public void onLoaderReset(@NonNull Loader<ArrayList<NewsFeed>> loader) {
+        // Clearing up the NewsFeedAdapter
+        mAdapter.setNewsFeeds(null);
     }
 }

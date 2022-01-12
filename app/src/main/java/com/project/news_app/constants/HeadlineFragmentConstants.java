@@ -1,5 +1,6 @@
 package com.project.news_app.constants;
 
+import com.project.news_app.R;
 import com.project.news_app.fragments.HeadlineFragment;
 
 /**
@@ -7,32 +8,19 @@ import com.project.news_app.fragments.HeadlineFragment;
  */
 public interface HeadlineFragmentConstants {
     /**
-     * Represents the title of news feed for the region "United States".
+     * Stores the path to access news feed from "The Guardian" API.
      */
-    String TITLE_US = "US News";
+    String[] pathArray = {NetworkUtilsConstants.PATH_WORLD, NetworkUtilsConstants.PATH_US,
+            NetworkUtilsConstants.PATH_UK, NetworkUtilsConstants.PATH_AUS,
+            NetworkUtilsConstants.PATH_GUARDIAN};
 
     /**
-     * Represents the title of news feed for the region "United Kingdom".
+     * View type for News feed inflated from {@link R.layout#layout_nested_recycler_item_light}.
      */
-    String TITLE_UK = "UK News";
+    int FEED_TYPE_LIGHT = 1;
 
     /**
-     * Represents the title of news feed for the region "Australia".
+     * View type for News feed inflated from {@link R.layout#layout_nested_recycler_item_dark}.
      */
-    String TITLE_AUS = "Australia News";
-
-    /**
-     * Represents the ID of Loader responsible for downloading US News feed.
-     */
-    int LOADER_US = 111;
-
-    /**
-     * Represents the ID of Loader responsible for downloading UK News feed.
-     */
-    int LOADER_UK = 112;
-
-    /**
-     * Represents the ID of Loader responsible for downloading Austraila News feed.
-     */
-    int LOADER_AUS = 113;
+    int FEED_TYPE_DARK = 2;
 }
