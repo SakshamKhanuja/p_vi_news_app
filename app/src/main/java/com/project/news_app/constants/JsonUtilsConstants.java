@@ -2,7 +2,7 @@ package com.project.news_app.constants;
 
 import com.project.news_app.utils.JsonUtils;
 import com.project.news_app.activities.CategoryActivity;
-import com.project.news_app.fragments.PodcastFragment;
+import com.project.news_app.adapters.EpisodeAdapter;
 
 /**
  * Contains constants for {@link JsonUtils}.
@@ -64,9 +64,29 @@ public interface JsonUtilsConstants {
     String OBJECT_TAG = "tag";
 
     /**
+     * JSON Primitive having key "webUrl".
+     */
+    String PRIMITIVE_WEB_URL = "webUrl";
+
+    /**
+     * JSON Primitive having key "description".
+     */
+    String PRIMITIVE_DESCRIPTION = "description";
+
+    /**
      * JSONObject having key "podcast".
      */
     String OBJECT_PODCAST = "podcast";
+
+    /**
+     * JSON Primitive having key "subscriptionUrl".
+     */
+    String PRIMITIVE_PODCAST_APPLE = "subscriptionUrl";
+
+    /**
+     * JSON Primitive having key "explicit".
+     */
+    String PRIMITIVE_EXPLICIT = "explicit";
 
     /**
      * JSON Primitive having key "googlePodcastsUrl".
@@ -84,9 +104,9 @@ public interface JsonUtilsConstants {
     String ARRAY_CONTENT = "leadContent";
 
     /**
-     * JSON Primitive having key "trailText".
+     * JSON Primitive having key "standfirst".
      */
-    String PRIMITIVE_TRAIL = "trailText";
+    String PRIMITIVE_ABOUT_EPISODE = "standfirst";
 
     /**
      * Empty String.
@@ -104,7 +124,7 @@ public interface JsonUtilsConstants {
     String PATTERN_CATEGORY = "EEE d',' MMM yyyy";
 
     /**
-     * Pattern for formatting Date in {@link PodcastFragment}.
+     * Pattern for formatting Date in {@link EpisodeAdapter}.
      */
     String PATTERN_PODCAST = "MMM dd, yyyy";
 }

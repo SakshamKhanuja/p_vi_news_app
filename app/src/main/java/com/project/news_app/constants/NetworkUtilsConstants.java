@@ -27,11 +27,6 @@ public interface NetworkUtilsConstants {
     String QP_KEY_FIELDS = "show-fields";
 
     /**
-     * Path points to the "Today in Focus" section of "The Guardian" api.
-     */
-    String PATH_FOCUS = "news/series/todayinfocus";
-
-    /**
      * Query value adds - headline, by-line, publication and thumbnail.
      */
     String QP_VALUE_FIELDS = "headline,byline,publication,thumbnail";
@@ -47,9 +42,9 @@ public interface NetworkUtilsConstants {
     String QP_KEY_PAGE_SIZE = "page-size";
 
     /**
-     * Query value adds - headline, trail-text, and thumbnail.
+     * Query value adds - headline, trail-text, by-line and thumbnail.
      */
-    String QP_VALUE_FOCUS_FIELDS = "headline,trailText,thumbnail";
+    String QP_VALUE_PODCAST = "headline,standfirst,byline,thumbnail";
 
     /**
      * Empty String.

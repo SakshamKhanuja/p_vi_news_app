@@ -39,12 +39,12 @@
         style="@style/AuthorFeedDefault"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/marginCompact"
-        android:layout_marginEnd="@dimen/marginSmall"
+        android:layout_marginStart="@dimen/marginSmall"
+        android:layout_marginTop="@dimen/marginSmall"
         android:layout_marginBottom="@dimen/marginSmall"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/text_headline_six"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_headline_six"
         tools:text="By Ali Martin in Sydney" />
 </androidx.constraintlayout.widget.ConstraintLayout>

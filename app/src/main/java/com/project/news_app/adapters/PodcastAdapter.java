@@ -1,12 +1,7 @@
 package com.project.news_app.adapters;
 
-import android.annotation.SuppressLint;
-import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
-import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,35 +9,21 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.content.res.AppCompatResources;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
-import com.google.android.material.chip.Chip;
 import com.project.news_app.R;
+import com.project.news_app.activities.EpisodeActivity;
 import com.project.news_app.data.Podcast;
 
 import java.util.ArrayList;
 
-public class PodcastAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class PodcastAdapter extends RecyclerView.Adapter<PodcastAdapter.PodcastViewHolder> {
 
-    // Used to load images via Glide library.
-    private Context mContext;
+    // Stores basic info. about all available podcasts in "The Guardian" API.
+    private final ArrayList<Podcast> podcasts;
 
-    // Stores downloaded podcasts info.
-    private ArrayList<Podcast> podcasts;
-
-    /**
-     * View type inflated from {@link R.layout#podcast_item} layout.
-     */
-    public static final int PODCAST_DEFAULT = 1;
-
-    /**
-     * View type inflated from {@link R.layout#podcast_about} layout.
-     */
-    public static final int PODCAST_ABOUT = 2;
+    // Used to download thumbnails.
+    private Context context;
 
     public PodcastAdapter(ArrayList<Podcast> podcasts) {
         this.podcasts = podcasts;
@@ -50,40 +31,20 @@ public class PodcastAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        // Setting Context.
-        mContext = parent.getContext();
+    public PodcastAdapter.PodcastViewHolder onCreateViewHolder(@NonNull ViewGroup parent,
+                                                               int viewType) {
+        // Sets context.
+        context = parent.getContext();
 
-        LayoutInflater layoutInflater = LayoutInflater.from(mContext);
-
-        switch (viewType) {
-            case PODCAST_ABOUT:
-                // Shows info. about the "Today in Focus" podcast.
-                return new PodcastAboutViewHolder(layoutInflater.inflate(R.layout.podcast_about,
-                        parent, false));
-
-            case PODCAST_DEFAULT:
-            default:
-                /*
-                 * Shows info. about the episode's title, thumbnail, date of recording, summary,
-                 * and all links.
-                 */
-                return new PodcastViewHolder(layoutInflater.inflate(R.layout.podcast_item, parent,
-                        false));
-        }
+        // Initializing ViewHolder.
+        return new PodcastViewHolder(LayoutInflater.from(context).inflate(R.layout.podcasts_item,
+                parent, false));
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        // Binding episode info. for the podcast.
-        if (holder.getItemViewType() == PODCAST_DEFAULT) {
-            ((PodcastViewHolder) holder).setPodcastData(podcasts.get(position));
-        }
-    }
-
-    @Override
-    public int getItemViewType(int position) {
-        return podcasts.get(position).getViewType();
+    public void onBindViewHolder(@NonNull PodcastAdapter.PodcastViewHolder holder,
+                                 int position) {
+        holder.setData(podcasts.get(position));
     }
 
     @Override
@@ -93,210 +54,48 @@ public class PodcastAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             return 0;
         }
 
-        // Returns total number of podcast items.
+        // Returns total number of podcast.
         return podcasts.size();
     }
 
     /**
-     * Sets new news data to Adapter.
-     */
-    @SuppressLint("NotifyDataSetChanged")
-    public void setPodcastData(ArrayList<Podcast> podcasts) {
-        this.podcasts = podcasts;
-        notifyDataSetChanged();
-    }
-
-    /**
-     * Class describes {@link R.layout#podcast_item} item view and is responsible for caching
-     * views.
-     * <p>
-     * It also provides click functionality to the RecyclerView holding news items.
+     * ViewHolder shows thumbnail and title of podcasts.
      * <br/>
-     * Layout resource - {@link R.layout#podcast_item}.
+     * Layout resource - {@link R.layout#podcasts_item}.
      */
     protected class PodcastViewHolder extends RecyclerView.ViewHolder {
-
         // Shows the podcast thumbnail.
         private final ImageView thumbnail;
 
-        // Shows the podcast headline.
-        private final TextView headline;
-
-        // Shows the date on when the podcast was recorded.
-        private final TextView date;
-
-        // Shows brief info. about the podcast.
-        private final TextView about;
-
-        // Indicates whether the card view is expanded or collapased.
-        private final ImageView arrow;
-
-        // Layout shows extra info. about the podcast.
-        private final ConstraintLayout expandableLayout;
+        // Shows the podcast web title.
+        private final TextView title;
 
         public PodcastViewHolder(View itemView) {
             super(itemView);
 
             // Initialize Views.
-            thumbnail = itemView.findViewById(R.id.thumbnail);
-            headline = itemView.findViewById(R.id.podcast_name);
-            date = itemView.findViewById(R.id.podcast_date);
-            about = itemView.findViewById(R.id.text_trail);
-            arrow = itemView.findViewById(R.id.image_arrow);
-            expandableLayout = itemView.findViewById(R.id.expandable_layout);
+            thumbnail = itemView.findViewById(R.id.podcasts_thumbnail);
+            title = itemView.findViewById(R.id.podcasts_title);
 
-            // Opens up the podcast in the device's browser.
-            Chip podcastGoogle = itemView.findViewById(R.id.chip_google);
+            // Attaching OnClickListener to show episodes of the clicked Podcast.
+            itemView.setOnClickListener(view -> {
+                Intent intent = new Intent(context, EpisodeActivity.class);
 
-            // Opens up the podcast in the device's browser.
-            Chip podcastSpotify = itemView.findViewById(R.id.chip_spotify);
-
-            // Shows all podcast info.
-            ConstraintLayout basicLayout = itemView.findViewById(R.id.basic_layout);
-
-            // ClickListener is attached to all Chips and "expandableLayout" ConstraintLayout.
-            View.OnClickListener clickListener = view -> {
-                // Get the clicked view ID.
-                int viewID = view.getId();
-
-                // Gets the clicked Podcast.
-                Podcast podcast = podcasts.get(getAdapterPosition());
-
-                // Checks if user clicked the "basic_layout" in order to expand / collapse podcast item.
-                if (viewID == R.id.basic_layout) {
-                    expandCollapseItem(podcast);
-                }
-
-                // Checks if user clicked "Google Podcasts" Chip in order to open podcast.
-                else if (viewID == R.id.chip_google) {
-                    openPodcast(Uri.parse(podcast.getGooglePodcastUrl()));
-                }
-
-                // Checks if user clicked "Spotify" Chip in order to open podcast.
-                else if (viewID == R.id.chip_spotify) {
-                    openPodcast(Uri.parse(podcast.getSpotifyUrl()));
-                }
-            };
-
-            /*
-             * Attaches a click listener to the "basicLayout" which expands or collapse the
-             * CardView to show or hide extra podcast info.
-             */
-            basicLayout.setOnClickListener(clickListener);
-
-            // Attaches a click listener to both chips in order to open clicked Podcast.
-            podcastSpotify.setOnClickListener(clickListener);
-            podcastGoogle.setOnClickListener(clickListener);
+                // Adding the clicked podcast.
+                intent.putExtra(EpisodeActivity.EXTRA_PODCAST, podcasts.get(getAdapterPosition()));
+                context.startActivity(intent);
+            });
         }
 
         /**
-         * Sets the Podcast's thumbnail, headline, date and info.
-         *
-         * @param podcast Contains podcast info for item view.
+         * Sets podcasts' thumbnail and title.
          */
-        public void setPodcastData(Podcast podcast) {
-            // Setting podcast thumbnail.
-            String thumbnailUrl = podcast.getThumbnailUrl();
+        public void setData(Podcast podcast) {
+            // Sets podcasts' thumbnail.
+            thumbnail.setImageResource(podcast.getThumbnail());
 
-            // Checks if thumbnail link is available.
-            if (!TextUtils.isEmpty(thumbnailUrl)) {
-                // Shows ImageView.
-                thumbnail.setVisibility(View.VISIBLE);
-
-                // Downloads and sets podcast's thumbnail.
-                Glide.with(mContext)
-                        .load(thumbnailUrl)
-                        .placeholder(R.drawable.placeholder)
-                        .transition(DrawableTransitionOptions.withCrossFade())
-                        .into(thumbnail);
-            } else {
-                // Hides ImageView.
-                thumbnail.setVisibility(View.INVISIBLE);
-            }
-
-            // Sets podcast headline.
-            setText(headline, podcast.getHeadline());
-
-            // Sets podcast date.
-            setText(date, podcast.getDate());
-
-            // Sets podcast info.
-            setText(about, podcast.getTrailText());
-
-            // Checks the expanded status of the podcast item view.
-            boolean isItemExpanded = podcast.isExpanded();
-
-            if (isItemExpanded) {
-                // Show "expandable_layout".
-                expandableLayout.setVisibility(View.VISIBLE);
-
-                // Update arrow.
-                arrow.setImageDrawable(AppCompatResources.getDrawable(mContext,
-                        R.drawable.ic_arrow_up));
-            } else {
-                // Hide "expandable_layout".
-                expandableLayout.setVisibility(View.GONE);
-
-                // Update arrow.
-                arrow.setImageDrawable(AppCompatResources.getDrawable(mContext,
-                        R.drawable.ic_arrow_down));
-            }
-        }
-
-        /**
-         * Sets text to a TextView. If data is not available, visibility is set to
-         * {@link View#GONE}.
-         */
-        private void setText(TextView textView, String text) {
-            if (TextUtils.isEmpty(text)) {
-                textView.setVisibility(View.GONE);
-            } else {
-                textView.setText(text);
-                textView.setVisibility(View.VISIBLE);
-            }
-        }
-
-        /**
-         * Opens the clicked podcast in either the device's "Browser" app OR opens up a
-         * disambiguation dialog if user has installed either apps -
-         * <ul>
-         *     <li>Google Podcasts</li>
-         *     <li>Spotify</li>
-         * </ul>
-         *
-         * @param webPage Uri points to the clicked podcasts' "Google Podcasts" / "Spotify" link.
-         */
-        private void openPodcast(Uri webPage) {
-            try {
-                mContext.startActivity(new Intent(Intent.ACTION_VIEW, webPage));
-            } catch (ActivityNotFoundException e) {
-                Log.v("PodcastAdapter", "Unable to open - " + e.getMessage());
-            }
-        }
-
-        /**
-         * Expands or collapses the {@link R.id#expandable_layout} in {@link R.layout#podcast_item}
-         * item view.
-         *
-         * @param podcast Contains clicked podcast info.
-         */
-        private void expandCollapseItem(Podcast podcast) {
-            // Invert the expand status of the clicked podcast.
-            podcast.setExpanded(!podcast.isExpanded());
-
-            // Refreshes the clicked item to reload its contents with new expanded status.
-            notifyItemChanged(getAdapterPosition());
-        }
-    }
-
-    /**
-     * Provides info. about "Today in Focus" podcast.
-     * <br/>
-     * Layout resource - {@link R.layout#podcast_about}
-     */
-    protected static class PodcastAboutViewHolder extends RecyclerView.ViewHolder {
-        public PodcastAboutViewHolder(View itemView) {
-            super(itemView);
+            // Sets podcasts' title.
+            title.setText(podcast.getTitle());
         }
     }
 }

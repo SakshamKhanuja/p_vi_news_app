@@ -10,12 +10,12 @@ import android.view.LayoutInflater;
 import com.google.android.material.navigation.NavigationBarView;
 import com.project.news_app.R;
 import com.project.news_app.databinding.ActivityMainBinding;
+import com.project.news_app.fragments.PodcastFragment;
 import com.project.news_app.fragments.CategoryFragment;
 import com.project.news_app.fragments.HeadlineFragment;
-import com.project.news_app.fragments.PodcastFragment;
 
 /**
- * Revamping UI and all Fragments.
+ * Adding multiple podcast's in {@link PodcastFragment}.
  */
 public class MainActivity extends AppCompatActivity {
 

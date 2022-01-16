@@ -193,7 +193,6 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
         notifyDataSetChanged();
     }
 
-
     /**
      * Shows a {@link Toast} containing custom messages. Method also removes the currently showing
      * Toast if any.

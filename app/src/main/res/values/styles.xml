@@ -23,25 +23,10 @@
         <item name="android:textSize">@dimen/textSizeLarge</item>
     </style>
 
-    <!-- Chip Style-->
-    <style name="ChipStyle" parent="Widget.MaterialComponents.Chip.Action">
-        <item name="android:textColor">@color/colorLightest</item>
-        <item name="chipBackgroundColor">@color/colorDarkerII</item>
-        <item name="chipEndPadding">@dimen/paddingSmall</item>
-        <item name="chipMinHeight">36dp</item>
-        <item name="chipStartPadding">@dimen/paddingSmall</item>
-        <item name="chipStrokeColor">@color/colorLightest</item>
-        <item name="chipStrokeWidth">1dp</item>
-        <item name="textEndPadding">@dimen/paddingSmall</item>
-        <item name="textStartPadding">@dimen/paddingSmall</item>
-        <item name="rippleColor">@color/colorRippleLight</item>
-    </style>
-
     <!-- News feed shown in HeadlineFragment -->
     <style name="NewsFeedContainer">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:paddingBottom">@dimen/paddingMedium</item>
     </style>
 
     <!-- Recycler View contains regional news feed -->
@@ -50,6 +35,7 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginTop">@dimen/marginSmall</item>
         <item name="android:overScrollMode">never</item>
+        <item name="android:paddingBottom">@dimen/marginMedium</item>
         <item name="android:scrollbars">none</item>
     </style>
 
@@ -146,5 +132,15 @@
     <!-- News author info. for TYPE_NINE, TYPE_TEN, and TYPE_ELEVEN -->
     <style name="AuthorFeeEditorial" parent="AuthorStyle">
         <item name="android:textColor">@color/colorLight</item>
+    </style>
+
+    <!-- Style for FAB in "podcast_about" layout -->
+    <style name="PodcastFAB" parent="Widget.MaterialComponents.FloatingActionButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="backgroundTint">@color/colorDarker</item>
+        <item name="rippleColor">@color/colorRippleLight</item>
+        <item name="tint">@color/colorLightest</item>
+        <item name="android:layout_marginBottom">@dimen/marginMedium</item>
     </style>
 </resources>

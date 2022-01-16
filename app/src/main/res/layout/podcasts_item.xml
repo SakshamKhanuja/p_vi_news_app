@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/ripple_dark_ii">
+
+    <!-- Shows the thumbnail of the Podcast -->
+    <ImageView
+        android:id="@+id/podcasts_thumbnail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/marginSmall"
+        android:layout_marginTop="@dimen/marginSmall"
+        android:layout_marginEnd="@dimen/marginSmall"
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/content_description_news_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@drawable/thumbnail_today_in_focus" />
+
+    <TextView
+        android:id="@+id/podcasts_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-medium"
+        android:gravity="center"
+        android:letterSpacing="@fraction/letterSpacingSmall"
+        android:padding="@dimen/paddingSmall"
+        android:textColor="@color/colorLightest"
+        android:textSize="@dimen/textSizeSmall"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/podcasts_thumbnail"
+        tools:text="Today in Focus" />
+</androidx.constraintlayout.widget.ConstraintLayout>

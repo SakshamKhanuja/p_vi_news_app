@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/gradient_podcast">
 
     <!-- Guardian Podcast thumbnail -->
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/podcast_about_thumbnail"
         android:layout_width="@dimen/widthThumbnailSmallII"
         android:layout_height="@dimen/heightThumbnailMediumII"
         android:layout_marginTop="@dimen/marginLarge"
@@ -15,39 +16,95 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/podcast_guardian" />
+        tools:srcCompat="@drawable/thumbnail_today_in_focus" />
 
-    <!-- Shows Guardian podcast info. -->
+    <!-- Shows brief info. about the Podcast -->
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/podcast_about_about"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/marginMedium"
-        android:layout_marginTop="@dimen/marginSmall"
-        android:layout_marginEnd="@dimen/marginMedium"
-        android:layout_marginBottom="@dimen/marginMedium"
+        android:layout_marginStart="@dimen/marginLarge"
+        android:layout_marginTop="@dimen/marginMedium"
+        android:layout_marginEnd="@dimen/marginLarge"
+        android:fontFamily="sans-serif-medium"
         android:gravity="center"
         android:letterSpacing="@fraction/letterSpacingSmall"
-        android:lineSpacingExtra="@dimen/spaceSmallest"
-        android:text="@string/podcast_about"
+        android:lineSpacingExtra="@dimen/spaceSmaller"
         android:textColor="@color/colorLight"
-        android:textSize="@dimen/textSizeMedium"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textSize="@dimen/textSizeMediumII"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintTop_toBottomOf="@+id/text_warning"
+        tools:text="@string/podcast_about" />
 
-    <!-- Shows Guardian podcast title -->
+    <!-- Shows the podcast title -->
     <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
+        android:id="@+id/podcast_about_title"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/marginSmall"
-        android:text="@string/podcast_title"
+        android:layout_marginStart="@dimen/marginLarge"
+        android:layout_marginTop="@dimen/marginMedium"
+        android:layout_marginEnd="@dimen/marginLarge"
+        android:gravity="center_horizontal"
         android:textColor="@color/colorLightest"
         android:textSize="@dimen/textSizeLarge"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/podcast_about_thumbnail"
+        tools:text="@string/podcast_title" />
+
+    <!-- Shows all platforms in which user can access this podcast -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/marginMedium"
+        android:gravity="center_horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/podcast_about_about">
+
+        <!-- Opens up the podcast in "Apple Podcast" -->
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_podcast_apple"
+            style="@style/PodcastFAB"
+            android:layout_marginEnd="@dimen/marginMedium"
+            android:contentDescription="@string/content_description_news_title"
+            app:srcCompat="@drawable/ic_podcast_apple" />
+
+        <!-- Opens the episode in "Google Podcast" app -->
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_podcast_google"
+            style="@style/PodcastFAB"
+            android:layout_marginHorizontal="@dimen/marginMedium"
+            android:background="@drawable/ripple_podcast"
+            android:contentDescription="@string/content_description_news_title"
+            app:srcCompat="@drawable/ic_google_podcasts" />
+
+        <!-- Opens the episode in "Spotify" app -->
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_podcast_spotify"
+            style="@style/PodcastFAB"
+            android:layout_marginStart="@dimen/marginMedium"
+            android:contentDescription="@string/content_description_news_title"
+            app:srcCompat="@drawable/ic_podcast_spotify" />
+    </LinearLayout>
+
+    <!-- Warns the user about podcast containing explicit content -->
+    <TextView
+        android:id="@+id/text_warning"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/marginMedium"
+        android:background="@drawable/background_warning"
+        android:fontFamily="sans-serif-medium"
+        android:letterSpacing="@fraction/letterSpacingSmall"
+        android:padding="@dimen/paddingSmall"
+        android:text="@string/label_explicit"
+        android:textColor="@color/colorLightest"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/podcast_about_title" />
 </androidx.constraintlayout.widget.ConstraintLayout>

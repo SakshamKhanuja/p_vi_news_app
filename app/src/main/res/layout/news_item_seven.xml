@@ -2,8 +2,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="?attr/selectableItemBackground"
-    style="@style/ContainerStart">
+    style="@style/ContainerStart"
+    android:background="?attr/selectableItemBackground">
 
     <!-- Shows news thumbnail -->
     <ImageView
@@ -40,7 +40,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/marginSmall"
-        android:layout_marginTop="@dimen/marginCompact"
+        android:layout_marginTop="@dimen/marginSmall"
         android:layout_marginEnd="@dimen/marginSmall"
         android:layout_marginBottom="@dimen/marginSmall"
         app:layout_constraintBottom_toBottomOf="parent"

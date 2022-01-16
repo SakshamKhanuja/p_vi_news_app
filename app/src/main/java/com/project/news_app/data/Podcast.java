@@ -1,121 +1,145 @@
 package com.project.news_app.data;
 
-import com.project.news_app.constants.JsonUtilsConstants;
-import com.project.news_app.adapters.PodcastAdapter;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 /**
- * Defines a single podcast item.
+ * Defines podcasts basic info.
  */
-public class Podcast {
-    // Stores the podcast title.
-    private String headline;
+public class Podcast implements Parcelable {
+    // Stores the String resource ID containing the title of the podcast.
+    private final int title;
 
-    // Stores brief info. about this podcast.
-    private String trailText;
+    // Stores the String resource ID containing the path to access the podcast from "The Guardian".
+    private final int path;
 
-    /**
-     * Stores then date when this podcast was recorded.
-     * <p>
-     * Date Format - {@link JsonUtilsConstants#PATTERN_PODCAST}
-     */
-    private String date;
+    // Stores the Drawable resource ID containing the podcasts' thumbnail.
+    private final int thumbnail;
 
-    // Stores a URL in String format that locates this podcast in Spotify.
+    // Stores a URL in String format that locates the podcast in "The Guardian" website.
+    private String webUrl;
+
+    // Stores description about the Podcast.
+    private String description;
+
+    // Stores a URL in String format that locates the podcast in Spotify.
     private String spotifyUrl;
 
-    // Stores a URL in String format that locates this podcast in Google Podcast.
+    // Stores a URL in String format that locates the podcast in Google Podcast.
     private String googlePodcastUrl;
 
-    // Stores a URL in String format that points to thumbnail for this podcast.
-    private String thumbnailUrl;
+    // Stores a URL in String format that locates the podcast in Apple Podcast.
+    private String applePodcastUrl;
 
-    // Stores the layout in which this feed gets displayed.
-    private int viewType = PodcastAdapter.PODCAST_DEFAULT;
+    // Stores whether this Podcast contains topics which are explicit in nature.
+    private boolean explicit;
+
+    public Podcast(int title, int path, int thumbnail) {
+        this.title = title;
+        this.path = path;
+        this.thumbnail = thumbnail;
+    }
+
+    protected Podcast(Parcel in) {
+        title = in.readInt();
+        path = in.readInt();
+        thumbnail = in.readInt();
+        webUrl = in.readString();
+        description = in.readString();
+        spotifyUrl = in.readString();
+        googlePodcastUrl = in.readString();
+        applePodcastUrl = in.readString();
+        explicit = in.readByte() != 0;
+    }
+
+    public static final Creator<Podcast> CREATOR = new Creator<Podcast>() {
+        @Override
+        public Podcast createFromParcel(Parcel in) {
+            return new Podcast(in);
+        }
+
+        @Override
+        public Podcast[] newArray(int size) {
+            return new Podcast[size];
+        }
+    };
 
     /**
-     * Stores status whether a CardView item in {@link PodcastAdapter} is EXPANDED or COLLAPSED.
-     * <p>
-     * By default every item in Adapter is set to COLLAPSED.
+     * Sets the string URL that locates the podcast in "The Guardian" website.
      */
-    private boolean expanded = false;
-
-    /**
-     * Sets the headline for this podcast.
-     */
-    public void setHeadline(String headline) {
-        this.headline = headline;
+    public void setWebUrl(String webUrl) {
+        this.webUrl = webUrl;
     }
 
     /**
-     * Sets brief details for this podcast.
+     * Sets brief info. about the podcast.
      */
-    public void setTrailText(String trailText) {
-        this.trailText = trailText;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     /**
-     * Sets the date when the podcast was recorded.
-     */
-    public void setDate(String date) {
-        this.date = date;
-    }
-
-    /**
-     * Sets the string URL that locates this podcast in Spotify.
+     * Sets the string URL that locates the podcast in Spotify.
      */
     public void setSpotifyUrl(String spotifyUrl) {
         this.spotifyUrl = spotifyUrl;
     }
 
     /**
-     * Sets the string URL that locates this podcast in Google Podcasts.
+     * Sets the string URL that locates the podcast in Google Podcasts.
      */
     public void setGooglePodcastUrl(String googlePodcastUrl) {
         this.googlePodcastUrl = googlePodcastUrl;
     }
 
     /**
-     * Sets the thumbnail URL for this Podcast.
+     * Sets the string URL that locates the podcast in Apple Podcasts.
      */
-    public void setThumbnailUrl(String thumbnailUrl) {
-        this.thumbnailUrl = thumbnailUrl;
+    public void setApplePodcastUrl(String applePodcastUrl) {
+        this.applePodcastUrl = applePodcastUrl;
     }
 
     /**
-     * Sets the status for the CardView item to be either EXPANDED or COLLAPSED.
-     *
-     * @param expanded Set 'true' to EXPAND and 'false' to COLLAPSE.
+     * Sets the status of the podcast on whether it contains explicit content or not.
      */
-    public void setExpanded(boolean expanded) {
-        this.expanded = expanded;
+    public void setExplicit(boolean explicit) {
+        this.explicit = explicit;
     }
 
     /**
-     * @param viewType Sets the view type in which this News feed gets displayed.
+     * @return String resource ID containing the title of the podcast.
      */
-    public void setViewType(int viewType) {
-        this.viewType = viewType;
+    public int getTitle() {
+        return title;
     }
 
     /**
-     * @return The podcast headline.
+     * @return String resource ID containing the path to access this podcast from "The Guardian"
+     * API.
      */
-    public String getHeadline() {
-        return headline;
+    public int getPath() {
+        return path;
     }
 
     /**
-     * @return Brief details about the podcast.
+     * @return Podcast's thumbnail resource ID.
      */
-    public String getTrailText() {
-        return trailText;
+    public int getThumbnail() {
+        return thumbnail;
     }
 
     /**
-     * @return Date when the podcast was recorded.
+     * @return URL in String format that locates this podcast in "The Guardian" website.
      */
-    public String getDate() {
-        return date;
+    public String getWebUrl() {
+        return webUrl;
+    }
+
+    /**
+     * @return Brief info. of the podcast.
+     */
+    public String getDescription() {
+        return description;
     }
 
     /**
@@ -133,23 +157,34 @@ public class Podcast {
     }
 
     /**
-     * Podcast's thumbnail.
+     * @return URL in String format that locates the podcast in Apple Podcast.
      */
-    public String getThumbnailUrl() {
-        return thumbnailUrl;
+    public String getApplePodcastUrl() {
+        return applePodcastUrl;
     }
 
     /**
-     * @return Status whether CardView item is EXPANDED.
+     * @return "true", if the podcast contains topics which are explicit in nature.
      */
-    public boolean isExpanded() {
-        return expanded;
+    public boolean isExplicit() {
+        return explicit;
     }
 
-    /**
-     * @return Layout in which the News feed gets displayed.
-     */
-    public int getViewType() {
-        return viewType;
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(title);
+        dest.writeInt(path);
+        dest.writeInt(thumbnail);
+        dest.writeString(webUrl);
+        dest.writeString(description);
+        dest.writeString(spotifyUrl);
+        dest.writeString(googlePodcastUrl);
+        dest.writeString(applePodcastUrl);
+        dest.writeByte((byte) (explicit ? 1 : 0));
     }
 }

@@ -76,7 +76,7 @@ public class CategoryFragment extends Fragment {
     }
 
     /**
-     * Creates and returns ArrayList of type {@link Category} containing news categories.
+     * @return All available news categories in "The Guardian" API.
      */
     private ArrayList<Category> getNewsCategories() {
         ArrayList<Category> categories = new ArrayList<>();

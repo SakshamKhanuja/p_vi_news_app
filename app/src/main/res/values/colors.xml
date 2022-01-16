@@ -21,4 +21,9 @@
     <!-- Colors the icons and text of BottomNavigationView -->
     <color name="colorBottomNavSelected">@color/colorLightest</color>
     <color name="colorBottomNavNotSelected">#808080</color>
+
+    <!-- Colors the highlighted items -->
+    <color name="colorHighlight">#052962</color>
+    <color name="colorHighlightII">#FFE500</color>
+    <color name="colorHighlightIII">#B71C1C</color>
 </resources>

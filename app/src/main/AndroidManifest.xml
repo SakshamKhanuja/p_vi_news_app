@@ -13,6 +13,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".activities.EpisodeActivity"
+            android:exported="false"
+            android:parentActivityName=".activities.MainActivity" />
+        <activity
             android:name=".activities.CategoryActivity"
             android:exported="false"
             android:parentActivityName=".activities.MainActivity" />

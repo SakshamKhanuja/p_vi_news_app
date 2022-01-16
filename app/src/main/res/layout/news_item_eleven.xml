@@ -40,7 +40,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/marginSmall"
-        android:layout_marginTop="@dimen/marginCompact"
+        android:layout_marginTop="@dimen/marginSmall"
         android:layout_marginEnd="@dimen/marginSmall"
         android:layout_marginBottom="@dimen/marginSmall"
         app:layout_constraintBottom_toBottomOf="parent"

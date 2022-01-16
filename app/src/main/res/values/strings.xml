@@ -9,6 +9,9 @@
     <!-- Toasts text when browser is not installed in user's device -->
     <string name="toast_browser_unavailable">Browser was not available.</string>
 
+    <!-- Labels that the podcast contains explicit content -->
+    <string name="label_explicit">Warning: Explicit Content</string>
+
     <!-- Labels World News MainScreenFragment -->
     <string name="top_story_world">World</string>
 
@@ -33,20 +36,14 @@
     <!-- Title for Australia News -->
     <string name="title_aus_news">Australia News</string>
 
-    <!-- Chip to open Google Podcasts -->
-    <string name="chip_google">Google Podcasts</string>
-
     <!-- Indicates user to show more news on this category -->
     <string name="labelSeeMore">See More</string>
-
-    <!-- Chip to open Spotify -->
-    <string name="chip_spotify">Spotify</string>
 
     <!-- Guardian Podcast Title-->
     <string name="podcast_title">Today in Focus</string>
 
     <!-- About Guardian Podcast -->
-    <string name="podcast_about">Hosted by Nosheen Iqbal and Michael Safi, Today in Focus brings you closer to Guardian journalism. Combining personal storytelling with insightful analysis, this podcast takes you behind the newsFeeds for a deeper understanding of the news, every weekday.</string>
+    <string name="podcast_about">Hosted by Nosheen Iqbal and Michael Safi, Today in Focus brings you closer to Guardian journalism. Combining personal storytelling with insightful analysis, this episode takes you behind the newsFeeds for a deeper understanding of the news, every weekday.</string>
 
     <!-- Bottom Navigation View Title Headlines -->
     <string name="bottom_headlines">Headlines</string>
@@ -299,4 +296,184 @@
 
     <!-- News Category - Women - Path (Section) -->
     <string name="category_path_women">lifeandstyle/women</string>
+
+    <!-- Podcast Title - Today in Focus -->
+    <string name="podcast_title_today_in_focus">Today in Focus</string>
+
+    <!-- Podcast Path - Today in Focus -->
+    <string name="podcast_path_today_in_focus">news/series/todayinfocus</string>
+
+    <!-- Podcast Title - Football Weekly -->
+    <string name="podcast_title_football_weekly">Football Weekly</string>
+
+    <!-- Podcast Path - Football Weekly -->
+    <string name="podcast_path_football_weekly">football/series/footballweekly</string>
+
+    <!-- Podcast Title - The Audio Long Read -->
+    <string name="podcast_title_the_audio_long_read">The Audio Long Read</string>
+
+    <!-- Podcast Path - The Audio Long Read -->
+    <string name="podcast_path_the_audio_long_read">news/series/the-audio-long-read</string>
+
+    <!-- Podcast Title - Politics Weekly -->
+    <string name="podcast_title_politics_weekly">Politics Weekly</string>
+
+    <!-- Podcast Path - Politics Weekly -->
+    <string name="podcast_path_politics_weekly">politics/series/politicsweekly</string>
+
+    <!-- Podcast Title - Science Weekly -->
+    <string name="podcast_title_science_weekly">Science Weekly</string>
+
+    <!-- Podcast Path - Science Weekly -->
+    <string name="podcast_path_science_weekly">science/series/science</string>
+
+    <!-- Podcast Title - Comfort Eating with Grace Dent -->
+    <string name="podcast_title_comfort_eating_with_grace_dent">Comfort Eating with Grace Dent</string>
+
+    <!-- Podcast Path - Comfort Eating with Grace Dent -->
+    <string name="podcast_path_comfort_eating_with_grace_dent">lifeandstyle/series/comforteatingwithgracedent</string>
+
+    <!-- Podcast Title - Australia Reads -->
+    <string name="podcast_title_australia_reads">Australia Reads</string>
+
+    <!-- Podcast Path - Australia Reads -->
+    <string name="podcast_path_australia_reads">australia-news/series/australia-reads</string>
+
+    <!-- Podcast Title - Full Story -->
+    <string name="podcast_title_full_story">Full Story</string>
+
+    <!-- Podcast Path - Full Story -->
+    <string name="podcast_path_full_story">australia-news/series/full-story</string>
+
+    <!-- Podcast Title - Australian Politics -->
+    <string name="podcast_title_australian_politics_live">Australian Politics Live</string>
+
+    <!-- Podcast Path - Australian Politics -->
+    <string name="podcast_path_australian_politics_live">australia-news/series/australian-politics-live</string>
+
+    <!-- Podcast Title - The Guardian Books -->
+    <string name="podcast_title_the_guardian_books">The Guardian Books</string>
+
+    <!-- Podcast Path - The Guardian Books -->
+    <string name="podcast_path_the_guardian_books">books/series/books</string>
+
+    <!-- Podcast Title - The Guardian's Brexit Means... -->
+    <string name="podcast_title_the_guardian_brexit_means">The Guardian Brexit Means…</string>
+
+    <!-- Podcast Path - The Guardian's Brexit Means... -->
+    <string name="podcast_path_the_guardian_brexit_means">politics/series/brexit-means</string>
+
+    <!-- Podcast Title - Forgotten Stories of Football -->
+    <string name="podcast_title_forgotten_stories_of_football">Forgotten Stories of Football</string>
+
+    <!-- Podcast Path - Forgotten Stories of Football -->
+    <string name="podcast_path_forgotten_stories_of_football">football/series/forgotten-stories-of-football</string>
+
+    <!-- Podcast Title - Innermost -->
+    <string name="podcast_title_innermost">Innermost</string>
+
+    <!-- Podcast Path - Innermost -->
+    <string name="podcast_path_innermost">society/series/innermost</string>
+
+    <!-- Podcast Title - The Spin -->
+    <string name="podcast_title_the_spin">The Spin</string>
+
+    <!-- Podcast Path - The Spin -->
+    <string name="podcast_path_the_spin">sport/series/the-spin-podcast</string>
+
+    <!-- Podcast Title - Chips with Everything -->
+    <string name="podcast_title_chips_with_everything">Chips with Everything</string>
+
+    <!-- Podcast Path - Chips with Everything -->
+    <string name="podcast_path_chips_with_everything">technology/series/chips-with-everything</string>
+
+    <!-- Podcast Title - Beyond the Blade -->
+    <string name="podcast_title_beyond_the_blade">Beyond the Blade</string>
+
+    <!-- Podcast Path - Beyond the Blade -->
+    <string name="podcast_path_beyond_the_blade">society/series/beyondtheblade</string>
+
+    <!-- Podcast Title - We Need to Talk About... -->
+    <string name="podcast_title_we_need_to_talk_about">We Need to Talk About…</string>
+
+    <!-- Podcast Path - We Need to Talk About... -->
+    <string name="podcast_path_we_need_to_talk_about">membership/series/we-need-to-talk-about</string>
+
+    <!-- Podcast Title - The Story -->
+    <string name="podcast_title_the_story">The Story</string>
+
+    <!-- Podcast Path - The Story -->
+    <string name="podcast_path_the_story">news/series/the-story</string>
+
+    <!-- Podcast Title - Small Changes -->
+    <string name="podcast_title_small_changes">Small Changes</string>
+
+    <!-- Podcast Path - Small Changes -->
+    <string name="podcast_path_small_changes">global-development/series/global-development-podcast</string>
+
+    <!-- Podcast Title - A Neuroscientist Explains -->
+    <string name="podcast_title_a_neuroscientist_explains">A Neuroscientist Explains</string>
+
+    <!-- Podcast Path - A Neuroscientist Explains -->
+    <string name="podcast_path_a_neuroscientist_explains">science/series/a-neuroscientist-explains-podcast</string>
+
+    <!-- Podcast Title - The Guardian UK: Culture Podcast -->
+    <string name="podcast_title_the_guardian_uk_culture_podcast">The Guardian UK: Culture Podcast</string>
+
+    <!-- Podcast Path - The Guardian UK: Culture Podcast -->
+    <string name="podcast_path_the_guardian_uk_culture_podcast">arts/series/culture</string>
+
+    <!-- Podcast Title - Behind the Lines -->
+    <string name="podcast_title_behind_the_lines">Behind the Lines</string>
+
+    <!-- Podcast Path - Behind the Lines -->
+    <string name="podcast_path_behind_the_lines">australia-news/series/behind-the-lines-podcast</string>
+
+    <!-- Podcast Title - Close Encounters -->
+    <string name="podcast_title_close_encounters">Close Encounters</string>
+
+    <!-- Podcast Path - Close Encounters -->
+    <string name="podcast_path_close_encounters">lifeandstyle/series/close-encounters</string>
+
+    <!-- Podcast Title - What would a feminist do? -->
+    <string name="podcast_title_what_would_a_feminist_do">What would a feminist do?</string>
+
+    <!-- Podcast Path - What would a feminist do? -->
+    <string name="podcast_path_what_would_a_feminist_do">commentisfree/series/what-would-a-feminist-do</string>
+
+    <!-- Podcast Title - Token -->
+    <string name="podcast_title_token">Token</string>
+
+    <!-- Podcast Path - Token -->
+    <string name="podcast_path_token">society/series/token</string>
+
+    <!-- Podcast Title - The Reckoning -->
+    <string name="podcast_title_the_reckoning">The Reckoning</string>
+
+    <!-- Podcast Path - The Reckoning -->
+    <string name="podcast_path_the_reckoning">australia-news/series/the-reckoning-guardian-australia-podcast</string>
+
+    <!-- Podcast Title - The Guardian Australia: Culture Podcast -->
+    <string name="podcast_title_the_guardian_australia_culture_podcast">The Guardian Australia: Culture Podcast</string>
+
+    <!-- Podcast Path - The Guardian Australia: Culture Podcast -->
+    <string name="podcast_path_the_guardian_australia_culture_podcast">artanddesign/series/guardian-australia-culture-podcast</string>
+
+    <!-- Podcast Title - Beginner: The Guardian Guide to Running -->
+    <string name="podcast_title_beginner_the_guardian_guide_to_running">Beginner: The Guardian Guide to Running</string>
+
+    <!-- Podcast Path - Beginner: The Guardian Guide to Running -->
+    <string name="podcast_path_beginner_the_guardian_guide_to_running">lifeandstyle/series/guardian-guide-to-running-podcast-beginner</string>
+
+    <!-- Podcast Title - Advanced: The Guardian Guide to Running -->
+    <string name="podcast_title_advanced_the_guardian_guide_to_running">Advanced: The Guardian Guide to Running</string>
+
+    <!-- Podcast Path - Advanced: The Guardian Guide to Running -->
+    <string name="podcast_path_advanced_the_guardian_guide_to_running">lifeandstyle/series/guardian-guide-to-running-podcast-advanced</string>
+
+    <!-- Podcast Title - Marathon: The Guardian Guide to Running -->
+    <string name="podcast_title_marathon_the_guardian_guide_to_running">Marathon: The Guardian Guide to Running</string>
+
+    <!-- Podcast Path - Marathon: The Guardian Guide to Running -->
+    <string name="podcast_path_marathon_the_guardian_guide_to_running">lifeandstyle/series/the-guardian-guide-to-running-podcast-marathon</string>
 </resources>
