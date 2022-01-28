@@ -1,12 +1,15 @@
 package com.project.news_app.data;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.project.news_app.constants.NewsAdapterConstants;
 import com.project.news_app.constants.JsonUtilsConstants;
 
 /**
  * Defines a single News item.
  */
-public class News {
+public class News implements Parcelable {
     // Stores the news headline.
     private String headline;
 
@@ -36,6 +39,33 @@ public class News {
      * Stores the layout in which news info. gets displayed.
      */
     private int viewType = NewsAdapterConstants.TYPE_FOUR;
+
+    public News() {
+
+    }
+
+    protected News(Parcel in) {
+        headline = in.readString();
+        sectionName = in.readString();
+        articleURL = in.readString();
+        byLine = in.readString();
+        publication = in.readString();
+        date = in.readString();
+        thumbnailUrl = in.readString();
+        viewType = in.readInt();
+    }
+
+    public static final Creator<News> CREATOR = new Creator<News>() {
+        @Override
+        public News createFromParcel(Parcel in) {
+            return new News(in);
+        }
+
+        @Override
+        public News[] newArray(int size) {
+            return new News[size];
+        }
+    };
 
     /**
      * Sets the headline for this News.
@@ -147,5 +177,22 @@ public class News {
      */
     public int getViewType() {
         return viewType;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(headline);
+        dest.writeString(sectionName);
+        dest.writeString(articleURL);
+        dest.writeString(byLine);
+        dest.writeString(publication);
+        dest.writeString(date);
+        dest.writeString(thumbnailUrl);
+        dest.writeInt(viewType);
     }
 }

@@ -5,36 +5,45 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/ripple_dark"
-    android:paddingBottom="@dimen/paddingMedium">
+    android:padding="@dimen/paddingMedium">
 
     <!-- Shows news thumbnail -->
-    <ImageView
-        android:id="@+id/image_thumbnail_four"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView_four"
         android:layout_width="@dimen/widthThumbnailSmall"
         android:layout_height="@dimen/heightThumbnailSmall"
-        android:layout_marginEnd="@dimen/marginLarge"
-        android:contentDescription="@string/content_description_news_title"
-        android:scaleType="centerCrop"
+        app:cardBackgroundColor="@color/colorPrimaryDark"
+        app:cardCornerRadius="@dimen/spaceSmaller"
+        app:cardUseCompatPadding="true"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/divider"
-        tools:ignore="ImageContrastCheck"
-        tools:src="@drawable/sample_news_thumbnail" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <!-- Shows news thumbnail -->
+        <ImageView
+            android:id="@+id/image_thumbnail_four"
+            android:layout_width="@dimen/widthThumbnailSmall"
+            android:layout_height="@dimen/heightThumbnailSmall"
+            android:contentDescription="@string/default_content_description"
+            android:scaleType="centerCrop"
+            tools:ignore="ImageContrastCheck"
+            tools:src="@drawable/sample_news_thumbnail" />
+    </androidx.cardview.widget.CardView>
 
     <!-- Shows news section -->
     <TextView
         android:id="@+id/text_section_name_four"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/marginLarge"
-        android:layout_marginEnd="@dimen/marginLarge"
+        android:layout_marginEnd="@dimen/marginMedium"
         android:fontFamily="sans-serif-medium"
         android:letterSpacing="@fraction/letterSpacingLarge"
         android:textAllCaps="true"
-        android:textColor="@color/colorLight"
+        android:textColor="@color/colorRedDark"
         android:textSize="@dimen/textSizeSmall"
-        app:layout_constraintEnd_toStartOf="@+id/image_thumbnail_four"
+        app:layout_constraintEnd_toStartOf="@+id/cardView_four"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/divider"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="TextContrastCheck"
         tools:text="Sport" />
 
     <!-- Shows news headline -->
@@ -42,16 +51,15 @@
         android:id="@+id/text_headline_four"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/marginLarge"
-        android:layout_marginTop="@dimen/marginCompact"
-        android:layout_marginEnd="@dimen/marginLarge"
+        android:layout_marginTop="@dimen/marginSmall"
+        android:layout_marginEnd="@dimen/marginMedium"
         android:ellipsize="end"
         android:lineSpacingExtra="@dimen/widthLineVertical"
         android:maxLines="@integer/maxLinesThree"
         android:textColor="@android:color/white"
         android:textSize="@dimen/textSizeMedium"
         android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/image_thumbnail_four"
+        app:layout_constraintEnd_toStartOf="@+id/cardView_four"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_section_name_four"
         tools:text="Jos Buttler insists he has no plans to retire from Test cricket after Ashes" />
@@ -61,9 +69,8 @@
         android:id="@+id/text_by_line_four"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/marginLarge"
         android:layout_marginTop="@dimen/marginCompact"
-        android:layout_marginEnd="@dimen/marginLarge"
+        android:layout_marginEnd="@dimen/marginMedium"
         android:ellipsize="end"
         android:letterSpacing="@fraction/letterSpacingSmall"
         android:lineSpacingExtra="@dimen/widthLineVertical"
@@ -71,17 +78,8 @@
         android:textColor="@color/colorLight"
         android:textSize="@dimen/textSizeSmall"
         android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/image_thumbnail_four"
+        app:layout_constraintEnd_toStartOf="@+id/cardView_four"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_headline_four"
         tools:text="By Ali Martin in Sydney" />
-
-    <!-- Item Divider -->
-    <View
-        android:id="@+id/divider"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/paddingMedium"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

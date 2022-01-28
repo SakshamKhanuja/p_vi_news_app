@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorDarkest"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/paddingMedium">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/top_news_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorDarker"
+        android:foreground="?attr/selectableItemBackground">
+
+        <!-- Shows news thumbnail -->
+        <ImageView
+            android:id="@+id/top_news_thumbnail"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/heightThumbnailTop"
+            android:contentDescription="@string/default_content_description"
+            android:scaleType="centerCrop"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:srcCompat="@drawable/sample_news_thumbnail" />
+
+        <!-- Shows news headline -->
+        <TextView
+            android:id="@+id/top_news_headline"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/gradient_headline"
+            android:ellipsize="end"
+            android:fontFamily="sans-serif-medium"
+            android:letterSpacing="@fraction/letterSpacingSmall"
+            android:lineSpacingExtra="@dimen/spaceSmallest"
+            android:maxLines="@integer/maxLinesTwo"
+            android:paddingHorizontal="@dimen/paddingMedium"
+            android:paddingTop="58dp"
+            android:paddingBottom="@dimen/paddingMedium"
+            android:textColor="@color/colorLightest"
+            android:textSize="@dimen/textSizeMediumII"
+            app:layout_constraintBottom_toBottomOf="@+id/top_news_thumbnail"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="Jos Buttler insists he has no plans to retire from Test cricket after Ashes" />
+
+        <!-- Shows news section -->
+        <TextView
+            android:id="@+id/top_news_section"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/marginMedium"
+            android:layout_marginEnd="16dp"
+            android:ellipsize="end"
+            android:fontFamily="sans-serif-medium"
+            android:letterSpacing="@fraction/letterSpacingLarge"
+            android:maxLines="@integer/maxLinesOne"
+            android:textAllCaps="true"
+            android:textColor="@color/colorLight"
+            android:textSize="@dimen/textSizeSmall"
+            app:layout_constraintBottom_toBottomOf="@+id/text_top_serial"
+            app:layout_constraintEnd_toStartOf="@+id/text_top_serial"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="Sport" />
+
+        <!-- Shows number of top news out of 5 -->
+        <TextView
+            android:id="@+id/text_top_serial"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/marginMedium"
+            android:layout_marginEnd="@dimen/marginMedium"
+            android:background="@drawable/background_red"
+            android:fontFamily="sans-serif-medium"
+            android:letterSpacing="@fraction/letterSpacingLarge"
+            android:paddingHorizontal="@dimen/paddingSmall"
+            android:paddingVertical="@dimen/paddingSmallest"
+            android:textColor="@color/colorLightest"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/top_news_headline"
+            tools:text="3/5" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

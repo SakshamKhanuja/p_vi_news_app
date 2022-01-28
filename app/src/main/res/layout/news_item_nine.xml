@@ -3,21 +3,30 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/ContainerBetween"
-    android:background="@drawable/ripple_dark">
+    android:background="@drawable/ripple_dark_round">
 
     <!-- Shows news thumbnail -->
-    <ImageView
-        android:id="@+id/image_thumbnail_nine"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView_nine"
         style="@style/ThumbnailEditorial"
-        android:layout_marginStart="@dimen/marginSmall"
-        android:layout_marginTop="@dimen/marginSmall"
-        android:layout_marginEnd="@dimen/marginSmall"
-        android:contentDescription="@string/content_description_news_title"
+        android:layout_marginStart="@dimen/marginCompact"
+        android:layout_marginTop="@dimen/marginCompact"
+        android:layout_marginEnd="@dimen/marginCompact"
+        app:cardBackgroundColor="@color/colorPrimaryDark"
+        app:cardCornerRadius="@dimen/spaceSmaller"
+        app:cardUseCompatPadding="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="ImageContrastCheck"
-        tools:src="@drawable/sample_news_thumbnail" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <!-- Shows news thumbnail -->
+        <ImageView
+            android:id="@+id/image_thumbnail_nine"
+            style="@style/ThumbnailEditorial"
+            android:contentDescription="@string/default_content_description"
+            tools:ignore="ImageContrastCheck"
+            tools:src="@drawable/sample_news_thumbnail" />
+    </androidx.cardview.widget.CardView>
 
     <!-- Shows news headline -->
     <TextView
@@ -26,11 +35,17 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/marginSmall"
-        android:layout_marginTop="@dimen/marginSmall"
+        android:layout_marginTop="@dimen/marginCompact"
         android:layout_marginEnd="@dimen/marginSmall"
+        android:layout_marginBottom="8dp"
+        android:ellipsize="end"
+        android:maxLines="@integer/maxLinesTwo"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/image_thumbnail_nine"
+        app:layout_constraintTop_toBottomOf="@+id/cardView_nine"
+        app:layout_constraintVertical_bias="0.0"
         tools:text="Jos Buttler insists he has no plans to retire from Test cricket after Ashes" />
 
     <!-- Shows article author info. -->
@@ -43,6 +58,8 @@
         android:layout_marginTop="@dimen/marginSmall"
         android:layout_marginEnd="@dimen/marginSmall"
         android:layout_marginBottom="@dimen/marginSmall"
+        android:ellipsize="end"
+        android:maxLines="@integer/maxLinesOne"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -1,5 +1,6 @@
 package com.project.news_app.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 
@@ -12,59 +13,60 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.project.news_app.adapters.CategoryAdapter;
 import com.project.news_app.R;
 import com.project.news_app.data.Category;
+import com.project.news_app.activities.MainActivity;
+import com.project.news_app.utils.CommonUtils;
 
 import java.util.ArrayList;
 
 /**
- * Shows a list of available news categories.
+ * {@link RecyclerView} displays a list of {@link Category} in a VERTICAL orientation.
  */
 public class CategoryFragment extends Fragment {
+    /**
+     * Stores all news category titles.
+     */
+    private ArrayList<Category> newsCategories;
 
-    // Stores all news category titles.
-    private ArrayList<Category> mNewsCategories;
-
-    // Used to access all news category titles across orientation changes.
+    /**
+     * Used to access all news category titles across orientation changes.
+     */
     private static final String KEY_CATEGORY = "category";
+
+    /**
+     * Sets context when this fragment is attached to {@link MainActivity}.
+     */
+    private Context context;
 
     // Required Default Constructor.
     public CategoryFragment() {
         // Providing a layout to inflate.
-        super(R.layout.basic_recycler_view_dark);
+        super(R.layout.basic_recycler_view);
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+
+        // Setting context.
+        this.context = context;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-
         if (savedInstanceState != null) {
             // Restoring List containing news category titles.
-            mNewsCategories = savedInstanceState.getParcelableArrayList(KEY_CATEGORY);
+            newsCategories = savedInstanceState.getParcelableArrayList(KEY_CATEGORY);
         } else {
             // Initializing list containing all news categories.
-            mNewsCategories = getNewsCategories();
+            newsCategories = getNewsCategories();
         }
 
         // Initializing RecyclerView.
         RecyclerView recyclerView = view.findViewById(R.id.recycler_view_dark);
 
-        /*
-         * Linking RecyclerView with a LayoutManager. LayoutManager is responsible for Recycling
-         * ITEM views when they're scrolled OFF the screen. It also determines how the collection
-         * of these ITEMS are displayed.
-         */
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(),
-                LinearLayoutManager.VERTICAL, false);
-        recyclerView.setLayoutManager(layoutManager);
-
-        /*
-         * Further optimizing RecyclerView to NOT invalidate the whole layout, if any change
-         * occurs in the contents of the adapter with which it is linked.
-         *
-         * Fixed size is set to "true", as the contents of the list of Categories remains the same.
-         */
-        recyclerView.setHasFixedSize(true);
-
-        // Linking RecyclerView to Adapter.
-        recyclerView.setAdapter(new CategoryAdapter(mNewsCategories));
+        // Setting up RecyclerView.
+        CommonUtils.setupRecyclerView(context, recyclerView, new CategoryAdapter(newsCategories),
+                LinearLayoutManager.VERTICAL);
     }
 
     @Override
@@ -72,7 +74,7 @@ public class CategoryFragment extends Fragment {
         super.onSaveInstanceState(outState);
 
         // Backing up List containing news category titles.
-        outState.putParcelableArrayList(KEY_CATEGORY, mNewsCategories);
+        outState.putParcelableArrayList(KEY_CATEGORY, newsCategories);
     }
 
     /**

@@ -4,22 +4,30 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/ripple_dark_ii">
+    android:background="@drawable/ripple_dark_round">
 
     <!-- Shows the thumbnail of the Podcast -->
-    <ImageView
-        android:id="@+id/podcasts_thumbnail"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/marginSmall"
-        android:layout_marginTop="@dimen/marginSmall"
-        android:layout_marginEnd="@dimen/marginSmall"
-        android:adjustViewBounds="true"
-        android:contentDescription="@string/content_description_news_title"
+        android:layout_marginStart="@dimen/marginCompact"
+        android:layout_marginTop="@dimen/marginCompact"
+        android:layout_marginEnd="@dimen/marginCompact"
+        app:cardCornerRadius="@dimen/spaceSmaller"
+        app:cardUseCompatPadding="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@drawable/thumbnail_today_in_focus" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/podcasts_thumbnail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/default_content_description"
+            tools:srcCompat="@drawable/thumbnail_today_in_focus" />
+    </androidx.cardview.widget.CardView>
 
     <TextView
         android:id="@+id/podcasts_title"
@@ -33,6 +41,6 @@
         android:textSize="@dimen/textSizeSmall"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/podcasts_thumbnail"
+        app:layout_constraintTop_toBottomOf="@+id/cardView3"
         tools:text="Today in Focus" />
 </androidx.constraintlayout.widget.ConstraintLayout>

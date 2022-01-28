@@ -76,4 +76,9 @@ public interface CategoryActivityConstants extends NewsAdapterConstants {
      */
     int[] PATTERN_SIX = {TYPE_THREE, TYPE_THREE, TYPE_THREE, TYPE_FIVE, TYPE_TWO, TYPE_FIVE,
             TYPE_ONE, TYPE_TWO, TYPE_THREE, TYPE_FOUR};
+
+    /**
+     * Unique identifier for Loader.
+     */
+    int LOADER_ID = 19;
 }

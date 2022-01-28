@@ -4,4 +4,5 @@
     <integer name="maxLinesOne">1</integer>
     <integer name="maxLinesTwo">2</integer>
     <integer name="maxLinesThree">3</integer>
+    <integer name="maxLinesFour">4</integer>
 </resources>

@@ -1,7 +1,6 @@
 package com.project.news_app.adapters;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,18 +9,25 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.project.news_app.activities.CategoryActivity;
 import com.project.news_app.data.Category;
 import com.project.news_app.R;
+import com.project.news_app.utils.CommonUtils;
+import com.project.news_app.fragments.CategoryFragment;
 
 import java.util.ArrayList;
 
+/**
+ * Adapter provides {@link Category} to RecyclerView in {@link CategoryFragment}.
+ */
 public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-
-    // Stores news categories info.
+    /**
+     * Stores news categories info.
+     */
     private final ArrayList<Category> categories;
 
-    // Used for accessing String resources.
+    /**
+     * Used for accessing String resources.
+     */
     private Context context;
 
     /**
@@ -111,17 +117,9 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 // Get the clicked category.
                 Category category = categories.get(getAdapterPosition());
 
-                // Explicit Intent opens up CategoryActivity to show News feed.
-                Intent explicit = new Intent(context, CategoryActivity.class);
-
-                // Passing the path where the clicked category can be accessed in "The Guardian" API.
-                explicit.putExtra(CategoryActivity.EXTRA_PATH, context.getString(
-                        category.getPath()));
-
-                // Passing the clicked news category's title.
-                explicit.putExtra(CategoryActivity.EXTRA_TITLE, context.getString(
-                        category.getTitle()));
-                context.startActivity(explicit);
+                // Opens up CategoryActivity.
+                CommonUtils.openCategoryActivity(context, context.getString(category.getPath()),
+                        context.getString(category.getTitle()));
             });
         }
 

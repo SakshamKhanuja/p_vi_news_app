@@ -17,26 +17,28 @@ import com.project.news_app.adapters.EpisodeAdapter;
 import com.project.news_app.constants.NetworkUtilsConstants;
 import com.project.news_app.data.Episode;
 import com.project.news_app.data.Podcast;
-import com.project.news_app.databinding.BasicRecyclerViewDarkBinding;
+import com.project.news_app.databinding.BasicRecyclerViewBinding;
 import com.project.news_app.fragments.PodcastFragment;
+import com.project.news_app.utils.CommonUtils;
 import com.project.news_app.utils.JsonUtils;
 import com.project.news_app.utils.NetworkUtils;
 
 import java.util.ArrayList;
 
 /**
- * Activity shows a list of {@link Episode} under the clicked Podcast in {@link PodcastFragment}.
+ * Shows a list of {@link Episode} in RecyclerView in a VERTICAL orientation.
  */
 public class EpisodeActivity extends AppCompatActivity implements
         LoaderManager.LoaderCallbacks<ArrayList<Episode>> {
-
     /**
      * Stores basic title, path and thumbnail of the clicked Podcast in {@link PodcastFragment}.
      */
     private Podcast clickedPodcast;
 
-    // Adapter provides "PodcastAboutViewHolder" and "PodcastViewHolder" items to the RecyclerView.
-    private EpisodeAdapter mAdapter;
+    /**
+     * Adapter {@link Episode} items to RecyclerView.
+     */
+    private EpisodeAdapter adapter;
 
     /**
      * Provides access to the clicked {@link Podcast}.
@@ -69,24 +71,19 @@ public class EpisodeActivity extends AppCompatActivity implements
         }
 
         // Setting content view.
-        BasicRecyclerViewDarkBinding binding = BasicRecyclerViewDarkBinding.inflate(
+        BasicRecyclerViewBinding binding = BasicRecyclerViewBinding.inflate(
                 (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE));
         setContentView(binding.getRoot());
 
         // Set AppBar's title to the clicked podcast's title.
         setTitle(clickedPodcast.getTitle());
 
-        // Linking LayoutManager to RecyclerView.
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this,
-                LinearLayoutManager.VERTICAL, false);
-        binding.recyclerViewDark.setLayoutManager(layoutManager);
-
-        // Optimizes RecyclerView.
-        binding.recyclerViewDark.setHasFixedSize(true);
-
         // Linking Adapter to RecyclerView.
-        mAdapter = new EpisodeAdapter(null);
-        binding.recyclerViewDark.setAdapter(mAdapter);
+        adapter = new EpisodeAdapter(this, null);
+
+        // Setting up RecyclerView.
+        CommonUtils.setupRecyclerView(this, binding.recyclerViewDark, adapter,
+                LinearLayoutManager.VERTICAL);
 
         // Downloads a list of episodes of the clicked Podcast from "The Guardian" API.
         LoaderManager.getInstance(this).initLoader(1, null, this);
@@ -153,13 +150,13 @@ public class EpisodeActivity extends AppCompatActivity implements
                                ArrayList<Episode> data) {
         if (data != null && data.size() > 0) {
             // Updating the contents of PodcastAdapter.
-            mAdapter.setEpisodeData(data);
+            adapter.setEpisodeData(data);
         }
     }
 
     @Override
     public void onLoaderReset(@NonNull Loader<ArrayList<Episode>> loader) {
         // Clearing up the PodcastAdapter.
-        mAdapter.setEpisodeData(null);
+        adapter.setEpisodeData(null);
     }
 }

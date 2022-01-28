@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <!-- Name of the app visible in LAUNCHER -->
     <string name="app_name">News App</string>
 
@@ -11,6 +11,36 @@
 
     <!-- Labels that the podcast contains explicit content -->
     <string name="label_explicit">Warning: Explicit Content</string>
+
+    <!-- Sets the index number of news in "layout_top_news_fragment" layout -->
+    <string name="top_news_serial"><xliff:g id="number">%d</xliff:g>/5</string>
+
+    <!-- Labels the "Social Media" section -->
+    <string name="label_social">Social Media</string>
+
+    <!-- Sets text about "Social Media" section -->
+    <string name="label_social_about">All the day\'s headlines and highlights direct to you. Find us on:</string>
+
+    <!-- Labels the "Discover" section -->
+    <string name="label_discover">Discover</string>
+
+    <!-- Sets the text of "Discover" section -->
+    <string name="label_game">The\nGuardian\nPuzzles App</string>
+
+    <!-- Labels the "Get the App" TextView in "layout_discover" layout -->
+    <string name="label_get_app">Get the App</string>
+
+    <!-- Labels the "Get Involved" TextView in "layout_readers" layout -->
+    <string name="label_get_involved">Get Involved</string>
+
+    <!-- Labels the "Readers" section -->
+    <string name="label_readers">Readers</string>
+
+    <!-- Sets the text of "Readers" section -->
+    <string name="label_community">Guardian\nWeekly\'s\nGlobal Community</string>
+
+    <!-- Sets the text of "Listen" Button in "episode_item" layout -->
+    <string name="button_listen">Listen</string>
 
     <!-- Labels World News MainScreenFragment -->
     <string name="top_story_world">World</string>
@@ -55,7 +85,7 @@
     <string name="bottom_podcast">Podcast</string>
 
     <!-- Default Content Description -->
-    <string name="content_description_news_title">Image</string>
+    <string name="default_content_description">Image</string>
 
     <!-- Category Title - News -->
     <string name="title_news">News</string>
@@ -470,10 +500,4 @@
 
     <!-- Podcast Path - Advanced: The Guardian Guide to Running -->
     <string name="podcast_path_advanced_the_guardian_guide_to_running">lifeandstyle/series/guardian-guide-to-running-podcast-advanced</string>
-
-    <!-- Podcast Title - Marathon: The Guardian Guide to Running -->
-    <string name="podcast_title_marathon_the_guardian_guide_to_running">Marathon: The Guardian Guide to Running</string>
-
-    <!-- Podcast Path - Marathon: The Guardian Guide to Running -->
-    <string name="podcast_path_marathon_the_guardian_guide_to_running">lifeandstyle/series/the-guardian-guide-to-running-podcast-marathon</string>
 </resources>

@@ -15,7 +15,8 @@
         <activity
             android:name=".activities.EpisodeActivity"
             android:exported="false"
-            android:parentActivityName=".activities.MainActivity" />
+            android:parentActivityName=".activities.MainActivity"
+            android:theme="@style/EpisodeTheme" />
         <activity
             android:name=".activities.CategoryActivity"
             android:exported="false"

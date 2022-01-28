@@ -6,17 +6,25 @@
     android:layout_height="wrap_content"
     android:background="@drawable/gradient_podcast">
 
-    <!-- Guardian Podcast thumbnail -->
-    <ImageView
-        android:id="@+id/podcast_about_thumbnail"
-        android:layout_width="@dimen/widthThumbnailSmallII"
-        android:layout_height="@dimen/heightThumbnailMediumII"
+    <!-- Shows Podcast thumbnail -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/marginLarge"
-        android:contentDescription="@string/content_description_news_title"
+        app:cardCornerRadius="@dimen/spaceSmaller"
+        app:cardUseCompatPadding="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@drawable/thumbnail_today_in_focus" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/podcast_about_thumbnail"
+            android:layout_width="@dimen/widthThumbnailSmallII"
+            android:layout_height="@dimen/heightThumbnailMediumII"
+            android:contentDescription="@string/default_content_description"
+            tools:srcCompat="@drawable/thumbnail_today_in_focus" />
+    </androidx.cardview.widget.CardView>
 
     <!-- Shows brief info. about the Podcast -->
     <TextView
@@ -44,7 +52,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/marginLarge"
-        android:layout_marginTop="@dimen/marginMedium"
+        android:layout_marginTop="@dimen/marginSmallII"
         android:layout_marginEnd="@dimen/marginLarge"
         android:gravity="center_horizontal"
         android:textColor="@color/colorLightest"
@@ -52,45 +60,47 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/podcast_about_thumbnail"
+        app:layout_constraintTop_toBottomOf="@+id/cardView2"
         tools:text="@string/podcast_title" />
 
-    <!-- Shows all platforms in which user can access this podcast -->
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <!-- Opens the episode in "Google Podcast" app -->
+    <ImageView
+        android:id="@+id/image_podcast_google"
+        style="@style/PodcastStyle"
         android:layout_marginTop="@dimen/marginMedium"
-        android:gravity="center_horizontal"
+        android:layout_marginBottom="@dimen/marginMedium"
+        android:contentDescription="@string/default_content_description"
+        android:src="@drawable/ic_podcast_google"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/podcast_about_about">
+        app:layout_constraintTop_toBottomOf="@+id/podcast_about_about" />
 
-        <!-- Opens up the podcast in "Apple Podcast" -->
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab_podcast_apple"
-            style="@style/PodcastFAB"
-            android:layout_marginEnd="@dimen/marginMedium"
-            android:contentDescription="@string/content_description_news_title"
-            app:srcCompat="@drawable/ic_podcast_apple" />
+    <!-- Opens up the podcast in "Apple Podcast" -->
+    <ImageView
+        android:id="@+id/image_podcast_apple"
+        style="@style/PodcastStyle"
+        android:layout_marginTop="@dimen/marginMedium"
+        android:layout_marginEnd="@dimen/marginLargeII"
+        android:layout_marginBottom="@dimen/marginMedium"
+        android:contentDescription="@string/default_content_description"
+        android:src="@drawable/ic_podcast_apple"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/image_podcast_google"
+        app:layout_constraintTop_toBottomOf="@+id/podcast_about_about" />
 
-        <!-- Opens the episode in "Google Podcast" app -->
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab_podcast_google"
-            style="@style/PodcastFAB"
-            android:layout_marginHorizontal="@dimen/marginMedium"
-            android:background="@drawable/ripple_podcast"
-            android:contentDescription="@string/content_description_news_title"
-            app:srcCompat="@drawable/ic_google_podcasts" />
-
-        <!-- Opens the episode in "Spotify" app -->
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab_podcast_spotify"
-            style="@style/PodcastFAB"
-            android:layout_marginStart="@dimen/marginMedium"
-            android:contentDescription="@string/content_description_news_title"
-            app:srcCompat="@drawable/ic_podcast_spotify" />
-    </LinearLayout>
+    <!-- Opens the episode in "Spotify" app -->
+    <ImageView
+        android:id="@+id/image_podcast_spotify"
+        style="@style/PodcastStyle"
+        android:layout_marginStart="@dimen/marginLargeII"
+        android:layout_marginTop="@dimen/marginMedium"
+        android:layout_marginBottom="@dimen/marginMedium"
+        android:contentDescription="@string/default_content_description"
+        android:src="@drawable/ic_podcast_spotify"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/image_podcast_google"
+        app:layout_constraintTop_toBottomOf="@+id/podcast_about_about" />
 
     <!-- Warns the user about podcast containing explicit content -->
     <TextView
@@ -98,7 +108,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/marginMedium"
-        android:background="@drawable/background_warning"
+        android:background="@drawable/background_red"
         android:fontFamily="sans-serif-medium"
         android:letterSpacing="@fraction/letterSpacingSmall"
         android:padding="@dimen/paddingSmall"

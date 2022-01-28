@@ -18,27 +18,33 @@ import com.project.news_app.adapters.NewsAdapter;
 import com.project.news_app.constants.CategoryActivityConstants;
 import com.project.news_app.constants.NetworkUtilsConstants;
 import com.project.news_app.data.News;
-import com.project.news_app.databinding.BasicRecyclerViewLightBinding;
+import com.project.news_app.databinding.BasicRecyclerViewBinding;
+import com.project.news_app.utils.CommonUtils;
 import com.project.news_app.utils.JsonUtils;
 import com.project.news_app.utils.NetworkUtils;
-import com.project.news_app.fragments.CategoryFragment;
 
 import java.util.ArrayList;
 
 /**
- * Activity shows news category clicked in {@link CategoryFragment} Fragment.
+ * Shows a list of {@link News} in RecyclerView in a VERTICAL orientation.
  */
 public class CategoryActivity extends AppCompatActivity implements
         LoaderManager.LoaderCallbacks<ArrayList<News>>, CategoryActivityConstants {
 
-    // Stores the path that locates the clicked News category in "The Guardian" API.
-    private String mPath;
+    /**
+     * Stores the path that locates the clicked News category/title in "The Guardian" API.
+     */
+    private String path;
 
-    // Stores the title of the clicked news category.
-    private String mTitle;
+    /**
+     * Stores the title of the clicked news category.
+     */
+    private String title;
 
-    // Adapter provides News items to RecyclerView.
-    private NewsAdapter mAdapter;
+    /**
+     * Adapter provides {@link News} items to RecyclerView.
+     */
+    private NewsAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,38 +64,33 @@ public class CategoryActivity extends AppCompatActivity implements
                 // Control goes back to CategoryFragment.
                 return;
             } else {
-                mPath = intent.getStringExtra(EXTRA_PATH);
-                mTitle = intent.getStringExtra(EXTRA_TITLE);
+                path = intent.getStringExtra(EXTRA_PATH);
+                title = intent.getStringExtra(EXTRA_TITLE);
             }
         } else {
             // Restoring clicked news title and path.
-            mPath = savedInstanceState.getString(KEY_PATH);
-            mTitle = savedInstanceState.getString(KEY_TITLE);
+            path = savedInstanceState.getString(KEY_PATH);
+            title = savedInstanceState.getString(KEY_TITLE);
         }
 
         // Setting content view.
-        BasicRecyclerViewLightBinding binding =
-                BasicRecyclerViewLightBinding.inflate((LayoutInflater) getSystemService(
+        BasicRecyclerViewBinding binding =
+                BasicRecyclerViewBinding.inflate((LayoutInflater) getSystemService(
                         Context.LAYOUT_INFLATER_SERVICE));
         setContentView(binding.getRoot());
 
         // Set AppBar's title to the clicked news category's title.
-        setTitle(mTitle);
+        setTitle(title);
 
-        // Linking LayoutManager to RecyclerView.
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this,
-                LinearLayoutManager.VERTICAL, false);
-        binding.recyclerViewLight.setLayoutManager(linearLayoutManager);
+        // Initializing Adapter.
+        adapter = new NewsAdapter(this, null);
 
-        // Optimizes RecyclerView.
-        binding.recyclerViewLight.setHasFixedSize(true);
-
-        // Linking Adapter to RecyclerView.
-        mAdapter = new NewsAdapter(null);
-        binding.recyclerViewLight.setAdapter(mAdapter);
+        // Setting up RecyclerView.
+        CommonUtils.setupRecyclerView(this, binding.recyclerViewDark, adapter,
+                LinearLayoutManager.VERTICAL);
 
         // Downloading clicked news category data in a background Thread.
-        LoaderManager.getInstance(this).initLoader(0, null, this);
+        LoaderManager.getInstance(this).initLoader(LOADER_ID, null, this);
     }
 
     @Override
@@ -97,10 +98,10 @@ public class CategoryActivity extends AppCompatActivity implements
         super.onSaveInstanceState(outState);
 
         // Backing up the clicked news category's path.
-        outState.putString(KEY_PATH, mPath);
+        outState.putString(KEY_PATH, path);
 
         // Backing up the clicked news category title.
-        outState.putString(KEY_TITLE, mTitle);
+        outState.putString(KEY_TITLE, title);
     }
 
     @Override
@@ -142,7 +143,7 @@ public class CategoryActivity extends AppCompatActivity implements
 
                 // Downloads news feed from "The Guardian" API's Section Endpoint.
                 String jsonResponse = NetworkUtils.downloadNewsData(
-                        NetworkUtils.makeNewsUrl(CategoryActivity.this, mPath,
+                        NetworkUtils.makeNewsUrl(CategoryActivity.this, path,
                                 NetworkUtilsConstants.QP_VALUE_FIELDS, 100));
 
                 // Parses JSON response to a list of type News.
@@ -186,7 +187,8 @@ public class CategoryActivity extends AppCompatActivity implements
             }
 
             /**
-             * Sets view type for all {@link News} items stored in the list.<br/>
+             * Sets view type for all {@link News} items stored in the list.
+             * <br/>
              * View type is used by {@link NewsAdapter} to set custom item layout at every position.
              */
             private void setViewType(ArrayList<News> newsList) {
@@ -227,13 +229,13 @@ public class CategoryActivity extends AppCompatActivity implements
     public void onLoadFinished(@NonNull Loader<ArrayList<News>> loader, ArrayList<News> data) {
         if (data != null && data.size() > 0) {
             // Updating the contents of NewsAdapter.
-            mAdapter.setNewsData(data);
+            adapter.setNewsData(data);
         }
     }
 
     @Override
     public void onLoaderReset(@NonNull Loader<ArrayList<News>> loader) {
         // Clearing up the NewsAdapter.
-        mAdapter.setNewsData(null);
+        adapter.setNewsData(null);
     }
 }

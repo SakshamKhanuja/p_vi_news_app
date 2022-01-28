@@ -1,39 +1,48 @@
 package com.project.news_app.adapters;
 
 import android.annotation.SuppressLint;
-import android.content.ActivityNotFoundException;
 import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.project.news_app.R;
 import com.project.news_app.data.Episode;
 import com.project.news_app.data.Podcast;
+import com.project.news_app.activities.EpisodeActivity;
+import com.project.news_app.utils.CommonUtils;
 
 import java.util.ArrayList;
 
+/**
+ * Adapter provides {@link Episode} to the RecyclerView in {@link EpisodeActivity}.
+ */
 public class EpisodeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+    /**
+     * Used to load images via Glide library.
+     */
+    private final Context context;
 
-    // Used to load images via Glide library.
-    private Context context;
-
-    // Stores downloaded episodes info.
+    /**
+     * Stores downloaded episodes info.
+     */
     private ArrayList<Episode> episodes;
+
+    /**
+     * Notifies the unavailability of Browser in user's app.
+     */
+    private Toast toast;
 
     /**
      * View type inflated from {@link R.layout#episode_item} layout.
@@ -45,16 +54,14 @@ public class EpisodeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
      */
     public static final int PODCAST_ABOUT = 2;
 
-    public EpisodeAdapter(ArrayList<Episode> episodes) {
+    public EpisodeAdapter(Context context, ArrayList<Episode> episodes) {
+        this.context = context;
         this.episodes = episodes;
     }
 
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        // Sets context.
-        context = parent.getContext();
-
         // Inflates views from layout.
         LayoutInflater layoutInflater = LayoutInflater.from(context);
 
@@ -122,20 +129,6 @@ public class EpisodeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     }
 
     /**
-     * Opens the clicked podcast's or episode's link in either the device's "Browser" app OR opens
-     * up a disambiguation dialog if user has installed podcast apps on their device.
-     *
-     * @param webPage Uri points to the either one of the podcast's link or the episode's link.
-     */
-    private void openLink(Uri webPage) {
-        try {
-            context.startActivity(new Intent(Intent.ACTION_VIEW, webPage));
-        } catch (ActivityNotFoundException e) {
-            Log.v("PodcastAdapter", "Unable to open - " + e.getMessage());
-        }
-    }
-
-    /**
      * ViewHolder shows episode's title, date, by-line, about, and link to access the Episode in
      * "The Guardian" website.
      * <br/>
@@ -165,6 +158,11 @@ public class EpisodeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         private final TextView aboutExpanded;
 
         /*
+         * Shows the episode's title, and date.
+         */
+        private final ConstraintLayout basicLayout;
+
+        /*
          * Shows the episode's details when user clicks the collapsed layout in order to show more
          * details.
          */
@@ -187,18 +185,16 @@ public class EpisodeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             thumbnailExpanded = itemView.findViewById(R.id.expanded_episode_thumbnail);
             byLineExpanded = itemView.findViewById(R.id.expanded_episode_byline);
             aboutExpanded = itemView.findViewById(R.id.expanded_episode_about);
+            basicLayout = itemView.findViewById(R.id.basic_layout);
 
             // Opens up the episode in "The Guardian" website.
-            FloatingActionButton playFab = itemView.findViewById(R.id.expanded_episode_play);
+            Button buttonListen = itemView.findViewById(R.id.expanded_episode_play);
 
             // Attaching OnClickListener to play the selected episode in "The Guardian" website.
-            playFab.setOnClickListener(this);
+            buttonListen.setOnClickListener(this);
 
             // Initializes layout that gets displayed.
             expandableLayout = itemView.findViewById(R.id.expandable_layout);
-
-            // Initializes the basic layout that shows the title and date info. of the episode.
-            ConstraintLayout basicLayout = itemView.findViewById(R.id.basic_layout);
 
             // Attaching OnClickListener to either expand/collapse the item view.
             basicLayout.setOnClickListener(this);
@@ -226,7 +222,8 @@ public class EpisodeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
             // Checks if user tried to play the expanded podcast.
             else if (clickedViewID == R.id.expanded_episode_play) {
-                openLink(Uri.parse(episode.getEpisodeUrl()));
+                CommonUtils.openBrowserOrApp(context, episode.getEpisodeUrl(), toast,
+                        R.string.toast_browser_unavailable);
             }
         }
 
@@ -242,6 +239,13 @@ public class EpisodeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
             // Checking whether episode is expanded or collapsed.
             if (episode.isExpanded()) {
+                // Update drawable of "basicLayout".
+                basicLayout.setBackground(AppCompatResources.getDrawable(context,
+                        R.drawable.ripple_red));
+
+                // Update date collapsed color.
+                dateCollapsed.setTextColor(ContextCompat.getColor(context,
+                        R.color.colorRedLight));
 
                 // Update arrow.
                 arrow.setImageDrawable(AppCompatResources.getDrawable(context,
@@ -249,13 +253,9 @@ public class EpisodeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
                 // Checks if thumbnail url for the episode is available.
                 String thumbnail = episode.getThumbnailUrl();
-                if(!TextUtils.isEmpty(thumbnail)) {
-                    // Downloads and sets podcast's thumbnail.
-                    Glide.with(context)
-                            .load(thumbnail)
-                            .placeholder(R.drawable.placeholder)
-                            .transition(DrawableTransitionOptions.withCrossFade())
-                            .into(thumbnailExpanded);
+                if (!TextUtils.isEmpty(thumbnail)) {
+                    // Downloading podcast thumbnail.
+                    CommonUtils.setThumbnail(context, thumbnailExpanded, thumbnail);
                 } else {
                     // Shows the podcast's thumbnail instead.
                     thumbnailExpanded.setImageResource(episodes.get(0).getPodcast().getThumbnail());
@@ -268,14 +268,22 @@ public class EpisodeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 dateExpanded.setText(episode.getDate());
 
                 // Sets expanded by line.
-                byLineExpanded.setText(episode.getByLine());
+                CommonUtils.setText(byLineExpanded, episode.getByLine());
 
                 // Sets expanded about.
-                aboutExpanded.setText(episode.getStandFirst());
+                CommonUtils.setText(aboutExpanded, episode.getStandFirst());
 
                 // Shows the expanded layout.
                 expandableLayout.setVisibility(View.VISIBLE);
             } else {
+                // Update drawable of "basicLayout".
+                basicLayout.setBackground(AppCompatResources.getDrawable(context,
+                        R.drawable.ripple_dark));
+
+                // Update date collapsed color.
+                dateCollapsed.setTextColor(ContextCompat.getColor(context,
+                        R.color.colorLight));
+
                 // Hides the expanded layout.
                 expandableLayout.setVisibility(View.GONE);
 
@@ -310,8 +318,14 @@ public class EpisodeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         // Stores podcast URL on different platforms.
         private String applePodcastUrl, googlePodcastUrl, spotifyPodcastUrl;
 
-        // Shows all available platforms streaming this podcast.
-        private final FloatingActionButton fabApple, fabGoogle, fabSpotify;
+        // Shows apple podcast logo.
+        private final ImageView imageApple;
+
+        // Shows google podcast logo.
+        private final ImageView imageGoogle;
+
+        // Shows spotify podcast logo.
+        private final ImageView imageSpotify;
 
         public AboutPodcastViewHolder(View itemView) {
             super(itemView);
@@ -322,19 +336,19 @@ public class EpisodeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             about = itemView.findViewById(R.id.podcast_about_about);
             warning = itemView.findViewById(R.id.text_warning);
 
-            // Initializing all FAB(s).
-            fabApple = itemView.findViewById(R.id.fab_podcast_apple);
-            fabGoogle = itemView.findViewById(R.id.fab_podcast_google);
-            fabSpotify = itemView.findViewById(R.id.fab_podcast_spotify);
+            // Shows all available platforms streaming this podcast.
+            imageApple = itemView.findViewById(R.id.image_podcast_apple);
+            imageGoogle = itemView.findViewById(R.id.image_podcast_google);
+            imageSpotify = itemView.findViewById(R.id.image_podcast_spotify);
 
             // Attaching OnClickListener to open the podcast in "Apple Podcast".
-            fabApple.setOnClickListener(this);
+            imageApple.setOnClickListener(this);
 
             // Attaching OnClickListener to open the podcast in "Google Podcast".
-            fabGoogle.setOnClickListener(this);
+            imageGoogle.setOnClickListener(this);
 
             // Attaching OnClickListener to open the podcast in "Spotify".
-            fabSpotify.setOnClickListener(this);
+            imageSpotify.setOnClickListener(this);
         }
 
         /**
@@ -362,47 +376,81 @@ public class EpisodeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
             // Get's apple podcast url.
             applePodcastUrl = podcast.getApplePodcastUrl();
-            showHideFAB(fabApple, applePodcastUrl);
+
+            // Sets background and src. based on apple podcast url.
+            setPodcastBackground(applePodcastUrl, imageApple, R.drawable.ic_podcast_apple,
+                    R.drawable.ic_podcast_apple_disabled);
 
             // Get's google podcast url.
             googlePodcastUrl = podcast.getGooglePodcastUrl();
-            showHideFAB(fabGoogle, googlePodcastUrl);
+
+            // Sets background and src. based on google podcast url.
+            setPodcastBackground(googlePodcastUrl, imageGoogle, R.drawable.ic_podcast_google,
+                    R.drawable.ic_podcast_google_disabled);
 
             // Get's spotify podcast url.
             spotifyPodcastUrl = podcast.getSpotifyUrl();
-            showHideFAB(fabSpotify, spotifyPodcastUrl);
+
+            // Sets background and src. based on spotify podcast url.
+            setPodcastBackground(spotifyPodcastUrl, imageSpotify, R.drawable.ic_podcast_spotify,
+                    R.drawable.ic_podcast_spotify_disabled);
         }
 
         /**
-         * Set's visibility of FAB based on the availability of URL.
+         * Sets the podcast logo background and source.
+         *
+         * @param podcastUrl      Locates podcast in platforms - "Google Podcasts", "Apple
+         *                        Podcasts" and "Spotify".
+         * @param podcast         Shows podcast logo.
+         * @param enableDrawable  Drawable resource is set if the podcast is present in the
+         *                        platform.
+         * @param disableDrawable Drawable resource is set if the podcast is not present in the
+         *                        platform.
          */
-        private void showHideFAB(FloatingActionButton fab, String url) {
-            if (TextUtils.isEmpty(url)) {
-                fab.setVisibility(View.GONE);
+        private void setPodcastBackground(String podcastUrl, ImageView podcast, int enableDrawable,
+                                          int disableDrawable) {
+            if (!TextUtils.isEmpty(podcastUrl)) {
+                podcast.setBackground(AppCompatResources.getDrawable(context,
+                        R.drawable.ripple_podcast_platform));
+                podcast.setImageResource(enableDrawable);
+                podcast.setEnabled(true);
+
             } else {
-                fab.setVisibility(View.VISIBLE);
+                podcast.setBackground(AppCompatResources.getDrawable(context,
+                        R.drawable.shape_podcast_disabled));
+                podcast.setImageResource(disableDrawable);
+                podcast.setEnabled(false);
             }
         }
 
         @Override
         public void onClick(View fab) {
-            // Gets the clicked FAB id.
-            int clickedID = fab.getId();
+            // Gets the clicked platform ID.
+            int platformID = fab.getId();
+
+            // Stores the url of the clicked platform.
+            String url = "";
 
             // Checks if user clicked "Apple" FAB.
-            if (clickedID == R.id.fab_podcast_apple) {
-                openLink(Uri.parse(applePodcastUrl));
+            if (platformID == R.id.image_podcast_apple) {
+                url = applePodcastUrl;
             }
 
             // Checks if user clicked "Google" FAB.
-            else if (clickedID == R.id.fab_podcast_google) {
-                openLink(Uri.parse(googlePodcastUrl));
+            else if (platformID == R.id.image_podcast_google) {
+                url = googlePodcastUrl;
             }
 
             // Checks if user clicked "Spotify" FAB.
-            else if (clickedID == R.id.fab_podcast_spotify) {
-                openLink(Uri.parse(spotifyPodcastUrl));
+            else if (platformID == R.id.image_podcast_spotify) {
+                url = spotifyPodcastUrl;
             }
+
+            /*
+             * Opens the clicked platform in its individual app or load its page in device's
+             * browser.
+             */
+            CommonUtils.openBrowserOrApp(context, url, toast, R.string.toast_browser_unavailable);
         }
     }
 }

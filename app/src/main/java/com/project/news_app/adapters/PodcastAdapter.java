@@ -14,18 +14,26 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.project.news_app.R;
 import com.project.news_app.activities.EpisodeActivity;
 import com.project.news_app.data.Podcast;
+import com.project.news_app.fragments.PodcastFragment;
 
 import java.util.ArrayList;
 
+/**
+ * Adapter provides {@link Podcast} to the RecyclerView in {@link PodcastFragment}.
+ */
 public class PodcastAdapter extends RecyclerView.Adapter<PodcastAdapter.PodcastViewHolder> {
-
-    // Stores basic info. about all available podcasts in "The Guardian" API.
+    /**
+     * Stores basic info. about all available podcasts in "The Guardian" API.
+     */
     private final ArrayList<Podcast> podcasts;
 
-    // Used to download thumbnails.
-    private Context context;
+    /**
+     * Used to download thumbnails.
+     */
+    private final Context context;
 
-    public PodcastAdapter(ArrayList<Podcast> podcasts) {
+    public PodcastAdapter(Context context, ArrayList<Podcast> podcasts) {
+        this.context = context;
         this.podcasts = podcasts;
     }
 
@@ -33,9 +41,6 @@ public class PodcastAdapter extends RecyclerView.Adapter<PodcastAdapter.PodcastV
     @Override
     public PodcastAdapter.PodcastViewHolder onCreateViewHolder(@NonNull ViewGroup parent,
                                                                int viewType) {
-        // Sets context.
-        context = parent.getContext();
-
         // Initializing ViewHolder.
         return new PodcastViewHolder(LayoutInflater.from(context).inflate(R.layout.podcasts_item,
                 parent, false));

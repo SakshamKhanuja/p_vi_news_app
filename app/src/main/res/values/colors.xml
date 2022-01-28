@@ -23,7 +23,6 @@
     <color name="colorBottomNavNotSelected">#808080</color>
 
     <!-- Colors the highlighted items -->
-    <color name="colorHighlight">#052962</color>
-    <color name="colorHighlightII">#FFE500</color>
-    <color name="colorHighlightIII">#B71C1C</color>
+    <color name="colorRedDark">#B00020</color>
+    <color name="colorRedLight">#FFBAC8</color>
 </resources>

@@ -9,8 +9,10 @@
     <!-- Margin -->
     <dimen name="marginCompact">4dp</dimen>
     <dimen name="marginSmall">8dp</dimen>
+    <dimen name="marginSmallII">12dp</dimen>
     <dimen name="marginMedium">16dp</dimen>
     <dimen name="marginLarge">24dp</dimen>
+    <dimen name="marginLargeII">32dp</dimen>
 
     <!-- Text -->
     <dimen name="textSizeSmaller">12sp</dimen>
@@ -35,8 +37,13 @@
     <dimen name="widthThumbnailSmallII">200dp</dimen>
     <dimen name="widthThumbnailMedium">250dp</dimen>
     <dimen name="widthThumbnailLarge">350dp</dimen>
+    <dimen name="heightThumbnailTop">450dp</dimen>
+    <dimen name="dimenPodcast">60dp</dimen>
 
     <!-- Dividers -->
     <dimen name="widthLineVertical">2dp</dimen>
     <dimen name="widthLineHorizontal">1dp</dimen>
+
+    <!-- Height of the RecyclerView showing news feed in "HeadlineFragment" -->
+    <dimen name="heightNewsFeed">316dp</dimen>
 </resources>

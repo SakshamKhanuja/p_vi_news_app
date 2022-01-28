@@ -2,13 +2,13 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    style="@style/NewsFeedContainer"
-    android:background="@color/colorDarker">
+    style="@style/NewsFeedContainer">
 
     <!-- Shows news feed in a HORIZONTAL orientation -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/item_recycler_view_two"
         style="@style/NewsFeedRecyclerView"
+        android:layout_height="300dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -19,9 +19,9 @@
         android:id="@+id/item_see_more_two"
         style="@style/NewsFeedSeeMore"
         android:layout_marginTop="@dimen/marginMedium"
-        android:layout_marginEnd="@dimen/marginMedium"
-        android:textColor="@color/color_see_more_light"
-        app:drawableEndCompat="@drawable/arrow_see_more_dark"
+        android:layout_marginEnd="@dimen/marginSmall"
+        android:textColor="@color/color_see_more"
+        app:drawableEndCompat="@drawable/arrow_see_more"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -31,12 +31,14 @@
         style="@style/NewsSection"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/marginLarge"
+        android:layout_marginStart="@dimen/marginMedium"
         android:layout_marginEnd="@dimen/marginLarge"
-        android:textColor="@color/colorLight"
+        android:textColor="@color/colorRedDark"
+        android:textSize="@dimen/textSizeSmall"
         app:layout_constraintBottom_toBottomOf="@+id/item_see_more_two"
         app:layout_constraintEnd_toStartOf="@+id/item_see_more_two"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/item_see_more_two"
+        tools:ignore="TextContrastCheck"
         tools:text="@string/top_story_us" />
 </androidx.constraintlayout.widget.ConstraintLayout>

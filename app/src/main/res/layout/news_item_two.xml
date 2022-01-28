@@ -1,39 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginHorizontal="@dimen/marginSmall"
-    android:orientation="vertical">
+    android:background="@color/colorRedDark"
+    android:paddingBottom="@dimen/paddingSmall">
 
-    <!-- Shows news' headline -->
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/selectableItemBackground"
-        android:paddingHorizontal="@dimen/paddingMedium"
+        android:layout_marginHorizontal="@dimen/marginSmall"
+        android:background="@drawable/ripple_red_round"
         android:paddingVertical="@dimen/paddingSmall">
-
-        <!-- Vertical Divider -->
-        <View
-            android:layout_width="@dimen/widthLineVertical"
-            android:layout_height="match_parent"
-            android:background="@color/colorDarker" />
 
         <!-- Shows news headline -->
         <TextView
             android:id="@+id/text_headline_two"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/marginMedium"
+            android:layout_marginEnd="@dimen/marginMedium"
             android:lineSpacingExtra="@dimen/spaceSmaller"
-            android:textColor="@android:color/black"
+            android:textColor="@color/colorLightest"
             android:textSize="@dimen/textSizeMedium"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/line_vertical"
+            app:layout_constraintTop_toTopOf="parent"
             tools:text="$10bn James Webb space telescope launches on ‘eternal search’ mission" />
-    </LinearLayout>
 
-    <!-- Divider -->
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/spaceSmall" />
-</LinearLayout>
+        <!-- Vertical Divider -->
+        <View
+            android:id="@+id/line_vertical"
+            android:layout_width="@dimen/widthLineVertical"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/marginMedium"
+            android:background="@color/colorRedLight"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>

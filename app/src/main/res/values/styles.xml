@@ -5,16 +5,14 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:colorEdgeEffect">@color/colorLightest</item>
+        <item name="android:colorBackground">@color/colorDarkerII</item>
     </style>
 
-    <!-- Style BottomNavigationView -->
-    <style name="BottomNav" parent="Widget.MaterialComponents.BottomNavigationView">
-        <item name="backgroundTint">@color/colorPrimary</item>
-        <item name="itemRippleColor">@color/colorDarker</item>
-        <item name="itemIconTint">@color/bottom_navigation</item>
-        <item name="itemTextColor">@color/bottom_navigation</item>
-        <item name="menu">@menu/bottom_navigation</item>
-        <item name="labelVisibilityMode">labeled</item>
+    <!-- EpisodeActivity Theme -->
+    <style name="EpisodeTheme" parent="AppTheme">
+        <item name="colorPrimary">@color/colorDarkest</item>
+        <item name="colorPrimaryDark">@color/colorDarkest</item>
     </style>
 
     <!-- TextView in "category_item" layout -->
@@ -32,10 +30,9 @@
     <!-- Recycler View contains regional news feed -->
     <style name="NewsFeedRecyclerView">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_height">@dimen/heightNewsFeed</item>
         <item name="android:layout_marginTop">@dimen/marginSmall</item>
-        <item name="android:overScrollMode">never</item>
-        <item name="android:paddingBottom">@dimen/marginMedium</item>
+        <item name="android:paddingBottom">@dimen/paddingMedium</item>
         <item name="android:scrollbars">none</item>
     </style>
 
@@ -98,16 +95,11 @@
 
     <!-- News Headline -->
     <style name="HeadlineStyle">
-        <item name="android:maxLines">@integer/maxLinesTwo</item>
+        <item name="android:maxLines">@integer/maxLinesFour</item>
         <item name="android:ellipsize">end</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">@dimen/textSizeMedium</item>
         <item name="android:lineSpacingExtra">@dimen/spaceSmallest</item>
-    </style>
-
-    <!-- News headline for feed - TYPE_SIX, TYPE_SEVEN, and TYPE_EIGHT -->
-    <style name="HeadlineFeedDefault" parent="HeadlineStyle">
-        <item name="android:textColor">@color/colorDarkest</item>
     </style>
 
     <!-- News headline for feed - TYPE_NINE, TYPE_TEN, and TYPE_ELEVEN -->
@@ -117,16 +109,12 @@
 
     <!-- News Author -->
     <style name="AuthorStyle">
-        <item name="android:maxLines">@integer/maxLinesOne</item>
+        <item name="android:maxLines">@integer/maxLinesTwo</item>
         <item name="android:ellipsize">end</item>
+        <item name="android:lineSpacingExtra">@dimen/spaceSmallest</item>
         <item name="android:fontFamily">sans-serif-medium</item>
         <item name="android:textSize">@dimen/textSizeSmaller</item>
         <item name="android:letterSpacing">@fraction/letterSpacingSmall</item>
-    </style>
-
-    <!-- News author info. for feed - TYPE_SIX, TYPE_SEVEN, and TYPE_EIGHT -->
-    <style name="AuthorFeedDefault" parent="AuthorStyle">
-        <item name="android:textColor">@color/colorDark</item>
     </style>
 
     <!-- News author info. for TYPE_NINE, TYPE_TEN, and TYPE_ELEVEN -->
@@ -134,13 +122,17 @@
         <item name="android:textColor">@color/colorLight</item>
     </style>
 
-    <!-- Style for FAB in "podcast_about" layout -->
-    <style name="PodcastFAB" parent="Widget.MaterialComponents.FloatingActionButton">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="backgroundTint">@color/colorDarker</item>
-        <item name="rippleColor">@color/colorRippleLight</item>
-        <item name="tint">@color/colorLightest</item>
-        <item name="android:layout_marginBottom">@dimen/marginMedium</item>
+    <!-- -->
+    <style name="PodcastStyle">
+        <item name="android:background">@drawable/ripple_podcast_platform</item>
+        <item name="android:layout_height">@dimen/dimenPodcast</item>
+        <item name="android:layout_width">@dimen/dimenPodcast</item>
+        <item name="android:padding">18dp</item>
+    </style>
+
+    <!-- Styles the social media platforms in "layout_social" layout -->
+    <style name="SocialStyle" parent="BasicView">
+        <item name="android:padding">@dimen/paddingSmall</item>
+        <item name="android:background">@drawable/ripple_social</item>
     </style>
 </resources>

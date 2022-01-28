@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/colorDarker"
     android:orientation="vertical">
 
     <!-- Shows the news category title -->
@@ -24,5 +23,5 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/widthLineHorizontal"
         android:layout_marginStart="@dimen/marginMedium"
-        android:background="@color/colorDarkerII" />
+        android:background="@color/colorPrimaryDark" />
 </LinearLayout>

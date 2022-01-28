@@ -1,68 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/ripple_dark">
-
-    <!-- Shows news thumbnail -->
-    <ImageView
-        android:id="@+id/image_thumbnail_three"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/heightThumbnailLarge"
-        android:layout_marginStart="@dimen/marginMedium"
-        android:layout_marginTop="@dimen/marginMedium"
-        android:layout_marginEnd="@dimen/marginMedium"
-        android:layout_marginBottom="@dimen/marginMedium"
-        android:contentDescription="@string/content_description_news_title"
-        android:scaleType="centerCrop"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_section_name_three"
-        tools:srcCompat="@drawable/sample_news_thumbnail" />
-
-    <!-- Shows news headline -->
-    <TextView
-        android:id="@+id/text_headline_three"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/marginMedium"
-        android:layout_marginTop="@dimen/marginMedium"
-        android:layout_marginEnd="@dimen/marginMedium"
-        android:layout_marginBottom="@dimen/marginMedium"
-        android:ellipsize="end"
-        android:lineSpacingExtra="@dimen/widthLineVertical"
-        android:maxLines="@integer/maxLinesTwo"
-        android:textColor="@android:color/white"
-        android:textSize="@dimen/textSizeMedium"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_section_name_three"
-        app:layout_constraintVertical_bias="1.0"
-        tools:background="@drawable/gradient_headline"
-        tools:paddingBottom="@dimen/paddingSmall"
-        tools:paddingHorizontal="@dimen/paddingMedium"
-        tools:paddingTop="@dimen/paddingMedium"
-        tools:text="Jos Buttler insists he has no plans to retire from Test cricket after Ashes" />
+    android:background="@drawable/ripple_dark"
+    android:orientation="vertical"
+    android:paddingHorizontal="@dimen/marginSmallII"
+    android:paddingTop="@dimen/paddingMedium"
+    android:paddingBottom="@dimen/marginSmallII">
 
     <!-- Shows news section -->
     <TextView
         android:id="@+id/text_section_name_three"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/marginMedium"
-        android:layout_marginTop="@dimen/marginMedium"
         android:fontFamily="sans-serif-medium"
         android:letterSpacing="@fraction/letterSpacingLarge"
         android:textAllCaps="true"
-        android:textColor="@color/colorLight"
+        android:textColor="@color/colorRedDark"
         android:textSize="@dimen/textSizeSmall"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="TextContrastCheck"
         tools:text="Sport" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Shows news thumbnail, and headline -->
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/heightThumbnailLarge"
+        android:layout_marginTop="@dimen/marginSmall"
+        app:cardBackgroundColor="@color/colorPrimaryDark"
+        app:cardCornerRadius="@dimen/spaceSmaller"
+        app:cardUseCompatPadding="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <!-- Shows news thumbnail -->
+            <ImageView
+                android:id="@+id/image_thumbnail_three"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/heightThumbnailLarge"
+                android:contentDescription="@string/default_content_description"
+                android:scaleType="centerCrop"
+                tools:src="@drawable/sample_news_thumbnail" />
+
+            <!-- Shows news headline -->
+            <TextView
+                android:id="@+id/text_headline_three"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:lineSpacingExtra="@dimen/widthLineVertical"
+                android:maxLines="@integer/maxLinesTwo"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/textSizeMedium"
+                android:textStyle="bold"
+                tools:background="@drawable/gradient_headline"
+                tools:paddingBottom="@dimen/paddingSmall"
+                tools:paddingHorizontal="@dimen/paddingMedium"
+                tools:paddingTop="@dimen/paddingMedium"
+                tools:text="Jos Buttler insists he has no plans to retire from Test cricket after Ashes" />
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+</LinearLayout>

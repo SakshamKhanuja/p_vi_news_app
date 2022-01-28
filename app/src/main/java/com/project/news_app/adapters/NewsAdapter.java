@@ -1,10 +1,7 @@
 package com.project.news_app.adapters;
 
 import android.annotation.SuppressLint;
-import android.content.ActivityNotFoundException;
 import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
 import android.text.TextUtils;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -19,37 +16,44 @@ import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.project.news_app.R;
 import com.project.news_app.constants.NewsAdapterConstants;
 import com.project.news_app.data.News;
 import com.project.news_app.fragments.HeadlineFragment;
+import com.project.news_app.utils.CommonUtils;
+import com.project.news_app.activities.CategoryActivity;
 
 import java.util.ArrayList;
 
+/**
+ * Adapter provides {@link News} to RecyclerView in {@link NewsFeedAdapter} and
+ * {@link CategoryActivity}.
+ */
 public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements
         NewsAdapterConstants {
-
-    // Stores news item under clicked news category.
+    /**
+     * Stores news item under clicked news category.
+     */
     private ArrayList<News> newsItems;
 
-    // Used to load images via Glide library.
-    private Context context;
+    /**
+     * Used to load images via Glide library.
+     */
+    private final Context context;
 
-    // Notifies the unavailability of Browser in user's app.
-    private Toast mToast;
+    /**
+     * Notifies the unavailability of Browser in user's app.
+     */
+    private Toast toast;
 
-    public NewsAdapter(ArrayList<News> newsItems) {
+    public NewsAdapter(Context context, ArrayList<News> newsItems) {
+        this.context = context;
         this.newsItems = newsItems;
     }
 
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        // Sets context.
-        context = parent.getContext();
-
         // Inflates views from layout.
         LayoutInflater layoutInflater = LayoutInflater.from(context);
 
@@ -194,58 +198,6 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
     }
 
     /**
-     * Shows a {@link Toast} containing custom messages. Method also removes the currently showing
-     * Toast if any.
-     * <p>
-     *
-     * @param messageID String resource containing a custom message.
-     */
-    private void showToast(int messageID) {
-        // Cancels the current showing Toast.
-        if (mToast != null) {
-            mToast.cancel();
-        }
-
-        // Sets new message and displays the Toast.
-        mToast = Toast.makeText(context, messageID, Toast.LENGTH_SHORT);
-        mToast.show();
-    }
-
-
-    /**
-     * @param adapterPosition Position of the clicked news item in adapter.
-     */
-    private void openBrowser(int adapterPosition) {
-        News clickedNews = newsItems.get(adapterPosition);
-
-        // Set the clicked News item's URL to NewsItemClickListener.
-        try {
-            context.startActivity(new Intent(Intent.ACTION_VIEW,
-                    Uri.parse(clickedNews.getArticleURL())));
-        } catch (ActivityNotFoundException e) {
-            showToast(R.string.toast_browser_unavailable);
-        }
-    }
-
-    /**
-     * Sets text to a TextView.
-     */
-    private void setText(TextView textView, String text) {
-        textView.setText(text);
-    }
-
-    /**
-     * Downloads and sets news' thumbnail.
-     */
-    private void downloadAndSetImage(ImageView imageView, String url) {
-        Glide.with(context)
-                .load(url)
-                .placeholder(R.drawable.placeholder)
-                .transition(DrawableTransitionOptions.withCrossFade())
-                .into(imageView);
-    }
-
-    /**
      * Binds data for news items show in {@link HeadlineFragment}.
      *
      * @param thumbnail Shows the news article's thumbnail.
@@ -263,17 +215,17 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
             thumbnail.setVisibility(View.VISIBLE);
 
             // Downloading news image.
-            downloadAndSetImage(thumbnail, thumbnailUrl);
+            CommonUtils.setThumbnail(context, thumbnail, thumbnailUrl);
         } else {
             // Hides ImageView.
             thumbnail.setVisibility(View.GONE);
         }
 
         // Setting news headline.
-        setText(headline, news.getHeadline());
+        CommonUtils.setText(headline, news.getHeadline());
 
         // Setting news author info.
-        setText(byLine, news.getByLine());
+        CommonUtils.setText(byLine, news.getByLine());
     }
 
     /**
@@ -289,13 +241,13 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
     private void setupNewsTypeFour(TextView section, TextView headline,
                                    TextView byLine, ImageView thumbnail, News news) {
         // Setting news section.
-        setText(section, news.getSectionName());
+        CommonUtils.setText(section, news.getSectionName());
 
         // Setting news headline.
-        setText(headline, news.getHeadline());
+        CommonUtils.setText(headline, news.getHeadline());
 
         // Setting news author info.
-        setText(byLine, news.getByLine());
+        CommonUtils.setText(byLine, news.getByLine());
 
         // Setting news thumbnail.
         String thumbnailUrl = news.getThumbnailUrl();
@@ -306,7 +258,8 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
             thumbnail.setVisibility(View.VISIBLE);
 
             // Downloading news image.
-            downloadAndSetImage(thumbnail, thumbnailUrl);
+            CommonUtils.setThumbnail(context, thumbnail, thumbnailUrl);
+            //downloadAndSetImage(thumbnail, thumbnailUrl);
         } else {
             // Hides ImageView.
             thumbnail.setVisibility(View.GONE);
@@ -322,6 +275,9 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
         // Shows the news headline.
         private final TextView newsHeadline;
 
+        // Stores news article.
+        private String articleUrl;
+
         public NewsTypeOneHolder(View itemView) {
             super(itemView);
 
@@ -329,15 +285,19 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
             newsHeadline = itemView.findViewById(R.id.text_headline_one);
 
             // Attach OnClickListener to the entire item view.
-            itemView.setOnClickListener(view -> openBrowser(getAdapterPosition()));
+            itemView.setOnClickListener(view -> CommonUtils.openBrowserOrApp(context, articleUrl,
+                    toast, R.string.toast_browser_unavailable));
         }
 
         /**
          * Sets news' headline.
          */
         public void setData(News news) {
+            // Initializing news article url.
+            articleUrl = news.getArticleURL();
+
             // Setting news headline.
-            setText(newsHeadline, news.getHeadline());
+            CommonUtils.setText(newsHeadline, news.getHeadline());
         }
     }
 
@@ -351,6 +311,9 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
         // Shows the news headline.
         private final TextView newsHeadline;
 
+        // Stores news article.
+        private String articleUrl;
+
         public NewsTypeTwoHolder(View itemView) {
             super(itemView);
 
@@ -358,15 +321,19 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
             newsHeadline = itemView.findViewById(R.id.text_headline_two);
 
             // Attach OnClickListener to the entire item view.
-            itemView.setOnClickListener(view -> openBrowser(getAdapterPosition()));
+            itemView.setOnClickListener(view -> CommonUtils.openBrowserOrApp(context, articleUrl,
+                    toast, R.string.toast_browser_unavailable));
         }
 
         /**
          * Sets news' headline.
          */
         public void setData(News news) {
+            // Initializing news article url.
+            articleUrl = news.getArticleURL();
+
             // Setting news headline.
-            setText(newsHeadline, news.getHeadline());
+            CommonUtils.setText(newsHeadline, news.getHeadline());
         }
     }
 
@@ -385,6 +352,9 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
         // Shows the news thumbnail.
         private final ImageView newsThumbnail;
 
+        // Stores news article.
+        private String articleUrl;
+
         public NewsTypeThreeHolder(View itemView) {
             super(itemView);
 
@@ -393,9 +363,9 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
             newsSection = itemView.findViewById(R.id.text_section_name_three);
             newsThumbnail = itemView.findViewById(R.id.image_thumbnail_three);
 
-
             // Attach OnClickListener to the entire item view.
-            itemView.setOnClickListener(view -> openBrowser(getAdapterPosition()));
+            itemView.setOnClickListener(view -> CommonUtils.openBrowserOrApp(context, articleUrl,
+                    toast, R.string.toast_browser_unavailable));
         }
 
         /**
@@ -412,8 +382,11 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
          * Sets news' section, thumbnail and headline.
          */
         public void setData(News news) {
+            // Initializing news article url.
+            articleUrl = news.getArticleURL();
+
             // Setting news section.
-            setText(newsSection, news.getSectionName());
+            CommonUtils.setText(newsSection, news.getSectionName());
 
             // Converting 16dp to pixels based on screen density.
             int pixels16DP = convertDpToPixels(16F);
@@ -437,7 +410,7 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
                 newsThumbnail.setVisibility(View.VISIBLE);
 
                 // Downloading news image.
-                downloadAndSetImage(newsThumbnail, thumbnail);
+                CommonUtils.setThumbnail(context, newsThumbnail, thumbnail);
             } else {
                 // Set Padding on all sides to be 16dp.
                 newsHeadline.setPadding(pixels16DP, pixels16DP, pixels16DP, pixels16DP);
@@ -451,7 +424,7 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
             }
 
             // Setting news headline.
-            setText(newsHeadline, news.getHeadline());
+            CommonUtils.setText(newsHeadline, news.getHeadline());
         }
     }
 
@@ -473,6 +446,8 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
         // Shows the news thumbnail.
         private final ImageView newsThumbnail;
 
+        // Stores news article.
+        private String articleUrl;
 
         public NewsTypeFourHolder(View itemView) {
             super(itemView);
@@ -483,15 +458,18 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
             newsByline = itemView.findViewById(R.id.text_by_line_four);
             newsThumbnail = itemView.findViewById(R.id.image_thumbnail_four);
 
-
             // Attach OnClickListener to the entire item view.
-            itemView.setOnClickListener(view -> openBrowser(getAdapterPosition()));
+            itemView.setOnClickListener(view -> CommonUtils.openBrowserOrApp(context, articleUrl,
+                    toast, R.string.toast_browser_unavailable));
         }
 
         /**
          * Sets news' section, headline, author info. and headline.
          */
         public void setData(News news) {
+            // Initializing news article url.
+            articleUrl = news.getArticleURL();
+
             setupNewsTypeFour(newsSection, newsHeadline, newsByline, newsThumbnail, news);
         }
     }
@@ -521,6 +499,9 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
         // Shows the news thumbnail.
         private final ImageView newsThumbnail;
 
+        // Stores news article.
+        private String articleUrl;
+
         public NewsTypeFiveHolder(View itemView) {
             super(itemView);
 
@@ -533,20 +514,24 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
             newsThumbnail = itemView.findViewById(R.id.image_thumbnail_five);
 
             // Attach OnClickListener to the entire item view.
-            itemView.setOnClickListener(view -> openBrowser(getAdapterPosition()));
+            itemView.setOnClickListener(view -> CommonUtils.openBrowserOrApp(context, articleUrl,
+                    toast, R.string.toast_browser_unavailable));
         }
 
         /**
          * Sets news' section, headline, author info., date, publication and headline.
          */
         public void setData(News news) {
+            // Initializing news article url.
+            articleUrl = news.getArticleURL();
+
             setupNewsTypeFour(newsSection, newsHeadline, newsByline, newsThumbnail, news);
 
             // Setting news publication.
-            setText(newsPublication, news.getPublication());
+            CommonUtils.setText(newsPublication, news.getPublication());
 
             // Sets news publication date.
-            setText(newsDate, news.getDate());
+            CommonUtils.setText(newsDate, news.getDate());
         }
     }
 
@@ -565,6 +550,9 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
         // Shows the news thumbnail.
         private final ImageView newsThumbnail;
 
+        // Stores news article.
+        private String articleUrl;
+
         public NewsTypeSixHolder(View itemView) {
             super(itemView);
 
@@ -574,13 +562,17 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
             newsByline = itemView.findViewById(R.id.text_by_line_six);
 
             // Attach OnClickListener to the entire item view.
-            itemView.setOnClickListener(view -> openBrowser(getAdapterPosition()));
+            itemView.setOnClickListener(view -> CommonUtils.openBrowserOrApp(context, articleUrl,
+                    toast, R.string.toast_browser_unavailable));
         }
 
         /**
          * Sets news' thumbnail, headline and author info.
          */
         public void setData(News news) {
+            // Initializing news article url.
+            articleUrl = news.getArticleURL();
+
             setupNewsFeed(newsThumbnail, newsHeadline, newsByline, news);
         }
     }
@@ -600,6 +592,9 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
         // Shows the news thumbnail.
         private final ImageView newsThumbnail;
 
+        // Stores news article.
+        private String articleUrl;
+
         public NewsTypeSevenHolder(View itemView) {
             super(itemView);
 
@@ -609,13 +604,17 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
             newsByline = itemView.findViewById(R.id.text_by_line_seven);
 
             // Attach OnClickListener to the entire item view.
-            itemView.setOnClickListener(view -> openBrowser(getAdapterPosition()));
+            itemView.setOnClickListener(view -> CommonUtils.openBrowserOrApp(context, articleUrl,
+                    toast, R.string.toast_browser_unavailable));
         }
 
         /**
          * Sets news' thumbnail, headline and author info.
          */
         public void setData(News news) {
+            // Initializing news article url.
+            articleUrl = news.getArticleURL();
+
             setupNewsFeed(newsThumbnail, newsHeadline, newsByline, news);
         }
     }
@@ -635,6 +634,9 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
         // Shows the news thumbnail.
         private final ImageView newsThumbnail;
 
+        // Stores news article.
+        private String articleUrl;
+
         public NewsTypeEightHolder(View itemView) {
             super(itemView);
 
@@ -644,13 +646,17 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
             newsByline = itemView.findViewById(R.id.text_by_line_eight);
 
             // Attach OnClickListener to the entire item view.
-            itemView.setOnClickListener(view -> openBrowser(getAdapterPosition()));
+            itemView.setOnClickListener(view -> CommonUtils.openBrowserOrApp(context, articleUrl,
+                    toast, R.string.toast_browser_unavailable));
         }
 
         /**
          * Sets news' thumbnail, headline and author info.
          */
         public void setData(News news) {
+            // Initializing news article url.
+            articleUrl = news.getArticleURL();
+
             setupNewsFeed(newsThumbnail, newsHeadline, newsByline, news);
         }
     }
@@ -670,6 +676,9 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
         // Shows the news thumbnail.
         private final ImageView newsThumbnail;
 
+        // Stores news article.
+        private String articleUrl;
+
         public NewsTypeNineHolder(View itemView) {
             super(itemView);
 
@@ -679,13 +688,17 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
             newsByline = itemView.findViewById(R.id.text_by_line_nine);
 
             // Attach OnClickListener to the entire item view.
-            itemView.setOnClickListener(view -> openBrowser(getAdapterPosition()));
+            itemView.setOnClickListener(view -> CommonUtils.openBrowserOrApp(context, articleUrl,
+                    toast, R.string.toast_browser_unavailable));
         }
 
         /**
          * Sets news' thumbnail, headline and author info.
          */
         public void setData(News news) {
+            // Initializing news article url.
+            articleUrl = news.getArticleURL();
+
             setupNewsFeed(newsThumbnail, newsHeadline, newsByline, news);
         }
     }
@@ -705,6 +718,9 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
         // Shows the news thumbnail.
         private final ImageView newsThumbnail;
 
+        // Stores news article.
+        private String articleUrl;
+
         public NewsTypeTenHolder(View itemView) {
             super(itemView);
 
@@ -714,13 +730,17 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
             newsByline = itemView.findViewById(R.id.text_by_line_ten);
 
             // Attach OnClickListener to the entire item view.
-            itemView.setOnClickListener(view -> openBrowser(getAdapterPosition()));
+            itemView.setOnClickListener(view -> CommonUtils.openBrowserOrApp(context, articleUrl,
+                    toast, R.string.toast_browser_unavailable));
         }
 
         /**
          * Sets news' thumbnail, headline and author info.
          */
         public void setData(News news) {
+            // Initializing news article url.
+            articleUrl = news.getArticleURL();
+
             setupNewsFeed(newsThumbnail, newsHeadline, newsByline, news);
         }
     }
@@ -740,6 +760,9 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
         // Shows the news thumbnail.
         private final ImageView newsThumbnail;
 
+        // Stores news article.
+        private String articleUrl;
+
         public NewsTypeElevenHolder(View itemView) {
             super(itemView);
 
@@ -749,13 +772,17 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
             newsByline = itemView.findViewById(R.id.text_by_line_eleven);
 
             // Attach OnClickListener to the entire item view.
-            itemView.setOnClickListener(view -> openBrowser(getAdapterPosition()));
+            itemView.setOnClickListener(view -> CommonUtils.openBrowserOrApp(context, articleUrl,
+                    toast, R.string.toast_browser_unavailable));
         }
 
         /**
          * Sets news' thumbnail, headline and author info.
          */
         public void setData(News news) {
+            // Initializing news article url.
+            articleUrl = news.getArticleURL();
+
             setupNewsFeed(newsThumbnail, newsHeadline, newsByline, news);
         }
     }

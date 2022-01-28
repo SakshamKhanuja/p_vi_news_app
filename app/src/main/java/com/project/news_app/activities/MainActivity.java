@@ -15,7 +15,7 @@ import com.project.news_app.fragments.CategoryFragment;
 import com.project.news_app.fragments.HeadlineFragment;
 
 /**
- * Adding multiple podcast's in {@link PodcastFragment}.
+ * Revamping the app UI.
  */
 public class MainActivity extends AppCompatActivity {
 

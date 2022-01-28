@@ -6,17 +6,18 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
+    <!-- Divider -->
     <View
         android:id="@+id/section_divider"
         android:layout_width="match_parent"
         android:layout_height="@dimen/spaceSmallII"
-        android:background="@color/colorDarkerII" />
+        android:background="@color/colorPrimaryDark" />
 
+    <!-- Section name -->
     <TextView
         android:id="@+id/text_section"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorDarker"
         android:paddingHorizontal="@dimen/paddingMedium"
         android:paddingTop="@dimen/paddingMedium"
         android:paddingBottom="@dimen/paddingSmallest"

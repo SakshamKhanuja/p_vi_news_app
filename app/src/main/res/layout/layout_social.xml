@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorRedDark"
+    android:orientation="vertical"
+    android:padding="@dimen/paddingMedium"
+    tools:ignore="Overdraw">
+
+    <!-- Section title -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:letterSpacing="@fraction/letterSpacingLarge"
+        android:text="@string/label_social"
+        android:textAllCaps="true"
+        android:textColor="@color/colorRedLight"
+        android:textSize="@dimen/textSizeSmall"
+        android:textStyle="bold" />
+
+    <!-- Section about -->
+    <TextView
+        style="@style/HeadlineFeedEditorial"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/marginMedium"
+        android:lineSpacingExtra="@dimen/spaceSmallest"
+        android:text="@string/label_social_about" />
+
+    <!-- Shows all social media platforms -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- Facebook -->
+        <ImageView
+            android:id="@+id/social_facebook"
+            style="@style/SocialStyle"
+            android:contentDescription="@string/default_content_description"
+            android:src="@drawable/ic_facebook"
+            tools:ignore="ImageContrastCheck" />
+
+        <!-- Instagram -->
+        <ImageView
+            android:id="@+id/social_instagram"
+            style="@style/SocialStyle"
+            android:layout_marginHorizontal="@dimen/marginMedium"
+            android:contentDescription="@string/default_content_description"
+            android:src="@drawable/ic_instagram"
+            tools:ignore="ImageContrastCheck" />
+
+        <!-- LinkedIn -->
+        <ImageView
+            android:id="@+id/social_linked_in"
+            style="@style/SocialStyle"
+            android:contentDescription="@string/default_content_description"
+            android:src="@drawable/ic_linked_in"
+            tools:ignore="ImageContrastCheck" />
+
+        <!-- Twitter -->
+        <ImageView
+            android:id="@+id/social_twitter"
+            style="@style/SocialStyle"
+            android:layout_marginHorizontal="@dimen/marginMedium"
+            android:contentDescription="@string/default_content_description"
+            android:src="@drawable/ic_twitter"
+            tools:ignore="ImageContrastCheck" />
+
+        <!-- YouTube -->
+        <ImageView
+            android:id="@+id/social_you_tube"
+            style="@style/SocialStyle"
+            android:contentDescription="@string/default_content_description"
+            android:src="@drawable/ic_you_tube"
+            tools:ignore="ImageContrastCheck" />
+    </LinearLayout>
+</LinearLayout>

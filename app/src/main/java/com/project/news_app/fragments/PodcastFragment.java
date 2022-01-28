@@ -1,5 +1,6 @@
 package com.project.news_app.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -13,24 +14,41 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.project.news_app.R;
 import com.project.news_app.adapters.PodcastAdapter;
 import com.project.news_app.data.Podcast;
+import com.project.news_app.activities.MainActivity;
 
 import java.util.ArrayList;
 
 /**
- * Shows a grid of available podcast in "The Guardian" API.
+ * {@link RecyclerView} displays a list of {@link Podcast} in a grid.
  */
 public class PodcastFragment extends Fragment {
-
-    // Stores info. of available podcasts from "The Guardian" API.
+    /**
+     * Stores info. of available podcasts from "The Guardian" API.
+     */
     private ArrayList<Podcast> podcasts;
 
-    // Used to access all podcasts info. on orientation changes.
+    /**
+     * Used to access all podcasts info. on orientation changes.
+     */
     private static final String KEY_PODCASTS = "podcasts";
+
+    /**
+     * Sets context when this fragment is attached to {@link MainActivity}.
+     */
+    private Context context;
 
     // Required Default Constructor.
     public PodcastFragment() {
-        // Providing a layout to inflate.
-        super(R.layout.basic_recycler_view_dark);
+        // Providing a layout to inflate.z
+        super(R.layout.basic_recycler_view);
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+
+        // Setting context.
+        this.context = context;
     }
 
     @Override
@@ -50,11 +68,11 @@ public class PodcastFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
 
         // Linking a GridLayoutManager to RecyclerView.
-        GridLayoutManager layoutManager = new GridLayoutManager(getContext(), getSpanCount());
+        GridLayoutManager layoutManager = new GridLayoutManager(context, getSpanCount());
         recyclerView.setLayoutManager(layoutManager);
 
         // Linking Adapter to RecyclerView.
-        recyclerView.setAdapter(new PodcastAdapter(podcasts));
+        recyclerView.setAdapter(new PodcastAdapter(context, podcasts));
     }
 
     /**
@@ -214,10 +232,6 @@ public class PodcastFragment extends Fragment {
                 R.string.podcast_path_advanced_the_guardian_guide_to_running,
                 R.drawable.thumbnail_advanced_the_guardian_guide_to_running));
 
-        // Adding Podcast - "Marathon: The Guardian Guide to Running".
-        podcasts.add(new Podcast(R.string.podcast_title_marathon_the_guardian_guide_to_running,
-                R.string.podcast_path_marathon_the_guardian_guide_to_running,
-                R.drawable.thumbnail_marathon_the_guardian_guide_to_running));
         return podcasts;
     }
 }
