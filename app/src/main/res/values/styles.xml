@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Base Application Theme -->
-    <style name="AppTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:colorEdgeEffect">@color/colorLightest</item>
         <item name="android:colorBackground">@color/colorDarkerII</item>
+        <item name="colorControlHighlight">@color/colorRippleLight</item>
     </style>
 
     <!-- EpisodeActivity Theme -->
@@ -122,12 +123,12 @@
         <item name="android:textColor">@color/colorLight</item>
     </style>
 
-    <!-- -->
+    <!-- Styles the podcast platform in "podcast_about" layout -->
     <style name="PodcastStyle">
         <item name="android:background">@drawable/ripple_podcast_platform</item>
         <item name="android:layout_height">@dimen/dimenPodcast</item>
         <item name="android:layout_width">@dimen/dimenPodcast</item>
-        <item name="android:padding">18dp</item>
+        <item name="android:padding">@dimen/paddingMediumII</item>
     </style>
 
     <!-- Styles the social media platforms in "layout_social" layout -->

@@ -4,6 +4,7 @@
     <dimen name="paddingSmallest">4dp</dimen>
     <dimen name="paddingSmall">8dp</dimen>
     <dimen name="paddingMedium">16dp</dimen>
+    <dimen name="paddingMediumII">18dp</dimen>
     <dimen name="paddingLarge">24dp</dimen>
 
     <!-- Margin -->
@@ -46,4 +47,7 @@
 
     <!-- Height of the RecyclerView showing news feed in "HeadlineFragment" -->
     <dimen name="heightNewsFeed">316dp</dimen>
+
+    <!-- Toolbar Elevation -->
+    <dimen name="elevationToolbar">6dp</dimen>
 </resources>

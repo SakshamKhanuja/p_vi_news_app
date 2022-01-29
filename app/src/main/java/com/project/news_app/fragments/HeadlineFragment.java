@@ -6,6 +6,7 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.loader.app.LoaderManager;
 import androidx.loader.content.AsyncTaskLoader;
@@ -84,8 +85,15 @@ public class HeadlineFragment extends Fragment implements
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        // Setting title.
+        Toolbar toolbar = view.findViewById(R.id.toolbar);
+        toolbar.setTitle(R.string.bottom_headlines);
+
         // Initializing Parent RecyclerView.
         RecyclerView recyclerView = view.findViewById(R.id.recycler_view_dark);
+
+        // Hiding the scroll bar.
+        recyclerView.setVerticalScrollBarEnabled(false);
 
         // Initializing Adapter.
         adapter = new NewsFeedAdapter(context, null, getChildFragmentManager(),

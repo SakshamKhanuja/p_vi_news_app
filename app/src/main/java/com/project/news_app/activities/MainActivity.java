@@ -1,7 +1,10 @@
 package com.project.news_app.activities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -9,55 +12,40 @@ import android.view.LayoutInflater;
 
 import com.google.android.material.navigation.NavigationBarView;
 import com.project.news_app.R;
+import com.project.news_app.constants.MainActivityConstants;
 import com.project.news_app.databinding.ActivityMainBinding;
 import com.project.news_app.fragments.PodcastFragment;
 import com.project.news_app.fragments.CategoryFragment;
 import com.project.news_app.fragments.HeadlineFragment;
 
 /**
- * Revamping the app UI.
+ * Stage VII
+ * <p>
+ * Default ActionBar is replaced with a Toolbar, which is then scrolled off the screen when
+ * RecyclerView is scrolled.
+ * <br/>
+ * {@link HeadlineFragment}, {@link CategoryFragment} and {@link PodcastFragment} are now
+ * shown/hidden instead of getting replaced when chosen.
  */
-public class MainActivity extends AppCompatActivity {
-
+public class MainActivity extends AppCompatActivity implements MainActivityConstants {
     // Adds, Removes and Replaces Fragments.
     private final FragmentManager fragmentManager = getSupportFragmentManager();
 
+    // Sets Content view.
+    private ActivityMainBinding binding;
+
     /**
-     * Listener is attached to {@link R.id#bottom_nav} BottomNavigationView.
+     * Stores the TAG of visible/active Fragment.
      */
-    private final NavigationBarView.OnItemSelectedListener bottomNavItemSelectedListener = item -> {
-        // Contains the ID of the selected MenuItem.
-        int selectedItemId = item.getItemId();
-
-        // Shows the user selected Fragment.
-        if (selectedItemId == R.id.bottom_categories) {
-            // Replacing the currently viewed Fragment with CategoryFragment.
-            fragmentManager.beginTransaction()
-                    .replace(R.id.fragment_container, new CategoryFragment())
-                    .commit();
-        } else if (selectedItemId == R.id.bottom_headlines) {
-            // Replacing the currently viewed Fragment with HeadlineFragment.
-            fragmentManager.beginTransaction()
-                    .replace(R.id.fragment_container, new HeadlineFragment())
-                    .commit();
-        } else if (selectedItemId == R.id.bottom_podcast) {
-            // Replacing the currently viewed Fragment with PodcastFragment.
-            fragmentManager.beginTransaction()
-                    .replace(R.id.fragment_container, new PodcastFragment())
-                    .commit();
-        }
-
-        // Displays the selected item.
-        return true;
-    };
+    private String currentFragmentTag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Sets Content View.
-        ActivityMainBinding binding = ActivityMainBinding.inflate((LayoutInflater) getSystemService(
+        // Setting Content View.
+        binding = ActivityMainBinding.inflate((LayoutInflater) getSystemService(
                 Context.LAYOUT_INFLATER_SERVICE));
         setContentView(binding.getRoot());
 
@@ -69,8 +57,108 @@ public class MainActivity extends AppCompatActivity {
 
         // Following operations are performed when MainActivity is opened for the first time.
         if (savedInstanceState == null) {
-            // Shows headlines by default.
+            /*
+             * Initializing and adding PodcastFragment to MainActivity which is then
+             * simultaneously hidden.
+             */
+            PodcastFragment podcastFragment = new PodcastFragment();
+            fragmentManager.beginTransaction().add(R.id.fragment_container, podcastFragment,
+                    TAG_PODCAST).hide(podcastFragment).commit();
+
+            /*
+             * Initializing and adding CategoryFragment to MainActivity which is then
+             * simultaneously hidden.
+             */
+            CategoryFragment categoryFragment = new CategoryFragment();
+            fragmentManager.beginTransaction().add(R.id.fragment_container, categoryFragment,
+                    TAG_CATEGORY).hide(categoryFragment).commit();
+
+            // Initializing and adding HeadlineFragment to MainActivity.
+            HeadlineFragment headlineFragment = new HeadlineFragment();
+            fragmentManager.beginTransaction().add(R.id.fragment_container, headlineFragment,
+                    TAG_HEADLINE).commit();
+
+            // Sets HeadlineFragment to be active by default.
+            currentFragmentTag = TAG_HEADLINE;
+        } else {
+            // Restoring what Fragment is currently active.
+            currentFragmentTag = savedInstanceState.getString(KEY_TAG);
+        }
+    }
+
+    /**
+     * Shows a Fragment among the already added to the FragmentManager.
+     *
+     * @param tag    Tag name of the Fragment required to retrieve.
+     * @param active Visible/Active Fragment.
+     */
+    private void showFragment(String tag, Fragment active) {
+        // Get fragment by tag.
+        Fragment fragment = fragmentManager.findFragmentByTag(tag);
+
+        // Hides the current/active Fragment and shows the "fragment".
+        if (fragment != null) {
+            fragmentManager.beginTransaction()
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                    .hide(active)
+                    .show(fragment)
+                    .commit();
+
+            // Updating with the new active Fragment tag.
+            currentFragmentTag = tag;
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        // Checks the current/active Fragment to be "HeadlineFragment".
+        if (currentFragmentTag.equals(TAG_HEADLINE)) {
+            // Exit the App.
+            super.onBackPressed();
+        } else {
+            // Select the "Headlines" category in BottomNavigationView.
             binding.bottomNav.setSelectedItemId(R.id.bottom_headlines);
         }
     }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        // Backing up the currently viewed Fragment.
+        outState.putString(KEY_TAG, currentFragmentTag);
+    }
+
+    /**
+     * Listener is attached to {@link R.id#bottom_nav} BottomNavigationView. Shows/hides the
+     * Fragments that are added to the FragmentManager.
+     */
+    private final NavigationBarView.OnItemSelectedListener bottomNavItemSelectedListener = item -> {
+        // Contains the ID of the selected MenuItem.
+        int selectedItemId = item.getItemId();
+
+        // Get the current/active Fragment.
+        Fragment active = fragmentManager.findFragmentByTag(currentFragmentTag);
+
+        if (active != null) {
+            // Checks if the user selected "Headlines".
+            if (selectedItemId == R.id.bottom_headlines) {
+                showFragment(TAG_HEADLINE, active);
+                return true;
+            }
+
+            // Checks if the user selected "Categories".
+            else if (selectedItemId == R.id.bottom_categories) {
+                showFragment(TAG_CATEGORY, active);
+                return true;
+            }
+
+            // Checks if the user selected "Podcast".
+            else if (selectedItemId == R.id.bottom_podcast) {
+                showFragment(TAG_PODCAST, active);
+                return true;
+            }
+        }
+        return false;
+    };
 }

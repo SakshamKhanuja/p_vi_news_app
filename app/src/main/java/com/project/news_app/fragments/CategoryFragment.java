@@ -6,6 +6,7 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -60,6 +61,10 @@ public class CategoryFragment extends Fragment {
             // Initializing list containing all news categories.
             newsCategories = getNewsCategories();
         }
+
+        // Setting title.
+        Toolbar toolbar = view.findViewById(R.id.toolbar);
+        toolbar.setTitle(R.string.bottom_categories);
 
         // Initializing RecyclerView.
         RecyclerView recyclerView = view.findViewById(R.id.recycler_view_dark);

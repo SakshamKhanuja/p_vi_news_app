@@ -1,6 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.recyclerview.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/recycler_view_dark"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:scrollbars="vertical" />
+    android:layout_height="match_parent">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:elevation="@dimen/elevationToolbar">
+
+        <!-- Shows the title of the active Fragment -->
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:layout_alignParentTop="true"
+            app:layout_scrollFlags="scroll|enterAlways|snap"
+            app:titleTextColor="@color/colorLightest"
+            tools:title="@string/bottom_headlines" />
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <!-- Shows the list of data -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view_dark"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbarThumbVertical="@drawable/shape_scrollbar"
+        android:scrollbars="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

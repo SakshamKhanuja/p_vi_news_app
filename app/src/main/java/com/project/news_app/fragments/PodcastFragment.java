@@ -7,6 +7,7 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -60,6 +61,10 @@ public class PodcastFragment extends Fragment {
             // Initializing list of all available podcasts.
             podcasts = getPodcasts();
         }
+
+        // Setting title.
+        Toolbar toolbar = view.findViewById(R.id.toolbar);
+        toolbar.setTitle(R.string.bottom_podcast);
 
         // Initializing RecyclerView.
         RecyclerView recyclerView = view.findViewById(R.id.recycler_view_dark);

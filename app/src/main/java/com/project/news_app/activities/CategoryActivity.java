@@ -2,7 +2,9 @@ package com.project.news_app.activities;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.loader.app.LoaderManager;
 import androidx.loader.content.AsyncTaskLoader;
 import androidx.loader.content.Loader;
@@ -14,6 +16,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 
+import com.project.news_app.R;
 import com.project.news_app.adapters.NewsAdapter;
 import com.project.news_app.constants.CategoryActivityConstants;
 import com.project.news_app.constants.NetworkUtilsConstants;
@@ -79,8 +82,19 @@ public class CategoryActivity extends AppCompatActivity implements
                         Context.LAYOUT_INFLATER_SERVICE));
         setContentView(binding.getRoot());
 
-        // Set AppBar's title to the clicked news category's title.
+        // Replace Toolbar as ActionBar.
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        // Set clicked news category as app bar title.
         setTitle(title);
+        ActionBar actionBar = getSupportActionBar();
+
+        // Show the "Up" Button on Toolbar.
+        if (actionBar != null) {
+            actionBar.setHomeAsUpIndicator(R.drawable.ic_arrow_back);
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
 
         // Initializing Adapter.
         adapter = new NewsAdapter(this, null);
