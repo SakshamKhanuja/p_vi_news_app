@@ -1,10 +1,10 @@
 package com.project.news_app.constants;
 
 import com.project.news_app.R;
-import com.project.news_app.fragments.HeadlineFragment;
+import com.project.news_app.fragments.HomeFragment;
 
 /**
- * Contains constants for {@link HeadlineFragment}.
+ * Contains constants for {@link HomeFragment}.
  */
 public interface HeadlineFragmentConstants {
     /**
@@ -83,4 +83,9 @@ public interface HeadlineFragmentConstants {
      * Points to "Guardian Weekly Global Community" on "The Guardian".
      */
     String READERS_URL = "https://www.theguardian.com/global/ng-interactive/2018/oct/12/guardian-weekly-community-map";
+
+    /**
+     * Empty String.
+     */
+    String EMPTY = "";
 }

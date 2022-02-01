@@ -40,6 +40,7 @@
     <dimen name="widthThumbnailLarge">350dp</dimen>
     <dimen name="heightThumbnailTop">450dp</dimen>
     <dimen name="dimenPodcast">60dp</dimen>
+    <dimen name="heightTopNewsContainer">466dp</dimen>
 
     <!-- Dividers -->
     <dimen name="widthLineVertical">2dp</dimen>

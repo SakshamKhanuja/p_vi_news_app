@@ -26,6 +26,7 @@
     <color name="colorScroll">#86FFFFFF</color>
 
     <!-- Colors the highlighted items -->
-    <color name="colorRedDark">#B00020</color>
     <color name="colorRedLight">#FFBAC8</color>
+    <color name="colorRedDark">#B00020</color>
+    <color name="colorRedDarkest">#8C021C</color>
 </resources>

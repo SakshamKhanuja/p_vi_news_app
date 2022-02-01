@@ -3,6 +3,9 @@ package com.project.news_app.utils;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.Network;
+import android.net.NetworkCapabilities;
 import android.net.Uri;
 import android.text.TextUtils;
 import android.view.View;
@@ -10,17 +13,27 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
+import androidx.lifecycle.Lifecycle;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
+import com.google.android.material.snackbar.Snackbar;
+import com.project.news_app.R;
 import com.project.news_app.activities.CategoryActivity;
 
 /**
  * Contains methods that are used across the app.
  */
 public class CommonUtils {
+    /**
+     * Notifies the unavailability of Browser in user's app.
+     */
+    private static Toast toast;
 
     // Setting constructor to private.
     private CommonUtils() {
@@ -75,6 +88,90 @@ public class CommonUtils {
     }
 
     /**
+     * Sets custom colors to SwipeRefreshLayout.
+     */
+    public static void setRefreshLayoutColors(SwipeRefreshLayout swipeRefreshLayout) {
+        swipeRefreshLayout.setColorSchemeResources(R.color.colorLightest);
+        swipeRefreshLayout.setProgressBackgroundColorSchemeResource(R.color.colorRedDark);
+    }
+
+    /**
+     * Checks whether app has internet connectivity.
+     *
+     * @param connectivityManager Accesses network status.
+     */
+    public static boolean checkNetworkAvailability(ConnectivityManager connectivityManager) {
+        // Get network info.
+        NetworkCapabilities networkCapabilities = connectivityManager.getNetworkCapabilities(
+                connectivityManager.getActiveNetwork());
+
+        // Checks if Network is available.
+        if (networkCapabilities == null) {
+            return false;
+        }
+        // Checks whether Network is able to reach the internet.
+        else return networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET);
+    }
+
+    /**
+     * Notifies internet is unavailable via {@link Snackbar}.
+     */
+    public static void showNetworkUnavailable(Context context, View view) {
+        CommonUtils.showSnackbar(context, view, R.string.connection_unavailable,
+                Snackbar.LENGTH_LONG, R.color.colorRedDark, R.color.colorLightest);
+    }
+
+    /**
+     * Shows a {@link Snackbar} containing custom messages.
+     *
+     * @param context         Context to use.
+     * @param view            Parent view.
+     * @param message         Custom message contained in String resource ID.
+     * @param duration        Sets how long the message is shown.
+     * @param textColor       Sets the text color of Snackbar.
+     * @param backgroundColor Sets the background color of Snackbar.
+     */
+    public static void showSnackbar(Context context, View view, int message, int duration,
+                                    int textColor, int backgroundColor) {
+        Snackbar.make(view, context.getString(message), duration)
+                .setTextColor(ContextCompat.getColor(context, textColor))
+                .setBackgroundTint(ContextCompat.getColor(context, backgroundColor))
+                .show();
+    }
+
+    /**
+     * Initializes Callbacks which notifies network changes whether app has gained or lost
+     * network connectivity via {@link Snackbar}.
+     *
+     * @param context   Context to use.
+     * @param view      Parent view.
+     * @param lifecycle Prevents Snackbar appearing when Activity is NOT visible.
+     * @return Callback for ConnectivityManager.
+     */
+    public static ConnectivityManager.NetworkCallback getNetworkCallback(Context context, View view,
+                                                                         Lifecycle lifecycle) {
+        return new ConnectivityManager.NetworkCallback() {
+            @Override
+            public void onAvailable(@NonNull Network network) {
+                if (lifecycle.getCurrentState().isAtLeast(Lifecycle.State.RESUMED)) {
+                    // Shows "Connection Available".
+                    showSnackbar(context, view, R.string.connection_available,
+                            Snackbar.LENGTH_LONG, R.color.colorLightest,
+                            R.color.colorRedDark);
+                }
+            }
+
+            @Override
+            public void onLost(@NonNull Network network) {
+                if (lifecycle.getCurrentState().isAtLeast(Lifecycle.State.RESUMED)) {
+                    // Shows "Connection Unavailable".
+                    showNetworkUnavailable(context, view);
+                }
+            }
+        };
+    }
+
+    /**
      * Downloads and sets thumbnail.
      *
      * @param context      Context to use.
@@ -92,10 +189,9 @@ public class CommonUtils {
      * Shows a {@link Toast} containing custom messages. Removes the currently showing Toast.
      *
      * @param context   Context to use.
-     * @param toast     Toast in Activity/Fragment.
      * @param messageID String resource ID contains the text.
      */
-    public static void showToast(Context context, Toast toast, int messageID) {
+    public static void showToast(Context context, int messageID) {
         // Cancels the current showing Toast.
         if (toast != null) {
             toast.cancel();
@@ -124,14 +220,13 @@ public class CommonUtils {
      *
      * @param context   Context to use.
      * @param url       Link (String format) to open.
-     * @param toast     Toast in Activity/Fragment.
      * @param messageID String resource ID contains the text.
      */
-    public static void openBrowserOrApp(Context context, String url, Toast toast, int messageID) {
+    public static void openBrowserOrApp(Context context, String url, int messageID) {
         try {
             context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
         } catch (ActivityNotFoundException e) {
-            showToast(context, toast, messageID);
+            showToast(context, messageID);
         }
     }
 }

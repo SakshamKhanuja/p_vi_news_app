@@ -5,27 +5,31 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Context;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 
 import com.google.android.material.navigation.NavigationBarView;
+import com.google.android.material.snackbar.Snackbar;
 import com.project.news_app.R;
 import com.project.news_app.constants.MainActivityConstants;
 import com.project.news_app.databinding.ActivityMainBinding;
 import com.project.news_app.fragments.PodcastFragment;
 import com.project.news_app.fragments.CategoryFragment;
-import com.project.news_app.fragments.HeadlineFragment;
+import com.project.news_app.fragments.HomeFragment;
+import com.project.news_app.utils.CommonUtils;
 
 /**
- * Stage VII
- * <p>
- * Default ActionBar is replaced with a Toolbar, which is then scrolled off the screen when
- * RecyclerView is scrolled.
+ * Stage VIII
  * <br/>
- * {@link HeadlineFragment}, {@link CategoryFragment} and {@link PodcastFragment} are now
- * shown/hidden instead of getting replaced when chosen.
+ * App uses {@link ConnectivityManager.NetworkCallback} to handle changes in network availability.
+ * These changes are notified to the user via {@link Snackbar}.
+ * <br/>
+ * App also uses {@link SwipeRefreshLayout} to allow user's to swipe down to refresh
+ * feed/news/episode items.
  */
 public class MainActivity extends AppCompatActivity implements MainActivityConstants {
     // Adds, Removes and Replaces Fragments.
@@ -39,6 +43,16 @@ public class MainActivity extends AppCompatActivity implements MainActivityConst
      */
     private String currentFragmentTag;
 
+    /**
+     * Checks for connection availability.
+     */
+    private ConnectivityManager connectivityManager;
+
+    /**
+     * Notifies user when app loses/gains internet connectivity using a {@link Snackbar}.
+     */
+    private ConnectivityManager.NetworkCallback networkCallback;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +62,22 @@ public class MainActivity extends AppCompatActivity implements MainActivityConst
         binding = ActivityMainBinding.inflate((LayoutInflater) getSystemService(
                 Context.LAYOUT_INFLATER_SERVICE));
         setContentView(binding.getRoot());
+
+        // Initializing ConnectivityManager.
+        connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        // Checks if app is NOT connected/connecting to internet.
+        if (!(CommonUtils.checkNetworkAvailability(connectivityManager))) {
+            // Shows "Connection Unavailable".
+            CommonUtils.showNetworkUnavailable(this, binding.homeCoordinatorLayout);
+        }
+
+        // Initializing NetworkCallback.
+        networkCallback = CommonUtils.getNetworkCallback(this, binding.homeCoordinatorLayout,
+                getLifecycle());
+
+        // Registering NetworkCallback.
+        connectivityManager.registerDefaultNetworkCallback(networkCallback);
 
         /*
          * Attaches OnItemSelectedListener to the BottomNavigationView in order to get a callback
@@ -73,17 +103,25 @@ public class MainActivity extends AppCompatActivity implements MainActivityConst
             fragmentManager.beginTransaction().add(R.id.fragment_container, categoryFragment,
                     TAG_CATEGORY).hide(categoryFragment).commit();
 
-            // Initializing and adding HeadlineFragment to MainActivity.
-            HeadlineFragment headlineFragment = new HeadlineFragment();
-            fragmentManager.beginTransaction().add(R.id.fragment_container, headlineFragment,
+            // Initializing and adding HomeFragment to MainActivity.
+            HomeFragment homeFragment = new HomeFragment();
+            fragmentManager.beginTransaction().add(R.id.fragment_container, homeFragment,
                     TAG_HEADLINE).commit();
 
-            // Sets HeadlineFragment to be active by default.
+            // Sets HomeFragment to be active by default.
             currentFragmentTag = TAG_HEADLINE;
         } else {
             // Restoring what Fragment is currently active.
             currentFragmentTag = savedInstanceState.getString(KEY_TAG);
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        // Unregistering NetworkCallback.
+        connectivityManager.unregisterNetworkCallback(networkCallback);
     }
 
     /**
@@ -117,7 +155,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityConst
             super.onBackPressed();
         } else {
             // Select the "Headlines" category in BottomNavigationView.
-            binding.bottomNav.setSelectedItemId(R.id.bottom_headlines);
+            binding.bottomNav.setSelectedItemId(R.id.bottom_home);
         }
     }
 
@@ -141,8 +179,8 @@ public class MainActivity extends AppCompatActivity implements MainActivityConst
         Fragment active = fragmentManager.findFragmentByTag(currentFragmentTag);
 
         if (active != null) {
-            // Checks if the user selected "Headlines".
-            if (selectedItemId == R.id.bottom_headlines) {
+            // Checks if the user selected "Home".
+            if (selectedItemId == R.id.bottom_home) {
                 showFragment(TAG_HEADLINE, active);
                 return true;
             }

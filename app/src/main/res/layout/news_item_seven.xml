@@ -8,24 +8,31 @@
     <!-- Shows news thumbnail -->
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView_seven"
-        style="@style/ThumbnailDefault"
-        android:layout_marginStart="@dimen/marginCompact"
-        android:layout_marginTop="@dimen/marginCompact"
-        android:layout_marginEnd="@dimen/marginCompact"
-        app:cardBackgroundColor="@color/colorDarkerII"
-        app:cardCornerRadius="@dimen/spaceSmaller"
-        app:cardUseCompatPadding="true"
+        style="@style/ThumbnailContainerSmall"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <!-- Shows news thumbnail -->
-        <ImageView
-            android:id="@+id/image_thumbnail_seven"
-            style="@style/ThumbnailDefault"
-            android:contentDescription="@string/default_content_description"
-            tools:ignore="ImageContrastCheck"
-            tools:src="@drawable/sample_news_thumbnail" />
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <!-- Acts as a placeholder image -->
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:contentDescription="@string/default_content_description"
+                android:src="@drawable/placeholder_darkest" />
+
+            <!-- Shows news thumbnail -->
+            <ImageView
+                android:id="@+id/image_thumbnail_seven"
+                style="@style/ThumbnailDefault"
+                android:contentDescription="@string/default_content_description"
+                tools:ignore="ImageContrastCheck"
+                tools:src="@drawable/sample_news_thumbnail" />
+        </FrameLayout>
     </androidx.cardview.widget.CardView>
 
     <!-- Shows news headline -->

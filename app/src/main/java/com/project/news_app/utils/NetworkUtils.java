@@ -133,34 +133,33 @@ public class NetworkUtils implements NetworkUtilsConstants {
     }
 
     /**
-     * Logs and returns the response code result from the web-servers off of "The Guardian"
-     * API Endpoint.
+     * Logs the response code result from the web-servers off of "The Guardian" API Endpoint.
      *
      * @param responseCode Determines the result of the app's request to download news information
      *                     from the "The Guardian" API.
-     * @return The result of the app's request in understandable terms.
+     * @return An EMPTY String.
      */
     private static String parseResponseCode(int responseCode) {
         switch (responseCode) {
             case RESPONSE_CODE_BAD_REQUEST:
                 Log.i(TAG, "Bad Request (" + responseCode + ")");
-                return RESPONSE_400;
+                return EMPTY;
 
             case RESPONSE_CODE_UNAUTHORIZED_REQUEST:
                 Log.i(TAG, "Authentication Failed (" + responseCode + ")");
-                return RESPONSE_401;
+                return EMPTY;
 
             case RESPONSE_CODE_FORBIDDEN:
                 Log.i(TAG, "Restricted Access (" + responseCode + ")");
-                return RESPONSE_403;
+                return EMPTY;
 
             case RESPONSE_CODE_NOT_FOUND:
                 Log.i(TAG, "Not Found (" + responseCode + ")");
-                return RESPONSE_404;
+                return EMPTY;
 
             default:
                 Log.e(TAG, "Error, Response Code - " + responseCode);
-                return RESPONSE_UNKNOWN;
+                return EMPTY;
         }
     }
 }

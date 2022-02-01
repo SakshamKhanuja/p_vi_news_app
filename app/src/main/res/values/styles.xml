@@ -8,6 +8,12 @@
         <item name="android:colorEdgeEffect">@color/colorLightest</item>
         <item name="android:colorBackground">@color/colorDarkerII</item>
         <item name="colorControlHighlight">@color/colorRippleLight</item>
+        <item name="snackbarTextViewStyle">@style/SnackbarTextView</item>
+    </style>
+
+    <!-- Styles the text inside Snackbar -->
+    <style name="SnackbarTextView">
+        <item name="android:textStyle">bold</item>
     </style>
 
     <!-- EpisodeActivity Theme -->
@@ -135,5 +141,28 @@
     <style name="SocialStyle" parent="BasicView">
         <item name="android:padding">@dimen/paddingSmall</item>
         <item name="android:background">@drawable/ripple_social</item>
+    </style>
+
+    <!-- Styles the CardView which contains the thumbnail and placeholder -->
+    <style name="ThumbnailContainer" parent="CardView">
+        <item name="android:layout_marginStart">@dimen/marginCompact</item>
+        <item name="android:layout_marginTop">@dimen/marginCompact</item>
+        <item name="android:layout_marginEnd">@dimen/marginCompact</item>
+        <item name="cardCornerRadius">@dimen/spaceSmaller</item>
+        <item name="cardUseCompatPadding">true</item>
+    </style>
+
+    <!-- Styles thumbnail container for TYPE_SIX, TYPE_SEVEN and TYPE_EIGHT -->
+    <style name="ThumbnailContainerSmall" parent="ThumbnailContainer">
+        <item name="cardBackgroundColor">@color/colorDarkerII</item>
+        <item name="android:layout_width">@dimen/widthThumbnailMedium</item>
+        <item name="android:layout_height">@dimen/heightThumbnailMedium</item>
+    </style>
+
+    <!-- Styles thumbnail container for TYPE_NINE, TYPE_TEN and TYPE_ELEVEN -->
+    <style name="ThumbnailContainerLarge" parent="ThumbnailContainer">
+        <item name="cardBackgroundColor">@color/colorDarker</item>
+        <item name="android:layout_width">@dimen/widthThumbnailLarge</item>
+        <item name="android:layout_height">@dimen/heightThumbnailMediumII</item>
     </style>
 </resources>

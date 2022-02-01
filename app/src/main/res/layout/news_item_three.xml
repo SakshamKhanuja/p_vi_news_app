@@ -28,13 +28,27 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/heightThumbnailLarge"
         android:layout_marginTop="@dimen/marginSmall"
-        app:cardBackgroundColor="@color/colorPrimaryDark"
+        app:cardBackgroundColor="@color/colorDarker"
         app:cardCornerRadius="@dimen/spaceSmaller"
         app:cardUseCompatPadding="true">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
+            <!-- Acts as a placeholder image -->
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_above="@id/text_headline_three">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:contentDescription="@string/default_content_description"
+                    android:src="@drawable/placeholder_darker" />
+            </FrameLayout>
 
             <!-- Shows news thumbnail -->
             <ImageView

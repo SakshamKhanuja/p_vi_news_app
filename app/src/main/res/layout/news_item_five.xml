@@ -7,6 +7,24 @@
     android:background="@color/colorRedDark"
     android:foreground="@drawable/ripple_white">
 
+    <!-- Acts as a placeholder image -->
+    <FrameLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/colorRedDarkest"
+        app:layout_constraintBottom_toBottomOf="@+id/image_thumbnail_five"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:contentDescription="@string/default_content_description"
+            app:srcCompat="@drawable/placeholder_red" />
+    </FrameLayout>
+
     <!-- Shows news thumbnail -->
     <ImageView
         android:id="@+id/image_thumbnail_five"

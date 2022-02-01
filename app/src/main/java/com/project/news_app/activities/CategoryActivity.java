@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.loader.app.LoaderManager;
 import androidx.loader.content.AsyncTaskLoader;
 import androidx.loader.content.Loader;
@@ -12,10 +11,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.view.View;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.project.news_app.R;
 import com.project.news_app.adapters.NewsAdapter;
 import com.project.news_app.constants.CategoryActivityConstants;
@@ -33,7 +35,6 @@ import java.util.ArrayList;
  */
 public class CategoryActivity extends AppCompatActivity implements
         LoaderManager.LoaderCallbacks<ArrayList<News>>, CategoryActivityConstants {
-
     /**
      * Stores the path that locates the clicked News category/title in "The Guardian" API.
      */
@@ -48,6 +49,21 @@ public class CategoryActivity extends AppCompatActivity implements
      * Adapter provides {@link News} items to RecyclerView.
      */
     private NewsAdapter adapter;
+
+    /**
+     * Performs View Binding.
+     */
+    private BasicRecyclerViewBinding binding;
+
+    /**
+     * Checks for connection availability.
+     */
+    private ConnectivityManager connectivityManager;
+
+    /**
+     * Notifies user when app loses/gains internet connectivity using a {@link Snackbar}.
+     */
+    private ConnectivityManager.NetworkCallback networkCallback;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,14 +93,12 @@ public class CategoryActivity extends AppCompatActivity implements
         }
 
         // Setting content view.
-        BasicRecyclerViewBinding binding =
-                BasicRecyclerViewBinding.inflate((LayoutInflater) getSystemService(
-                        Context.LAYOUT_INFLATER_SERVICE));
+        binding = BasicRecyclerViewBinding.inflate((LayoutInflater) getSystemService(
+                Context.LAYOUT_INFLATER_SERVICE));
         setContentView(binding.getRoot());
 
         // Replace Toolbar as ActionBar.
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        setSupportActionBar(binding.toolbar);
 
         // Set clicked news category as app bar title.
         setTitle(title);
@@ -96,6 +110,35 @@ public class CategoryActivity extends AppCompatActivity implements
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
+        // Initializing SwipeRefreshLayout.
+        CommonUtils.setRefreshLayoutColors(binding.swipeToRefresh);
+
+        // Initializing LoaderManager.
+        LoaderManager loaderManager = LoaderManager.getInstance(this);
+
+        // Attaching listener.
+        binding.swipeToRefresh.setOnRefreshListener(() ->
+                loaderManager.restartLoader(LOADER_ID, null, this));
+
+        // Initializing ConnectivityManager.
+        connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        // Checks if app is NOT connected/connecting to internet.
+        if (!CommonUtils.checkNetworkAvailability(connectivityManager)) {
+            // Hide ProgressBar.
+            hideProgressBar();
+
+            // No news available.
+            showEmptyView();
+        }
+
+        // Initializing NetworkCallback.
+        networkCallback = CommonUtils.getNetworkCallback(this,
+                binding.detailCoordinatorLayout, getLifecycle());
+
+        // Registering NetworkCallback.
+        connectivityManager.registerDefaultNetworkCallback(networkCallback);
+
         // Initializing Adapter.
         adapter = new NewsAdapter(this, null);
 
@@ -104,7 +147,22 @@ public class CategoryActivity extends AppCompatActivity implements
                 LinearLayoutManager.VERTICAL);
 
         // Downloading clicked news category data in a background Thread.
-        LoaderManager.getInstance(this).initLoader(LOADER_ID, null, this);
+        loaderManager.initLoader(LOADER_ID, null, this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        // Unregistering NetworkCallback.
+        connectivityManager.unregisterNetworkCallback(networkCallback);
+    }
+
+    /**
+     * Hides indeterminate {@link R.id#progressBar}.
+     */
+    private void hideProgressBar() {
+        binding.progressBar.setVisibility(View.GONE);
     }
 
     @Override
@@ -116,6 +174,20 @@ public class CategoryActivity extends AppCompatActivity implements
 
         // Backing up the clicked news category title.
         outState.putString(KEY_TITLE, title);
+    }
+
+    /**
+     * Indicates no {@link News} items are available.
+     */
+    private void showEmptyView() {
+        CommonUtils.setText(binding.statusDataNotAvailable, getString(R.string.news_not_available));
+    }
+
+    /**
+     * Hides the empty view.
+     */
+    private void hideEmptyView() {
+        binding.statusDataNotAvailable.setVisibility(View.GONE);
     }
 
     @Override
@@ -241,9 +313,23 @@ public class CategoryActivity extends AppCompatActivity implements
 
     @Override
     public void onLoadFinished(@NonNull Loader<ArrayList<News>> loader, ArrayList<News> data) {
+        // Hiding ProgressBar.
+        hideProgressBar();
+
+        // Hiding SwipeRefreshLayout.
+        if(binding.swipeToRefresh.isRefreshing()) {
+            binding.swipeToRefresh.setRefreshing(false);
+        }
+
         if (data != null && data.size() > 0) {
+            // Hide status TextView.
+            hideEmptyView();
+
             // Updating the contents of NewsAdapter.
             adapter.setNewsData(data);
+        } else {
+            // No news available.
+            showEmptyView();
         }
     }
 

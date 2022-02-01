@@ -126,14 +126,27 @@
                 app:layout_constraintTop_toBottomOf="@+id/expanded_episode_byline"
                 app:layout_constraintVertical_bias="0.0">
 
-                <ImageView
-                    android:id="@+id/expanded_episode_thumbnail"
-                    android:layout_width="@dimen/heightThumbnailMedium"
-                    android:layout_height="@dimen/heightThumbnailMedium"
-                    android:layout_gravity="center"
-                    android:contentDescription="@string/default_content_description"
-                    android:scaleType="centerCrop"
-                    tools:src="@drawable/sample_podcast_thumbnail" />
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <!-- Acts as a placeholder image -->
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center"
+                        android:contentDescription="@string/default_content_description"
+                        android:src="@drawable/placeholder_darkest" />
+
+                    <ImageView
+                        android:id="@+id/expanded_episode_thumbnail"
+                        android:layout_width="@dimen/heightThumbnailMedium"
+                        android:layout_height="@dimen/heightThumbnailMedium"
+                        android:layout_gravity="center"
+                        android:contentDescription="@string/default_content_description"
+                        android:scaleType="centerCrop"
+                        tools:src="@drawable/sample_news_thumbnail" />
+                </FrameLayout>
             </androidx.cardview.widget.CardView>
 
             <!-- Shows info about the episode -->

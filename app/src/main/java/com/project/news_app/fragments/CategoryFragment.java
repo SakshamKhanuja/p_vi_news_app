@@ -3,6 +3,7 @@ package com.project.news_app.fragments;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -10,6 +11,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.project.news_app.adapters.CategoryAdapter;
 import com.project.news_app.R;
@@ -61,6 +63,14 @@ public class CategoryFragment extends Fragment {
             // Initializing list containing all news categories.
             newsCategories = getNewsCategories();
         }
+
+        // Hide ProgressBar.
+        ProgressBar progressBar = view.findViewById(R.id.progressBar);
+        progressBar.setVisibility(View.GONE);
+
+        // Disable SwipeRefreshLayout.
+        SwipeRefreshLayout layout = view.findViewById(R.id.swipe_to_refresh);
+        layout.setEnabled(false);
 
         // Setting title.
         Toolbar toolbar = view.findViewById(R.id.toolbar);

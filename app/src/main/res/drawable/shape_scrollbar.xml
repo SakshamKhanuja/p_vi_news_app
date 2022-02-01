@@ -3,4 +3,5 @@
     android:shape="rectangle">
     <solid android:color="@color/colorScroll" />
     <corners android:radius="20dp" />
+    <size android:width="@dimen/spaceSmaller" />
 </shape>

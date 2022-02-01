@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.content.res.AppCompatResources;
@@ -38,11 +37,6 @@ public class EpisodeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
      * Stores downloaded episodes info.
      */
     private ArrayList<Episode> episodes;
-
-    /**
-     * Notifies the unavailability of Browser in user's app.
-     */
-    private Toast toast;
 
     /**
      * View type inflated from {@link R.layout#episode_item} layout.
@@ -222,7 +216,7 @@ public class EpisodeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
             // Checks if user tried to play the expanded podcast.
             else if (clickedViewID == R.id.expanded_episode_play) {
-                CommonUtils.openBrowserOrApp(context, episode.getEpisodeUrl(), toast,
+                CommonUtils.openBrowserOrApp(context, episode.getEpisodeUrl(),
                         R.string.toast_browser_unavailable);
             }
         }
@@ -450,7 +444,7 @@ public class EpisodeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
              * Opens the clicked platform in its individual app or load its page in device's
              * browser.
              */
-            CommonUtils.openBrowserOrApp(context, url, toast, R.string.toast_browser_unavailable);
+            CommonUtils.openBrowserOrApp(context, url, R.string.toast_browser_unavailable);
         }
     }
 }

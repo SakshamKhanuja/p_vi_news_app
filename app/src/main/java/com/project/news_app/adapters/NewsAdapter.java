@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.content.res.AppCompatResources;
@@ -19,7 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.project.news_app.R;
 import com.project.news_app.constants.NewsAdapterConstants;
 import com.project.news_app.data.News;
-import com.project.news_app.fragments.HeadlineFragment;
+import com.project.news_app.fragments.HomeFragment;
 import com.project.news_app.utils.CommonUtils;
 import com.project.news_app.activities.CategoryActivity;
 
@@ -40,11 +39,6 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
      * Used to load images via Glide library.
      */
     private final Context context;
-
-    /**
-     * Notifies the unavailability of Browser in user's app.
-     */
-    private Toast toast;
 
     public NewsAdapter(Context context, ArrayList<News> newsItems) {
         this.context = context;
@@ -198,7 +192,7 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
     }
 
     /**
-     * Binds data for news items show in {@link HeadlineFragment}.
+     * Binds data for news items show in {@link HomeFragment}.
      *
      * @param thumbnail Shows the news article's thumbnail.
      * @param headline  Shows the news article's headline.
@@ -259,7 +253,6 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
 
             // Downloading news image.
             CommonUtils.setThumbnail(context, thumbnail, thumbnailUrl);
-            //downloadAndSetImage(thumbnail, thumbnailUrl);
         } else {
             // Hides ImageView.
             thumbnail.setVisibility(View.GONE);
@@ -285,8 +278,7 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
             newsHeadline = itemView.findViewById(R.id.text_headline_one);
 
             // Attach OnClickListener to the entire item view.
-            itemView.setOnClickListener(view -> CommonUtils.openBrowserOrApp(context, articleUrl,
-                    toast, R.string.toast_browser_unavailable));
+            itemView.setOnClickListener(view -> CommonUtils.openBrowserOrApp(context, articleUrl, R.string.toast_browser_unavailable));
         }
 
         /**
@@ -322,7 +314,7 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
 
             // Attach OnClickListener to the entire item view.
             itemView.setOnClickListener(view -> CommonUtils.openBrowserOrApp(context, articleUrl,
-                    toast, R.string.toast_browser_unavailable));
+                    R.string.toast_browser_unavailable));
         }
 
         /**
@@ -365,7 +357,7 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
 
             // Attach OnClickListener to the entire item view.
             itemView.setOnClickListener(view -> CommonUtils.openBrowserOrApp(context, articleUrl,
-                    toast, R.string.toast_browser_unavailable));
+                    R.string.toast_browser_unavailable));
         }
 
         /**
@@ -460,7 +452,7 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
 
             // Attach OnClickListener to the entire item view.
             itemView.setOnClickListener(view -> CommonUtils.openBrowserOrApp(context, articleUrl,
-                    toast, R.string.toast_browser_unavailable));
+                    R.string.toast_browser_unavailable));
         }
 
         /**
@@ -515,7 +507,7 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
 
             // Attach OnClickListener to the entire item view.
             itemView.setOnClickListener(view -> CommonUtils.openBrowserOrApp(context, articleUrl,
-                    toast, R.string.toast_browser_unavailable));
+                    R.string.toast_browser_unavailable));
         }
 
         /**
@@ -563,7 +555,7 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
 
             // Attach OnClickListener to the entire item view.
             itemView.setOnClickListener(view -> CommonUtils.openBrowserOrApp(context, articleUrl,
-                    toast, R.string.toast_browser_unavailable));
+                    R.string.toast_browser_unavailable));
         }
 
         /**
@@ -605,7 +597,7 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
 
             // Attach OnClickListener to the entire item view.
             itemView.setOnClickListener(view -> CommonUtils.openBrowserOrApp(context, articleUrl,
-                    toast, R.string.toast_browser_unavailable));
+                    R.string.toast_browser_unavailable));
         }
 
         /**
@@ -647,7 +639,7 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
 
             // Attach OnClickListener to the entire item view.
             itemView.setOnClickListener(view -> CommonUtils.openBrowserOrApp(context, articleUrl,
-                    toast, R.string.toast_browser_unavailable));
+                    R.string.toast_browser_unavailable));
         }
 
         /**
@@ -689,7 +681,7 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
 
             // Attach OnClickListener to the entire item view.
             itemView.setOnClickListener(view -> CommonUtils.openBrowserOrApp(context, articleUrl,
-                    toast, R.string.toast_browser_unavailable));
+                    R.string.toast_browser_unavailable));
         }
 
         /**
@@ -731,7 +723,7 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
 
             // Attach OnClickListener to the entire item view.
             itemView.setOnClickListener(view -> CommonUtils.openBrowserOrApp(context, articleUrl,
-                    toast, R.string.toast_browser_unavailable));
+                    R.string.toast_browser_unavailable));
         }
 
         /**
@@ -773,7 +765,7 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
 
             // Attach OnClickListener to the entire item view.
             itemView.setOnClickListener(view -> CommonUtils.openBrowserOrApp(context, articleUrl,
-                    toast, R.string.toast_browser_unavailable));
+                    R.string.toast_browser_unavailable));
         }
 
         /**

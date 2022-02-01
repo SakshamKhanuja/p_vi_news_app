@@ -4,7 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
+import androidx.appcompat.content.res.AppCompatResources;
+import androidx.core.content.ContextCompat;
 import androidx.loader.app.LoaderManager;
 import androidx.loader.content.AsyncTaskLoader;
 import androidx.loader.content.Loader;
@@ -12,9 +13,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.View;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.project.news_app.R;
 import com.project.news_app.adapters.EpisodeAdapter;
 import com.project.news_app.constants.NetworkUtilsConstants;
@@ -44,6 +48,11 @@ public class EpisodeActivity extends AppCompatActivity implements
     private EpisodeAdapter adapter;
 
     /**
+     * Performs View Binding.
+     */
+    private BasicRecyclerViewBinding binding;
+
+    /**
      * Provides access to the clicked {@link Podcast}.
      */
     public static final String EXTRA_PODCAST = "com.project.news_app.Podcast";
@@ -52,6 +61,16 @@ public class EpisodeActivity extends AppCompatActivity implements
      * Used to access the clicked {@link Podcast} across configuration changes.
      */
     private static final String KEY_PODCAST = "podcast";
+
+    /**
+     * Checks for connection availability.
+     */
+    private ConnectivityManager connectivityManager;
+
+    /**
+     * Notifies user when app loses/gains internet connectivity using a {@link Snackbar}.
+     */
+    private ConnectivityManager.NetworkCallback networkCallback;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,13 +93,12 @@ public class EpisodeActivity extends AppCompatActivity implements
         }
 
         // Setting content view.
-        BasicRecyclerViewBinding binding = BasicRecyclerViewBinding.inflate(
-                (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE));
+        binding = BasicRecyclerViewBinding.inflate((LayoutInflater) getSystemService(
+                Context.LAYOUT_INFLATER_SERVICE));
         setContentView(binding.getRoot());
 
         // Replace Toolbar as ActionBar.
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        setSupportActionBar(binding.toolbar);
 
         // Set podcast title as app bar title.
         setTitle(clickedPodcast.getTitle());
@@ -92,6 +110,35 @@ public class EpisodeActivity extends AppCompatActivity implements
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
+        // Initializing SwipeRefreshLayout.
+        CommonUtils.setRefreshLayoutColors(binding.swipeToRefresh);
+
+        // Initializing LoaderManager.
+        LoaderManager loaderManager = LoaderManager.getInstance(this);
+
+        // Attaching listener.
+        binding.swipeToRefresh.setOnRefreshListener(() ->
+                loaderManager.restartLoader(1, null, this));
+
+        // Initializing ConnectivityManager.
+        connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        // Checks if app is NOT connected/connecting to internet.
+        if (!CommonUtils.checkNetworkAvailability(connectivityManager)) {
+            // Hide ProgressBar.
+            hideProgressBar();
+
+            // No episodes available.
+            showEmptyView();
+        }
+
+        // Initializing NetworkCallback.
+        networkCallback = CommonUtils.getNetworkCallback(this,
+                binding.detailCoordinatorLayout, getLifecycle());
+
+        // Registering NetworkCallback.
+        connectivityManager.registerDefaultNetworkCallback(networkCallback);
+
         // Linking Adapter to RecyclerView.
         adapter = new EpisodeAdapter(this, null);
 
@@ -100,7 +147,35 @@ public class EpisodeActivity extends AppCompatActivity implements
                 LinearLayoutManager.VERTICAL);
 
         // Downloads a list of episodes of the clicked Podcast from "The Guardian" API.
-        LoaderManager.getInstance(this).initLoader(1, null, this);
+        loaderManager.initLoader(1, null, this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        // Unregistering NetworkCallback.
+        connectivityManager.unregisterNetworkCallback(networkCallback);
+    }
+
+    /**
+     * Hides indeterminate {@link R.id#progressBar}.
+     */
+    private void hideProgressBar() {
+        binding.progressBar.setVisibility(View.GONE);
+    }
+
+    /**
+     * Indicates no {@link Episode} items are available.
+     */
+    private void showEmptyView() {
+        // Change background.
+        binding.constraintLayout.setBackgroundColor(ContextCompat.getColor(this,
+                R.color.colorDarkerII));
+
+        // No episodes available in Podcast.
+        CommonUtils.setText(binding.statusDataNotAvailable, getString(
+                R.string.episodes_not_available));
     }
 
     @Override
@@ -162,9 +237,27 @@ public class EpisodeActivity extends AppCompatActivity implements
     @Override
     public void onLoadFinished(@NonNull Loader<ArrayList<Episode>> loader,
                                ArrayList<Episode> data) {
+        // Hiding ProgressBar.
+        hideProgressBar();
+
+        // Hiding SwipeRefreshLayout.
+        if(binding.swipeToRefresh.isRefreshing()) {
+            binding.swipeToRefresh.setRefreshing(false);
+        }
+
         if (data != null && data.size() > 0) {
+            // Hide status TextView.
+            binding.statusDataNotAvailable.setVisibility(View.GONE);
+
+            // Change background.
+            binding.constraintLayout.setBackground(AppCompatResources.getDrawable(this,
+                    R.drawable.gradient_podcast));
+
             // Updating the contents of PodcastAdapter.
             adapter.setEpisodeData(data);
+        } else {
+            // No episodes available.
+            showEmptyView();
         }
     }
 

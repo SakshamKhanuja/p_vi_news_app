@@ -12,8 +12,20 @@
         android:id="@+id/top_news_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorDarker"
+        android:background="@color/colorDarkerII"
         android:foreground="?attr/selectableItemBackground">
+
+        <!-- Acts as a placeholder image -->
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/default_content_description"
+            app:layout_constraintBottom_toTopOf="@+id/top_news_headline"
+            app:layout_constraintEnd_toEndOf="@+id/top_news_thumbnail"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/placeholder_darkest"
+            tools:ignore="ImageContrastCheck" />
 
         <!-- Shows news thumbnail -->
         <ImageView
@@ -24,8 +36,7 @@
             android:scaleType="centerCrop"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:srcCompat="@drawable/sample_news_thumbnail" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <!-- Shows news headline -->
         <TextView
@@ -55,7 +66,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/marginMedium"
-            android:layout_marginEnd="16dp"
+            android:layout_marginEnd="@dimen/marginMedium"
             android:ellipsize="end"
             android:fontFamily="sans-serif-medium"
             android:letterSpacing="@fraction/letterSpacingLarge"

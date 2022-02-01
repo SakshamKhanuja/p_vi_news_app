@@ -3,6 +3,8 @@ package com.project.news_app.fragments;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -13,6 +15,7 @@ import androidx.loader.content.AsyncTaskLoader;
 import androidx.loader.content.Loader;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.project.news_app.R;
@@ -57,7 +60,7 @@ import java.util.ArrayList;
  *     "Facebook", "Instagram", "LinkedIn", "Twitter" and "YouTube".</li>
  * </ol>
  */
-public class HeadlineFragment extends Fragment implements
+public class HomeFragment extends Fragment implements
         LoaderManager.LoaderCallbacks<ArrayList<NewsFeed>>, HeadlineFragmentConstants {
     /**
      * Splits and provides the downloaded news info. to RecyclerView.
@@ -69,8 +72,23 @@ public class HeadlineFragment extends Fragment implements
      */
     private Context context;
 
+    /**
+     * Shows the indeterminate progress of downloading news feeds.
+     */
+    private ProgressBar progressBar;
+
+    /**
+     * Shows no feed is available is not available.
+     */
+    private TextView feedNotAvailable;
+
+    /**
+     * Provides swipe down to refresh news feeds.
+     */
+    private SwipeRefreshLayout swipeRefreshLayout;
+
     // Required Default Constructor.
-    public HeadlineFragment() {
+    public HomeFragment() {
         // Providing a layout to inflate.
         super(R.layout.basic_recycler_view);
     }
@@ -87,10 +105,27 @@ public class HeadlineFragment extends Fragment implements
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         // Setting title.
         Toolbar toolbar = view.findViewById(R.id.toolbar);
-        toolbar.setTitle(R.string.bottom_headlines);
+        toolbar.setTitle(R.string.bottom_home);
 
         // Initializing Parent RecyclerView.
         RecyclerView recyclerView = view.findViewById(R.id.recycler_view_dark);
+
+        // Initializing SwipeRefreshLayout.
+        swipeRefreshLayout = view.findViewById(R.id.swipe_to_refresh);
+        CommonUtils.setRefreshLayoutColors(swipeRefreshLayout);
+
+        // Initializing LoaderManager.
+        LoaderManager loaderManager = LoaderManager.getInstance(this);
+
+        // Attaching listener.
+        swipeRefreshLayout.setOnRefreshListener(() ->
+                loaderManager.restartLoader(LOADER_ID, null, this));
+
+        // Initializing ProgressBar.
+        progressBar = view.findViewById(R.id.progressBar);
+
+        // Initializing status TextView.
+        feedNotAvailable = view.findViewById(R.id.status_data_not_available);
 
         // Hiding the scroll bar.
         recyclerView.setVerticalScrollBarEnabled(false);
@@ -104,7 +139,14 @@ public class HeadlineFragment extends Fragment implements
                 LinearLayoutManager.VERTICAL);
 
         // Downloads top headlines from "World", "US", "UK", "Australia" and "Editorial".
-        LoaderManager.getInstance(this).initLoader(LOADER_ID, null, this);
+        loaderManager.initLoader(LOADER_ID, null, this);
+    }
+
+    /**
+     * Hides indeterminate {@link R.id#progressBar}.
+     */
+    private void hideProgressBar() {
+        progressBar.setVisibility(View.GONE);
     }
 
     @NonNull
@@ -220,15 +262,11 @@ public class HeadlineFragment extends Fragment implements
             @NonNull
             @Override
             public ArrayList<NewsFeed> loadInBackground() {
+                // Indicates no response from "The Guardian".
+                boolean dataNotAvailable = false;
+
                 // Stores all section info. that is shown by the RecyclerView.
                 ArrayList<NewsFeed> sectionFeeds = new ArrayList<>();
-
-                /*
-                 * Stores news item that are shown in their own Fragments by ViewPager2. List
-                 * contains the first item (News) from every "section" feed - World, US, UK,
-                 * Australia and Editorial.
-                 */
-                ArrayList<News> sectionOneNews = new ArrayList<>();
 
                 /*
                  * Array stores downloaded news info. from "sections" - World, US, UK, Australia
@@ -245,7 +283,25 @@ public class HeadlineFragment extends Fragment implements
                                             pathArray[i],
                                             NetworkUtilsConstants.QP_VALUE_HEADLINE_FIELDS,
                                             NetworkUtilsConstants.SIZE_HEADLINES));
+
+                    // Check if feed was successfully downloaded.
+                    if (jsonResponseArray[i].equals(EMPTY)) {
+                        dataNotAvailable = true;
+                        break;
+                    }
                 }
+
+                // Checks if there is no response.
+                if (dataNotAvailable) {
+                    return sectionFeeds;
+                }
+
+                /*
+                 * Stores news item that are shown in their own Fragments by ViewPager2. List
+                 * contains the first item (News) from every "section" feed - World, US, UK,
+                 * Australia and Editorial.
+                 */
+                ArrayList<News> sectionOneNews = new ArrayList<>();
 
                 /*
                  * Setting up Sections showing:
@@ -349,9 +405,23 @@ public class HeadlineFragment extends Fragment implements
     @Override
     public void onLoadFinished(@NonNull Loader<ArrayList<NewsFeed>> loader,
                                ArrayList<NewsFeed> data) {
+        // Hiding ProgressBar.
+        hideProgressBar();
+
+        // Hiding SwipeRefreshLayout.
+        if (swipeRefreshLayout.isRefreshing()) {
+            swipeRefreshLayout.setRefreshing(false);
+        }
+
         if (data != null && data.size() > 0) {
+            // Hide status TextView.
+            feedNotAvailable.setVisibility(View.GONE);
+
             // Updating the contents of NewsFeedAdapter.
             adapter.setNewsFeeds(data);
+        } else {
+            // Shows feeds are not available.
+            CommonUtils.setText(feedNotAvailable, context.getString(R.string.feed_not_available));
         }
     }
 

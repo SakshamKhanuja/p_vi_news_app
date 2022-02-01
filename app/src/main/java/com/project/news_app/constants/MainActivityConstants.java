@@ -1,7 +1,7 @@
 package com.project.news_app.constants;
 
 import com.project.news_app.activities.MainActivity;
-import com.project.news_app.fragments.HeadlineFragment;
+import com.project.news_app.fragments.HomeFragment;
 import com.project.news_app.fragments.CategoryFragment;
 import com.project.news_app.fragments.PodcastFragment;
 
@@ -10,9 +10,9 @@ import com.project.news_app.fragments.PodcastFragment;
  */
 public interface MainActivityConstants {
     /**
-     * Represents the TAG set to retrieve {@link HeadlineFragment}.
+     * Represents the TAG set to retrieve {@link HomeFragment}.
      */
-    String TAG_HEADLINE = "headline_fragment";
+    String TAG_HEADLINE = "home_fragment";
 
     /**
      * Represents the TAG set to retrieve {@link CategoryFragment}.

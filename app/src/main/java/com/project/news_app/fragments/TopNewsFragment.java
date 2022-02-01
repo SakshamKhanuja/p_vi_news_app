@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -45,11 +44,6 @@ public class TopNewsFragment extends Fragment {
      * Accesses number of top news from the supplied arguments.
      */
     public static final String KEY_NEWS_NUMBER = "serial";
-
-    /**
-     * Notifies the unavailability of Browser in user's device.
-     */
-    private Toast toast;
 
     // Required Default Constructor.
     public TopNewsFragment() {
@@ -104,7 +98,7 @@ public class TopNewsFragment extends Fragment {
 
             // Attaches OnClickListener to open the news article in device's browser.
             layout.setOnClickListener(v -> CommonUtils.openBrowserOrApp(context,
-                    news.getArticleURL(), toast, R.string.toast_browser_unavailable));
+                    news.getArticleURL(), R.string.toast_browser_unavailable));
         }
     }
 }

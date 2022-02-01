@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -25,18 +24,18 @@ import com.project.news_app.constants.HeadlineFragmentConstants;
 import com.project.news_app.data.News;
 import com.project.news_app.data.NewsFeed;
 import com.project.news_app.fragments.TopNewsFragment;
-import com.project.news_app.fragments.HeadlineFragment;
+import com.project.news_app.fragments.HomeFragment;
 import com.project.news_app.utils.CommonUtils;
 
 import java.util.ArrayList;
 
 /**
- * Adapter provides {@link NewsFeed} to RecyclerView in {@link HeadlineFragment}.
+ * Adapter provides {@link NewsFeed} to RecyclerView in {@link HomeFragment}.
  */
 public class NewsFeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements
         HeadlineFragmentConstants {
     /**
-     * Stores news feed from different sections. Check documentation of {@link HeadlineFragment} to
+     * Stores news feed from different sections. Check documentation of {@link HomeFragment} to
      * know more about it.
      */
     private ArrayList<NewsFeed> newsFeeds;
@@ -45,11 +44,6 @@ public class NewsFeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
      * Multiple use case.
      */
     private final Context context;
-
-    /**
-     * Notifies the unavailability of Browser in user's device.
-     */
-    private Toast toast;
 
     /**
      * Used to initialize {@link NewsFeedHolderTop.TopNewsAdapter}.
@@ -434,8 +428,7 @@ public class NewsFeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
              * Opens the clicked platform in its individual app or load its page in device's
              * browser.
              */
-            CommonUtils.openBrowserOrApp(context, url, toast,
-                    R.string.toast_browser_unavailable);
+            CommonUtils.openBrowserOrApp(context, url, R.string.toast_browser_unavailable);
         }
     }
 
@@ -457,7 +450,7 @@ public class NewsFeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
              * Crosswords".
              */
             textGetTheApp.setOnClickListener(view -> CommonUtils.openBrowserOrApp(context,
-                    DISCOVER_URL, toast, R.string.toast_browser_unavailable));
+                    DISCOVER_URL, R.string.toast_browser_unavailable));
         }
     }
 
@@ -479,7 +472,7 @@ public class NewsFeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
              * website on the device's browser.
              */
             textGetInvolved.setOnClickListener(view -> CommonUtils.openBrowserOrApp(context,
-                    READERS_URL, toast, R.string.toast_browser_unavailable));
+                    READERS_URL, R.string.toast_browser_unavailable));
         }
     }
 }

@@ -12,21 +12,35 @@
         android:id="@+id/cardView_four"
         android:layout_width="@dimen/widthThumbnailSmall"
         android:layout_height="@dimen/heightThumbnailSmall"
-        app:cardBackgroundColor="@color/colorPrimaryDark"
+        app:cardBackgroundColor="@color/colorDarker"
         app:cardCornerRadius="@dimen/spaceSmaller"
         app:cardUseCompatPadding="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <!-- Shows news thumbnail -->
-        <ImageView
-            android:id="@+id/image_thumbnail_four"
-            android:layout_width="@dimen/widthThumbnailSmall"
-            android:layout_height="@dimen/heightThumbnailSmall"
-            android:contentDescription="@string/default_content_description"
-            android:scaleType="centerCrop"
-            tools:ignore="ImageContrastCheck"
-            tools:src="@drawable/sample_news_thumbnail" />
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <!-- Acts as a placeholder image -->
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:contentDescription="@string/default_content_description"
+                android:src="@drawable/placeholder_darker" />
+
+            <!-- Shows news thumbnail -->
+            <ImageView
+                android:id="@+id/image_thumbnail_four"
+                android:layout_width="@dimen/widthThumbnailSmall"
+                android:layout_height="@dimen/heightThumbnailSmall"
+                android:layout_gravity="center"
+                android:contentDescription="@string/default_content_description"
+                android:scaleType="centerCrop"
+                tools:ignore="ImageContrastCheck"
+                tools:src="@drawable/sample_news_thumbnail" />
+        </FrameLayout>
     </androidx.cardview.widget.CardView>
 
     <!-- Shows news section -->

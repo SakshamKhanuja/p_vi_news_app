@@ -9,6 +9,24 @@
     <!-- Toasts text when browser is not installed in user's device -->
     <string name="toast_browser_unavailable">Browser was not available.</string>
 
+    <!-- Represents feed is not available from "The Guardian". -->
+    <string name="feed_not_available">No Feed Available</string>
+
+    <!-- Represents news is not available from "The Guardian" -->
+    <string name="news_not_available">No News Available\n\nGo Back</string>
+
+    <!-- Represents podcast episodes is not available from "The Guardian" -->
+    <string name="episodes_not_available">No Episodes Available\n\nGo Back</string>
+
+    <!-- Notifies user app has internet connectivity via Snackbar -->
+    <string name="connection_available">Connection Available</string>
+
+    <!-- Shows the Welcome text whenever user opens the app -->
+    <string name="message_welcome">Welcome</string>
+
+    <!-- Notifies user app has no internet connectivity via Snackbar -->
+    <string name="connection_unavailable">Connection Unavailable</string>
+
     <!-- Labels that the podcast contains explicit content -->
     <string name="label_explicit">Warning: Explicit Content</string>
 
@@ -75,8 +93,8 @@
     <!-- About Guardian Podcast -->
     <string name="podcast_about">Hosted by Nosheen Iqbal and Michael Safi, Today in Focus brings you closer to Guardian journalism. Combining personal storytelling with insightful analysis, this episode takes you behind the newsFeeds for a deeper understanding of the news, every weekday.</string>
 
-    <!-- Bottom Navigation View Title Headlines -->
-    <string name="bottom_headlines">Headlines</string>
+    <!-- Bottom Navigation View Title Home -->
+    <string name="bottom_home">Home</string>
 
     <!-- Bottom Navigation View Title Categories -->
     <string name="bottom_categories">Categories</string>
