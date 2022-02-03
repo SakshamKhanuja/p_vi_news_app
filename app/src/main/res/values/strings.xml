@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <!-- Name of the app visible in LAUNCHER -->
-    <string name="app_name">News App</string>
+    <string name="app_name">GN</string>
 
     <!-- Add your API key here -->
     <string name="api_key">Enter your API key here.</string>
@@ -11,6 +11,15 @@
 
     <!-- Represents feed is not available from "The Guardian". -->
     <string name="feed_not_available">No Feed Available</string>
+
+    <!-- Represents no news item are available in SearchActivity -->
+    <string name="search_failed">No Result Found</string>
+
+    <!-- Represents entered query is empty in SearchActivity -->
+    <string name="toast_query_unavailable">Provide query to search news.</string>
+
+    <!-- Default query to search news items in SearchActivity -->
+    <string name="default_search_query">World</string>
 
     <!-- Represents news is not available from "The Guardian" -->
     <string name="news_not_available">No News Available\n\nGo Back</string>
@@ -23,6 +32,9 @@
 
     <!-- Shows the Welcome text whenever user opens the app -->
     <string name="message_welcome">Welcome</string>
+
+    <!-- Hint in EditText in SearchActivity -->
+    <string name="hint_search">Search....</string>
 
     <!-- Notifies user app has no internet connectivity via Snackbar -->
     <string name="connection_unavailable">Connection Unavailable</string>
@@ -101,6 +113,9 @@
 
     <!-- Bottom Navigation View Title Podcast -->
     <string name="bottom_podcast">Podcast</string>
+
+    <!-- Menu Title Search -->
+    <string name="action_search">Search</string>
 
     <!-- Default Content Description -->
     <string name="default_content_description">Image</string>

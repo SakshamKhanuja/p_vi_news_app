@@ -105,6 +105,11 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
                 return new NewsTypeElevenHolder(layoutInflater.inflate(R.layout.news_item_eleven,
                         parent, false));
 
+            case TYPE_TWELVE:
+                // Shows News headline, section, author info. and thumbnail.
+                return new NewsTypeTwelveHolder(layoutInflater.inflate(R.layout.news_item_twelve,
+                        parent, false));
+
             case TYPE_FOUR:
             default:
                 // Shows News headline, section, author info. and thumbnail.
@@ -162,6 +167,10 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
 
             case TYPE_ELEVEN:
                 ((NewsTypeElevenHolder) holder).setData(currentNews);
+                break;
+
+            case TYPE_TWELVE:
+                ((NewsTypeTwelveHolder) holder).setData(currentNews);
                 break;
         }
     }
@@ -271,6 +280,9 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
         // Stores news article.
         private String articleUrl;
 
+        // Stores news headline;
+        private String headline;
+
         public NewsTypeOneHolder(View itemView) {
             super(itemView);
 
@@ -278,7 +290,14 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
             newsHeadline = itemView.findViewById(R.id.text_headline_one);
 
             // Attach OnClickListener to the entire item view.
-            itemView.setOnClickListener(view -> CommonUtils.openBrowserOrApp(context, articleUrl, R.string.toast_browser_unavailable));
+            itemView.setOnClickListener(view -> CommonUtils.openBrowserOrApp(context, articleUrl,
+                    R.string.toast_browser_unavailable));
+
+            // Attaching OnLongClickListener to the entire item view.
+            itemView.setOnLongClickListener(view -> {
+                CommonUtils.shareNews(context, headline, articleUrl);
+                return true;
+            });
         }
 
         /**
@@ -287,6 +306,9 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
         public void setData(News news) {
             // Initializing news article url.
             articleUrl = news.getArticleURL();
+
+            // Initializing news headline.
+            headline = news.getHeadline();
 
             // Setting news headline.
             CommonUtils.setText(newsHeadline, news.getHeadline());
@@ -306,6 +328,9 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
         // Stores news article.
         private String articleUrl;
 
+        // Stores news headline;
+        private String headline;
+
         public NewsTypeTwoHolder(View itemView) {
             super(itemView);
 
@@ -315,6 +340,12 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
             // Attach OnClickListener to the entire item view.
             itemView.setOnClickListener(view -> CommonUtils.openBrowserOrApp(context, articleUrl,
                     R.string.toast_browser_unavailable));
+
+            // Attaching OnLongClickListener to the entire item view.
+            itemView.setOnLongClickListener(view -> {
+                CommonUtils.shareNews(context, headline, articleUrl);
+                return true;
+            });
         }
 
         /**
@@ -323,6 +354,9 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
         public void setData(News news) {
             // Initializing news article url.
             articleUrl = news.getArticleURL();
+
+            // Initializing news headline.
+            headline = news.getHeadline();
 
             // Setting news headline.
             CommonUtils.setText(newsHeadline, news.getHeadline());
@@ -347,6 +381,9 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
         // Stores news article.
         private String articleUrl;
 
+        // Stores news headline;
+        private String headline;
+
         public NewsTypeThreeHolder(View itemView) {
             super(itemView);
 
@@ -358,6 +395,12 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
             // Attach OnClickListener to the entire item view.
             itemView.setOnClickListener(view -> CommonUtils.openBrowserOrApp(context, articleUrl,
                     R.string.toast_browser_unavailable));
+
+            // Attaching OnLongClickListener to the entire item view.
+            itemView.setOnLongClickListener(view -> {
+                CommonUtils.shareNews(context, headline, articleUrl);
+                return true;
+            });
         }
 
         /**
@@ -376,6 +419,9 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
         public void setData(News news) {
             // Initializing news article url.
             articleUrl = news.getArticleURL();
+
+            // Initializing news headline.
+            headline = news.getHeadline();
 
             // Setting news section.
             CommonUtils.setText(newsSection, news.getSectionName());
@@ -441,6 +487,9 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
         // Stores news article.
         private String articleUrl;
 
+        // Stores news headline;
+        private String headline;
+
         public NewsTypeFourHolder(View itemView) {
             super(itemView);
 
@@ -453,6 +502,12 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
             // Attach OnClickListener to the entire item view.
             itemView.setOnClickListener(view -> CommonUtils.openBrowserOrApp(context, articleUrl,
                     R.string.toast_browser_unavailable));
+
+            // Attaching OnLongClickListener to the entire item view.
+            itemView.setOnLongClickListener(view -> {
+                CommonUtils.shareNews(context, headline, articleUrl);
+                return true;
+            });
         }
 
         /**
@@ -461,6 +516,9 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
         public void setData(News news) {
             // Initializing news article url.
             articleUrl = news.getArticleURL();
+
+            // Initializing news headline.
+            headline = news.getHeadline();
 
             setupNewsTypeFour(newsSection, newsHeadline, newsByline, newsThumbnail, news);
         }
@@ -494,6 +552,9 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
         // Stores news article.
         private String articleUrl;
 
+        // Stores news headline;
+        private String headline;
+
         public NewsTypeFiveHolder(View itemView) {
             super(itemView);
 
@@ -508,6 +569,12 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
             // Attach OnClickListener to the entire item view.
             itemView.setOnClickListener(view -> CommonUtils.openBrowserOrApp(context, articleUrl,
                     R.string.toast_browser_unavailable));
+
+            // Attaching OnLongClickListener to the entire item view.
+            itemView.setOnLongClickListener(view -> {
+                CommonUtils.shareNews(context, headline, articleUrl);
+                return true;
+            });
         }
 
         /**
@@ -516,6 +583,9 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
         public void setData(News news) {
             // Initializing news article url.
             articleUrl = news.getArticleURL();
+
+            // Initializing news headline.
+            headline = news.getHeadline();
 
             setupNewsTypeFour(newsSection, newsHeadline, newsByline, newsThumbnail, news);
 
@@ -545,6 +615,9 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
         // Stores news article.
         private String articleUrl;
 
+        // Stores news headline;
+        private String headline;
+
         public NewsTypeSixHolder(View itemView) {
             super(itemView);
 
@@ -556,6 +629,12 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
             // Attach OnClickListener to the entire item view.
             itemView.setOnClickListener(view -> CommonUtils.openBrowserOrApp(context, articleUrl,
                     R.string.toast_browser_unavailable));
+
+            // Attaching OnLongClickListener to the entire item view.
+            itemView.setOnLongClickListener(view -> {
+                CommonUtils.shareNews(context, headline, articleUrl);
+                return true;
+            });
         }
 
         /**
@@ -564,6 +643,9 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
         public void setData(News news) {
             // Initializing news article url.
             articleUrl = news.getArticleURL();
+
+            // Initializing news headline.
+            headline = news.getHeadline();
 
             setupNewsFeed(newsThumbnail, newsHeadline, newsByline, news);
         }
@@ -587,6 +669,9 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
         // Stores news article.
         private String articleUrl;
 
+        // Stores news headline;
+        private String headline;
+
         public NewsTypeSevenHolder(View itemView) {
             super(itemView);
 
@@ -598,6 +683,12 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
             // Attach OnClickListener to the entire item view.
             itemView.setOnClickListener(view -> CommonUtils.openBrowserOrApp(context, articleUrl,
                     R.string.toast_browser_unavailable));
+
+            // Attaching OnLongClickListener to the entire item view.
+            itemView.setOnLongClickListener(view -> {
+                CommonUtils.shareNews(context, headline, articleUrl);
+                return true;
+            });
         }
 
         /**
@@ -606,6 +697,9 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
         public void setData(News news) {
             // Initializing news article url.
             articleUrl = news.getArticleURL();
+
+            // Initializing news headline.
+            headline = news.getHeadline();
 
             setupNewsFeed(newsThumbnail, newsHeadline, newsByline, news);
         }
@@ -629,6 +723,9 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
         // Stores news article.
         private String articleUrl;
 
+        // Stores news headline;
+        private String headline;
+
         public NewsTypeEightHolder(View itemView) {
             super(itemView);
 
@@ -640,6 +737,12 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
             // Attach OnClickListener to the entire item view.
             itemView.setOnClickListener(view -> CommonUtils.openBrowserOrApp(context, articleUrl,
                     R.string.toast_browser_unavailable));
+
+            // Attaching OnLongClickListener to the entire item view.
+            itemView.setOnLongClickListener(view -> {
+                CommonUtils.shareNews(context, headline, articleUrl);
+                return true;
+            });
         }
 
         /**
@@ -648,6 +751,9 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
         public void setData(News news) {
             // Initializing news article url.
             articleUrl = news.getArticleURL();
+
+            // Initializing news headline.
+            headline = news.getHeadline();
 
             setupNewsFeed(newsThumbnail, newsHeadline, newsByline, news);
         }
@@ -671,6 +777,9 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
         // Stores news article.
         private String articleUrl;
 
+        // Stores news headline;
+        private String headline;
+
         public NewsTypeNineHolder(View itemView) {
             super(itemView);
 
@@ -682,6 +791,12 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
             // Attach OnClickListener to the entire item view.
             itemView.setOnClickListener(view -> CommonUtils.openBrowserOrApp(context, articleUrl,
                     R.string.toast_browser_unavailable));
+
+            // Attaching OnLongClickListener to the entire item view.
+            itemView.setOnLongClickListener(view -> {
+                CommonUtils.shareNews(context, headline, articleUrl);
+                return true;
+            });
         }
 
         /**
@@ -690,6 +805,9 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
         public void setData(News news) {
             // Initializing news article url.
             articleUrl = news.getArticleURL();
+
+            // Initializing news headline.
+            headline = news.getHeadline();
 
             setupNewsFeed(newsThumbnail, newsHeadline, newsByline, news);
         }
@@ -713,6 +831,9 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
         // Stores news article.
         private String articleUrl;
 
+        // Stores news headline;
+        private String headline;
+
         public NewsTypeTenHolder(View itemView) {
             super(itemView);
 
@@ -724,6 +845,12 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
             // Attach OnClickListener to the entire item view.
             itemView.setOnClickListener(view -> CommonUtils.openBrowserOrApp(context, articleUrl,
                     R.string.toast_browser_unavailable));
+
+            // Attaching OnLongClickListener to the entire item view.
+            itemView.setOnLongClickListener(view -> {
+                CommonUtils.shareNews(context, headline, articleUrl);
+                return true;
+            });
         }
 
         /**
@@ -732,6 +859,9 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
         public void setData(News news) {
             // Initializing news article url.
             articleUrl = news.getArticleURL();
+
+            // Initializing news headline.
+            headline = news.getHeadline();
 
             setupNewsFeed(newsThumbnail, newsHeadline, newsByline, news);
         }
@@ -755,6 +885,9 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
         // Stores news article.
         private String articleUrl;
 
+        // Stores news headline;
+        private String headline;
+
         public NewsTypeElevenHolder(View itemView) {
             super(itemView);
 
@@ -766,6 +899,12 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
             // Attach OnClickListener to the entire item view.
             itemView.setOnClickListener(view -> CommonUtils.openBrowserOrApp(context, articleUrl,
                     R.string.toast_browser_unavailable));
+
+            // Attaching OnLongClickListener to the entire item view.
+            itemView.setOnLongClickListener(view -> {
+                CommonUtils.shareNews(context, headline, articleUrl);
+                return true;
+            });
         }
 
         /**
@@ -775,7 +914,74 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
             // Initializing news article url.
             articleUrl = news.getArticleURL();
 
+            // Initializing news headline.
+            headline = news.getHeadline();
+
             setupNewsFeed(newsThumbnail, newsHeadline, newsByline, news);
+        }
+    }
+
+    /**
+     * ViewHolder shows the news' headline, author info. and thumbnail.
+     * <p>
+     * Layout Resource - {@link R.layout#news_item_twelve}.
+     */
+    protected class NewsTypeTwelveHolder extends RecyclerView.ViewHolder {
+        // Shows the news headline.
+        private final TextView newsHeadline;
+
+        // Shows the section name under which this news belongs.
+        private final TextView newsSection;
+
+        // Shows the author info.
+        private final TextView newsByline;
+
+        // Shows the news thumbnail.
+        private final ImageView newsThumbnail;
+
+        // Stores news article.
+        private String articleUrl;
+
+        // Stores news headline;
+        private String headline;
+
+        public NewsTypeTwelveHolder(View itemView) {
+            super(itemView);
+
+            // Initialize Views.
+            newsThumbnail = itemView.findViewById(R.id.image_thumbnail_twelve);
+            newsSection = itemView.findViewById(R.id.text_section_name_twelve);
+            newsHeadline = itemView.findViewById(R.id.text_headline_twelve);
+            newsByline = itemView.findViewById(R.id.text_by_line_twelve);
+
+            // Attach OnClickListener to the entire item view.
+            itemView.setOnClickListener(view -> CommonUtils.openBrowserOrApp(context, articleUrl,
+                    R.string.toast_browser_unavailable));
+
+            // Attaching OnLongClickListener to the entire item view.
+            itemView.setOnLongClickListener(view -> {
+                CommonUtils.shareNews(context, headline, articleUrl);
+                return true;
+            });
+
+            // Attaching OnLongClickListener to the entire item view.
+            itemView.setOnLongClickListener(view -> {
+                CommonUtils.shareNews(context, headline, articleUrl);
+                return true;
+            });
+        }
+
+        /**
+         * Sets news' thumbnail, headline and author info.
+         */
+        public void setData(News news) {
+            // Initializing news article url.
+            articleUrl = news.getArticleURL();
+
+            // Initializing news headline.
+            headline = news.getHeadline();
+
+            setupNewsTypeFour(newsSection, newsHeadline, newsByline, newsThumbnail, news);
         }
     }
 }

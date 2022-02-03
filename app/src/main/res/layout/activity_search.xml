@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/search_coordinator_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.SearchActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="@dimen/elevationToolbar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:orientation="vertical"
+            app:layout_scrollFlags="scroll|enterAlways|snap">
+
+            <!-- Shows the title of the Search Activity -->
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar_search"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:title="@string/action_search"
+                app:titleTextColor="@color/colorLightest" />
+
+            <!-- User enter text here -->
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/QueryEntryStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/marginMedium"
+                android:layout_marginBottom="@dimen/marginMedium">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edit_text_search"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/hint_search"
+                    android:imeOptions="actionSearch"
+                    android:singleLine="true"
+                    android:textColor="@color/colorLightest"
+                    android:textColorHint="@color/colorLight" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout_search"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <!-- Shows the list of searched data -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view_search"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbarThumbVertical="@drawable/shape_scrollbar"
+            android:scrollbars="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Shows searched news is not available -->
+        <TextView
+            android:id="@+id/status_data_not_available_search"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/marginLargeII"
+            android:layout_marginEnd="@dimen/marginLargeII"
+            android:gravity="center_horizontal"
+            android:letterSpacing="@fraction/letterSpacingSmall"
+            android:textColor="@color/colorBottomNavNotSelected"
+            android:textSize="@dimen/textSizeMediumII"
+            android:textStyle="bold"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@+id/progressBar_search"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/recycler_view_search"
+            tools:text="@string/search_failed" />
+
+        <!-- Provides spacing to set ProgressBar and status TextView at center -->
+        <View
+            android:id="@+id/view2"
+            android:layout_width="match_parent"
+            android:layout_height="112dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <!-- Indeterminate ProgressBar -->
+        <ProgressBar
+            android:id="@+id/progressBar_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminateTint="@color/colorBottomNavNotSelected"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/view2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/recycler_view_search" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

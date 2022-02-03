@@ -97,6 +97,9 @@ public class EpisodeActivity extends AppCompatActivity implements
                 Context.LAYOUT_INFLATER_SERVICE));
         setContentView(binding.getRoot());
 
+        // Hiding Logo.
+        binding.textLogo.setVisibility(View.GONE);
+
         // Replace Toolbar as ActionBar.
         setSupportActionBar(binding.toolbar);
 
@@ -210,7 +213,7 @@ public class EpisodeActivity extends AppCompatActivity implements
             public ArrayList<Episode> loadInBackground() {
                 // Downloads JSON response.
                 String jsonResponse = NetworkUtils.downloadNewsData(NetworkUtils.
-                        makeNewsUrl(getContext(), getString(clickedPodcast.getPath()),
+                        makeNewsUrl(EpisodeActivity.this, getString(clickedPodcast.getPath()),
                                 NetworkUtilsConstants.QP_VALUE_PODCAST,
                                 NetworkUtilsConstants.SIZE_PODCAST));
 

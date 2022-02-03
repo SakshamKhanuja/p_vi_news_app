@@ -7,7 +7,7 @@
     <color name="colorPrimary">#0D0D0D</color>
 
     <!-- Colors the activated framework components -->
-    <color name="colorAccent">@color/colorDarkest</color>
+    <color name="colorAccent">@color/colorRedDark</color>
 
     <!-- Colors TextViews under News/Podcast/NewsFeed -->
     <color name="colorLightest">@android:color/white</color>

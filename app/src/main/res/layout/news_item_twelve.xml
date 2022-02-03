@@ -9,13 +9,13 @@
 
     <!-- Shows news thumbnail -->
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardView_four"
-        android:layout_width="@dimen/widthThumbnailSmall"
+        android:id="@+id/cardView_twelve"
+        android:layout_width="127dp"
         android:layout_height="@dimen/heightThumbnailSmall"
         app:cardBackgroundColor="@color/colorDarker"
         app:cardCornerRadius="@dimen/spaceSmaller"
         app:cardUseCompatPadding="true"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <FrameLayout
@@ -32,7 +32,7 @@
 
             <!-- Shows news thumbnail -->
             <ImageView
-                android:id="@+id/image_thumbnail_four"
+                android:id="@+id/image_thumbnail_twelve"
                 android:layout_width="@dimen/widthThumbnailSmall"
                 android:layout_height="@dimen/heightThumbnailSmall"
                 android:layout_gravity="center"
@@ -45,46 +45,46 @@
 
     <!-- Shows news section -->
     <TextView
-        android:id="@+id/text_section_name_four"
+        android:id="@+id/text_section_name_twelve"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/marginMedium"
+        android:layout_marginStart="16dp"
         android:fontFamily="sans-serif-medium"
         android:letterSpacing="@fraction/letterSpacingLarge"
         android:textAllCaps="true"
         android:textColor="@color/colorRedDark"
         android:textSize="@dimen/textSizeSmall"
-        app:layout_constraintEnd_toStartOf="@+id/cardView_four"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/cardView_twelve"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="TextContrastCheck"
         tools:text="Sport" />
 
     <!-- Shows news headline -->
     <TextView
-        android:id="@+id/text_headline_four"
+        android:id="@+id/text_headline_twelve"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/marginSmall"
-        android:layout_marginEnd="@dimen/marginMedium"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
         android:ellipsize="end"
         android:lineSpacingExtra="@dimen/widthLineVertical"
         android:maxLines="@integer/maxLinesThree"
         android:textColor="@android:color/white"
         android:textSize="@dimen/textSizeMedium"
         android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/cardView_four"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_section_name_four"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/cardView_twelve"
+        app:layout_constraintTop_toBottomOf="@+id/text_section_name_twelve"
         tools:text="Jos Buttler insists he has no plans to retire from Test cricket after Ashes" />
 
     <!-- Shows article author info. -->
     <TextView
-        android:id="@+id/text_by_line_four"
+        android:id="@+id/text_by_line_twelve"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/marginCompact"
-        android:layout_marginEnd="@dimen/marginMedium"
         android:ellipsize="end"
         android:letterSpacing="@fraction/letterSpacingSmall"
         android:lineSpacingExtra="@dimen/widthLineVertical"
@@ -92,8 +92,8 @@
         android:textColor="@color/colorLight"
         android:textSize="@dimen/textSizeSmall"
         android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/cardView_four"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_headline_four"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/text_headline_twelve"
+        app:layout_constraintTop_toBottomOf="@+id/text_headline_twelve"
         tools:text="By Ali Martin in Sydney" />
 </androidx.constraintlayout.widget.ConstraintLayout>

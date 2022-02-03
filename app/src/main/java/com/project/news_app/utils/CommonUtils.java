@@ -215,6 +215,30 @@ public class CommonUtils {
     }
 
     /**
+     * Share news info. via ShareIntent.
+     *
+     * @param context    Context to use.
+     * @param headline   Headline.
+     * @param articleUrl String URL that points to the article in "The Guardian" website.
+     */
+    public static void shareNews(Context context, String headline, String articleUrl) {
+        // Delivers some data to other apps.
+        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+
+        // Adding news article url which is provided by "shareIntent" to copy.
+        shareIntent.putExtra(Intent.EXTRA_TEXT, articleUrl);
+
+        // Adding news headline which is set as title of "shareIntent".
+        shareIntent.putExtra(Intent.EXTRA_TITLE, headline);
+
+        // Setting MIME type.
+        shareIntent.setType("text/plain");
+
+        // Shows the ShareIntent.
+        context.startActivity(Intent.createChooser(shareIntent, "Send To"));
+    }
+
+    /**
      * Opens the link in a supported app (if available) or in the device's browser. If the browser
      * is not available, user is notified via {@link Toast}.
      *

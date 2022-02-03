@@ -29,6 +29,10 @@
     <dimen name="spaceSmallII">12dp</dimen>
     <dimen name="spaceMedium">16dp</dimen>
 
+    <!-- Placeholder Size -->
+    <dimen name="placeholderSmall">40dp</dimen>
+    <dimen name="placeholderMedium">60dp</dimen>
+
     <!-- Width and Height of News/Podcast Items -->
     <dimen name="heightThumbnailSmall">80dp</dimen>
     <dimen name="heightThumbnailMedium">150dp</dimen>

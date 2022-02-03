@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <!-- Opens up "HomeFragment" -->
     <item
         android:id="@+id/bottom_home"
         android:icon="@drawable/bottom_home"
         android:title="@string/bottom_home" />
 
+    <!-- Opens up "CategoryFragment" -->
     <item
         android:id="@+id/bottom_categories"
         android:icon="@drawable/bottom_categories"
         android:title="@string/bottom_categories" />
 
+    <!-- Opens up "PodcastFragment" -->
     <item
         android:id="@+id/bottom_podcast"
         android:icon="@drawable/bottom_podcast"

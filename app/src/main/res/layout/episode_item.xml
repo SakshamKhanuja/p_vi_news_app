@@ -132,8 +132,8 @@
 
                     <!-- Acts as a placeholder image -->
                     <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                        android:layout_width="@dimen/placeholderSmall"
+                        android:layout_height="@dimen/placeholderSmall"
                         android:layout_gravity="center"
                         android:contentDescription="@string/default_content_description"
                         android:src="@drawable/placeholder_darkest" />

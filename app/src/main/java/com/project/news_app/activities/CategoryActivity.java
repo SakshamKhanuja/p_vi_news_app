@@ -97,6 +97,9 @@ public class CategoryActivity extends AppCompatActivity implements
                 Context.LAYOUT_INFLATER_SERVICE));
         setContentView(binding.getRoot());
 
+        // Hiding Logo.
+        binding.textLogo.setVisibility(View.GONE);
+
         // Replace Toolbar as ActionBar.
         setSupportActionBar(binding.toolbar);
 

@@ -61,4 +61,9 @@ public interface NewsAdapterConstants {
      * View type inflated from {@link R.layout#news_item_eleven} layout.
      */
     int TYPE_ELEVEN = 11;
+
+    /**
+     * View type inflated from {@link R.layout#news_item_twelve} layout.
+     */
+    int TYPE_TWELVE = 12;
 }

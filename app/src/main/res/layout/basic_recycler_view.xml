@@ -18,8 +18,22 @@
             android:layout_height="?attr/actionBarSize"
             android:layout_alignParentTop="true"
             app:layout_scrollFlags="scroll|enterAlways|snap"
-            app:titleTextColor="@color/colorLightest"
-            tools:title="@string/bottom_home" />
+            app:titleTextColor="@color/colorLightest">
+
+            <!-- Shows the app name and logo -->
+            <TextView
+                android:id="@+id/text_logo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:drawablePadding="@dimen/paddingSmall"
+                android:letterSpacing="@fraction/letterSpacingSmall"
+                android:text="@string/app_name"
+                android:textColor="@color/colorLightest"
+                android:textSize="@dimen/textSizeLarge"
+                android:textStyle="bold"
+                app:drawableStartCompat="@drawable/placehoder_navigation" />
+        </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -49,8 +63,10 @@
         <!-- Shows feed/news/episode not available -->
         <TextView
             android:id="@+id/status_data_not_available"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/marginLargeII"
+            android:layout_marginEnd="@dimen/marginLargeII"
             android:gravity="center_horizontal"
             android:letterSpacing="@fraction/letterSpacingSmall"
             android:textColor="@color/colorBottomNavNotSelected"

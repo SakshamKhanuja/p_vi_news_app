@@ -11,6 +11,12 @@
         <item name="snackbarTextViewStyle">@style/SnackbarTextView</item>
     </style>
 
+    <!-- Splash Screen Style -->
+    <style name="SplashTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="colorPrimaryDark">@color/colorDarkerII</item>
+        <item name="android:windowBackground">@drawable/splash_background</item>
+    </style>
+
     <!-- Styles the text inside Snackbar -->
     <style name="SnackbarTextView">
         <item name="android:textStyle">bold</item>
@@ -164,5 +170,26 @@
         <item name="cardBackgroundColor">@color/colorDarker</item>
         <item name="android:layout_width">@dimen/widthThumbnailLarge</item>
         <item name="android:layout_height">@dimen/heightThumbnailMediumII</item>
+    </style>
+
+    <!-- Styles the EditText in SearchActivity -->
+    <style name="QueryEntryStyle" parent="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="android:imeOptions">actionSearch</item>
+        <item name="boxBackgroundColor">@color/colorDarker</item>
+        <item name="boxCornerRadiusTopStart">@dimen/spaceSmall</item>
+        <item name="boxCornerRadiusTopEnd">@dimen/spaceSmall</item>
+        <item name="boxCornerRadiusBottomEnd">@dimen/spaceSmall</item>
+        <item name="boxCornerRadiusBottomStart">@dimen/spaceSmall</item>
+        <item name="hintEnabled">false</item>
+        <item name="endIconMode">clear_text</item>
+        <item name="endIconTint">@color/colorLight</item>
+        <item name="startIconTint">@color/colorLight</item>
+        <item name="startIconDrawable">@drawable/ic_search</item>
+        <item name="android:theme">@style/TextInputTheme</item>
+    </style>
+
+    <!-- Theme for QueryEntryStyle -->
+    <style name="TextInputTheme">
+        <item name="colorControlActivated">@color/colorRedDark</item>
     </style>
 </resources>

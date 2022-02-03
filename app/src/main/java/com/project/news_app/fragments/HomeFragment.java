@@ -1,6 +1,7 @@
 package com.project.news_app.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -19,6 +20,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.project.news_app.R;
+import com.project.news_app.activities.SearchActivity;
 import com.project.news_app.adapters.NewsFeedAdapter;
 import com.project.news_app.constants.HeadlineFragmentConstants;
 import com.project.news_app.constants.NetworkUtilsConstants;
@@ -105,7 +107,12 @@ public class HomeFragment extends Fragment implements
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         // Setting title.
         Toolbar toolbar = view.findViewById(R.id.toolbar);
-        toolbar.setTitle(R.string.bottom_home);
+        toolbar.inflateMenu(R.menu.home_menu);
+        toolbar.setOnMenuItemClickListener(item -> {
+            // Opens up SearchActivity.
+            startActivity(new Intent(context, SearchActivity.class));
+            return true;
+        });
 
         // Initializing Parent RecyclerView.
         RecyclerView recyclerView = view.findViewById(R.id.recycler_view_dark);

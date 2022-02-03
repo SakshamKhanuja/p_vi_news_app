@@ -27,6 +27,11 @@ public interface NetworkUtilsConstants {
     String QP_KEY_FIELDS = "show-fields";
 
     /**
+     * Query parameters sets the query to perform search operation.
+     */
+    String QP_KEY_SEARCH = "q";
+
+    /**
      * Query value adds - headline, by-line, publication and thumbnail.
      */
     String QP_VALUE_FIELDS = "headline,byline,publication,thumbnail";
@@ -99,6 +104,11 @@ public interface NetworkUtilsConstants {
      * Path points to the "Editorial" section of "The Guardian" api.
      */
     String PATH_GUARDIAN = "profile/editorial";
+
+    /**
+     * Path points to "Content" section of "The Guardian" api.
+     */
+    String PATH_SEARCH = "search";
 
     /**
      * Number of how many episodes under "Today in Focus" podcast to be downloaded.

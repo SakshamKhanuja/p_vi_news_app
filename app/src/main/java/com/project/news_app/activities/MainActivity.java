@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
@@ -23,13 +22,14 @@ import com.project.news_app.fragments.HomeFragment;
 import com.project.news_app.utils.CommonUtils;
 
 /**
- * Stage VIII
+ * Stage IX
  * <br/>
- * App uses {@link ConnectivityManager.NetworkCallback} to handle changes in network availability.
- * These changes are notified to the user via {@link Snackbar}.
+ * {@link SearchActivity} is added which allows user to query a list of News.
  * <br/>
- * App also uses {@link SwipeRefreshLayout} to allow user's to swipe down to refresh
- * feed/news/episode items.
+ * Splash screen is added.
+ * <br/>
+ * News items in {@link HomeFragment}, {@link CategoryActivity} and {@link SearchActivity} can be
+ * shared using SharedIntent.
  */
 public class MainActivity extends AppCompatActivity implements MainActivityConstants {
     // Adds, Removes and Replaces Fragments.
@@ -56,7 +56,6 @@ public class MainActivity extends AppCompatActivity implements MainActivityConst
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
 
         // Setting Content View.
         binding = ActivityMainBinding.inflate((LayoutInflater) getSystemService(
